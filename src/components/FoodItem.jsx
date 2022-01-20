@@ -1,4 +1,7 @@
 import style from "./FoodItem.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
 
 export default function FoodItem(props) {
     return <div className={style.item}>
@@ -8,11 +11,11 @@ export default function FoodItem(props) {
 
         <div className={style.content}>
             <div className={style.buttons}>
-                <span>L</span>
-                <span>S</span>
+                <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>&nbsp;
+                <FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
             </div>
             <div className={style.name}>
-                FoodItem bla bla bla bla bla bla
+                Pepperoni Pizza
             </div>
         </div>
     </div>
