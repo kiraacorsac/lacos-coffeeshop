@@ -1,5 +1,6 @@
 import './App.css';
 import FoodItem from './components/FoodItem';
+import TagSearch from './components/TagSearch';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
+        <TagSearch />
         <FoodItem />
       </main>
     </div>
