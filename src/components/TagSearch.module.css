@@ -1,18 +1,20 @@
 .tag {
-    background: white;
-    border: 1px solid black;
-    font-size: 24px;
+  background: white;
+  border: 1px solid black;
+  font-size: 24px;
+  padding: 4px;
+  margin: 4px;
 }
 
 .searchBox {
-    background: white;
+  background: white;
 }
 
 .tagList {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .tagInput {
-    font-size: 40px;
+  font-size: 40px;
 }

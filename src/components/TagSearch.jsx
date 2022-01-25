@@ -1,5 +1,7 @@
 import { useState } from "react"
 import style from "./TagSearch.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 //just a component
@@ -7,7 +9,7 @@ import style from "./TagSearch.module.css"
 // TODO: replace X with appropriate FA icon
 function Tag(props) {
     return <div className={style.tag}>
-        <span>X</span> Tag
+        <FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon> {props.tag}
     </div>
 }
 
@@ -19,7 +21,7 @@ export default function TagSearch(props) {
     for (const tag of tagList) {
         console.log(tag)
         tagListRender.push(
-            <Tag />
+            <Tag tag={tag}/>
         )
     }
 
