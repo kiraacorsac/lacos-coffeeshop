@@ -4,10 +4,20 @@ import style from "./TagSearch.module.css"
 
 //just a component
 function Tag(props) {
+    const [previewedTag, setPreviewedTag] = useState(null);
+
+    function deleteTag(tagNumber) {
+        if (tagNumber != null) {
+            setPreviewedTag(props.tagList[tagNumber - 1]);
+        } else {
+            setPreviewedTag(null);
+        }}
+    
     return <div className={style.tag}>
-        <span>X</span> {props.tag}
+        <span onClick={deleteTag}>X</span> {props.tag}
     </div>
 }
+
 
 //also a component
 // TODO: clear input after adding tag
@@ -18,11 +28,17 @@ export default function TagSearch(props) {
     const [tagList, setTagList] = useState(["salat", "chicken", "tofu", "beef"])
     const [searchedTag, setSearchedTag] = useState("");
 
+    const input = document.querySelector('.tagInput');
+
+ //   input.addEventListener('keypress', (e) => {
+ //       if (e.key === 'Enter') {e.console.log("hello")}
+ //   })
 
     function addToTagList(tag) {
         let newTagList = tagList.slice();
         newTagList.push(tag);
         setTagList(newTagList);
+        setSearchedTag("")
     }
 
     function handleChange(e) {
@@ -42,8 +58,12 @@ export default function TagSearch(props) {
         )
     }
 
+
+
+
+
     return <div className={style.searchBox}>
-        <input type="text" className={style.tagInput} value={searchedTag} onChange={handleChange} />
+        <input type="text" id="tagInput" className={style.tagInput} value={searchedTag} onChange={handleChange} />
         <button onClick={handleClick}>Add Tag</button>
         <div className={style.tagList}>
             {tagListRender}
