@@ -12,28 +12,38 @@ function Tag(props) {
 }
 
 //also a component
-// TODO: clear input after adding tag
-// TODO: input tag on pressing enter (same as pressing the add tag button)
 // TODO: style everytnig
+// TODO: handle case differences when adding tags 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
 // TODO (hard!): implement deleting tags when X is clicked on the tag 
 export default function TagSearch(props) {
-    const [tagList, setTagList] = useState(["salat", "chicken", "tofu", "beef"])
+    const [tagList, setTagList] = useState(new Set(["salat", "chicken", "tofu", "beef"]))
     const [searchedTag, setSearchedTag] = useState("");
 
 
     function addToTagList(tag) {
-        let newTagList = tagList.slice();
-        newTagList.push(tag);
+        if (tag === "") {
+            return;
+        }
+
+        let newTagList = new Set(tagList); // slice for sets
+        newTagList.add(tag); // push for set
         setTagList(newTagList);
     }
 
-    function handleChange(e) {
-        setSearchedTag(e.target.value)
+    function addSearchTagToTagList() {
+        addToTagList(searchedTag);
+        setSearchedTag("");
     }
 
+    function handleChange(event) {
+        setSearchedTag(event.target.value);
+    }
 
-    function handleClick(e){
-        addToTagList(searchedTag)
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            addSearchTagToTagList();
+        }
     }
 
 
@@ -45,8 +55,13 @@ export default function TagSearch(props) {
     }
 
     return <div className={style.searchBox}>
-        <input type="text" className={style.tagInput} value={searchedTag} onChange={handleChange} />
-        <button onClick={handleClick}>Add Tag</button>
+        <input type="text"
+            className={style.tagInput}
+            placeholder="enter tags"
+            value={searchedTag}
+            onChange={handleChange}
+            onKeyPress={handleKeyPress}
+        />
         <div className={style.tagList}>
             {tagListRender}
         </div>
