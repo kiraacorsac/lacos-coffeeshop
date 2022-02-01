@@ -1,11 +1,13 @@
 import { useState } from "react"
 import style from "./TagSearch.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 //just a component
 function Tag(props) {
     return <div className={style.tag}>
-        <span>X</span> {props.tag}
+        <FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon> {props.tag}
     </div>
 }
 
