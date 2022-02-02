@@ -31,11 +31,10 @@ export default function TagSearch(props) {
     const [tagList, setTagList] = useState(["salat", "chicken", "tofu", "beef"])
     const [searchedTag, setSearchedTag] = useState("");
 
-    const input = document.querySelector('.tagInput');
 
-    input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {e.console.log("hello")}
-        })
+    function handleKeypress(e){
+            if (e.key == "Enter") {handleClick()}
+        }
 
     function addToTagList(tag) {
         let newTagList = tagList.slice();
@@ -62,7 +61,7 @@ export default function TagSearch(props) {
     }
 
     return <div className={style.searchBox}>
-        <input type="text" id="tagInput" className={style.tagInput} value={searchedTag} onChange={handleChange} />
+        <input type="text" id="tagInput" className={style.tagInput} value={searchedTag} onChange={handleChange} onKeyPress={handleKeypress}/>
         <button onClick={handleClick}>Add Tag</button>
         <div className={style.tagList}>
             {tagListRender}
