@@ -13,8 +13,6 @@ function Tag(props) {
 
 //also a component
 // TODO: style everytnig
-// TODO: handle case differences when adding tags 
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
 // TODO (hard!): implement deleting tags when X is clicked on the tag 
 export default function TagSearch(props) {
     const [tagList, setTagList] = useState(new Set(["salat", "chicken", "tofu", "beef"]))
@@ -22,7 +20,13 @@ export default function TagSearch(props) {
 
 
     function addToTagList(tag) {
+        let tagListArray = [...tagList]
+        let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
+        let newTagListSet  = new Set(tagListLowerCase)
         if (tag === "") {
+            return;
+        }
+        else if (newTagListSet.has(tag.toLowerCase())) {
             return;
         }
 
