@@ -7,15 +7,14 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 //just a component
 function Tag(props) {
     return <div className={style.tag}>
-        <FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon> {props.tag}
+        <FontAwesomeIcon icon={faTimesCircle} onClick={props.onTagDelete}></FontAwesomeIcon> {props.tag}
     </div>
 }
 
 //also a component
 // TODO: style everytnig
-// TODO (hard!): implement deleting tags when X is clicked on the tag 
 export default function TagSearch(props) {
-    const [tagList, setTagList] = useState(new Set(["salat", "chicken", "tofu", "beef"]))
+    const [tagList, setTagList] = useState(new Set([]))
     const [searchedTag, setSearchedTag] = useState("");
 
 
@@ -35,6 +34,13 @@ export default function TagSearch(props) {
         setTagList(newTagList);
     }
 
+    function removeFromTagList(tag){
+        let newTagList = new Set(tagList); // slice for sets
+        newTagList.delete(tag); // push for set
+        setTagList(newTagList);
+    }
+
+
     function addSearchTagToTagList() {
         addToTagList(searchedTag);
         setSearchedTag("");
@@ -50,11 +56,16 @@ export default function TagSearch(props) {
         }
     }
 
+    function handleTagDelete(tag){
+        removeFromTagList(tag)
+    }
+
+
 
     const tagListRender = [];
     for (const tag of tagList) {
         tagListRender.push(
-            <Tag tag={tag} />
+            <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)}/>
         )
     }
 
