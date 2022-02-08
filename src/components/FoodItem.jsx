@@ -1,14 +1,12 @@
 import style from "./FoodItem.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {library, dom} from '@fortawesome/fontawesome-svg-core';
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-library.add({fasHeart, farHeart})
-dom.watch();
+
 
 
 //TODO: Make it so when you click the heart, number next to it goes up by one
