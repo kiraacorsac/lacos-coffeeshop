@@ -1,10 +1,12 @@
 import './App.css';
+import { useState } from "react"
 import FoodItemList from './components/FoodItemList';
 import TagSearch from './components/TagSearch';
 
 function App() {
 
-  const data = [
+ // const [data, setData] = useState(new Set([
+   const data ([
     {
       id: 0,
       name: "Pepperoni Pizza",
@@ -34,8 +36,17 @@ function App() {
       fave: false,
       tags: ["dessert", "sweet"]
     },
+  ])
 
-  ]
+  // function addToFoodItemList(key) {
+  //   let newData = new Set(data); // slice for sets
+  //   newData.add(key); // push for set
+  //   setData(newData);
+
+  // function handleKeyPress() {
+  //          addSearchTagToTagList();
+  // }
+
 
 
   return (
@@ -45,7 +56,8 @@ function App() {
       </header>
       <main className="App-main">
         <TagSearch />
-        <FoodItemList data={data} />
+        <FoodItemList data={data} /> 
+        {/* AddtoFoodItemList={addToFoodItemList()}  */}
       </main>
     </div>
   );

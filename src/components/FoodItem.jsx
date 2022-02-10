@@ -33,7 +33,7 @@ export default function FoodItem(props) {
 
     return <div className={style.item}>
 
-        <img className={style.image} src="https://i.imgur.com/YBZacyX.jpeg" alt="test" />
+        <img className={style.image} src={props.data.image} alt="test" />
 
         <div className={style.content}>
             <div className={style.buttons}>
@@ -43,7 +43,7 @@ export default function FoodItem(props) {
                 <FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
             </div>
             <div className={style.name}>
-                Pepperoni Pizza
+                {props.data.name}
             </div>
         </div>
     </div>
