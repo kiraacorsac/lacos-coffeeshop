@@ -1,12 +1,12 @@
 import './App.css';
-import { useState } from "react"
+//import { useState } from "react"
 import FoodItemList from './components/FoodItemList';
 import TagSearch from './components/TagSearch';
 
 function App() {
 
  // const [data, setData] = useState(new Set([
-   const data ([
+  const data = [
     {
       id: 0,
       name: "Pepperoni Pizza",
@@ -20,7 +20,7 @@ function App() {
       id: 1,
       name: "Meatball Spaghetti",
       //TODO: find image
-      image: "",
+      image: "https://i.imgur.com/1JR95n3.jpeg",
       likes: 9,
       dislikes: 3,
       fave: false,
@@ -30,13 +30,13 @@ function App() {
       id: 2,
       name: "Cake",
       //TODO: find image
-      image: "",
+      image: "https://i.imgur.com/BgAvBzn.jpeg",
       likes: 15,
       dislikes: 3,
       fave: false,
       tags: ["dessert", "sweet"]
     },
-  ])
+  ]
 
   // function addToFoodItemList(key) {
   //   let newData = new Set(data); // slice for sets
