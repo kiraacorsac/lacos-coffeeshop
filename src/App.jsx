@@ -18,7 +18,7 @@ function App() {
     {
       id: 1,
       name: "Meatball Spaghetti",
-      image: "https://i.imgur.com/1JR95n3.jpeg",
+      image: "https://natashaskitchen.com/wp-content/uploads/2015/01/spaghetti-and-meatballs.jpg",//"https://i.imgur.com/1JR95n3.jpeg",
       likes: 9,
       dislikes: 3,
       fave: false,
