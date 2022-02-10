@@ -8,8 +8,6 @@ import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 
 
-
-//TODO: Make it so when you click the heart, number next to it goes up by one
 export default function FoodItem(props) {
 
     const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(0);
@@ -30,10 +28,10 @@ export default function FoodItem(props) {
     function clickHandlerThumbsDown() {
         setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
       }
-
+console.log(props.food)
     return <div className={style.item}>
 
-        <img className={style.image} src="https://i.imgur.com/YBZacyX.jpeg" alt="test" />
+        <img className={style.image} src={props.food.image} alt="test" />
 
         <div className={style.content}>
             <div className={style.buttons}>
@@ -43,7 +41,7 @@ export default function FoodItem(props) {
                 <FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
             </div>
             <div className={style.name}>
-                Pepperoni Pizza
+                {props.food.name}
             </div>
         </div>
     </div>

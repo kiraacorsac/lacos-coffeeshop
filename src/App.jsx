@@ -4,6 +4,7 @@ import TagSearch from './components/TagSearch';
 
 function App() {
 
+
   const data = [
     {
       id: 0,
@@ -17,8 +18,7 @@ function App() {
     {
       id: 1,
       name: "Meatball Spaghetti",
-      //TODO: find image
-      image: "",
+      image: "https://natashaskitchen.com/wp-content/uploads/2015/01/spaghetti-and-meatballs.jpg",//"https://i.imgur.com/1JR95n3.jpeg",
       likes: 9,
       dislikes: 3,
       fave: false,
@@ -27,14 +27,12 @@ function App() {
     {
       id: 2,
       name: "Cake",
-      //TODO: find image
-      image: "",
+      image: "https://i.imgur.com/BgAvBzn.jpeg",
       likes: 15,
       dislikes: 3,
       fave: false,
       tags: ["dessert", "sweet"]
     },
-
   ]
 
 
@@ -45,7 +43,7 @@ function App() {
       </header>
       <main className="App-main">
         <TagSearch />
-        <FoodItemList data={data} />
+        <FoodItemList data={data} /> 
       </main>
     </div>
   );
