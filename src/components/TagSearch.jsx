@@ -14,14 +14,14 @@ function Tag(props) {
 //also a component
 // TODO: style everytnig
 export default function TagSearch(props) {
-    const [tagList, setTagList] = useState(new Set([]))
     const [searchedTag, setSearchedTag] = useState("");
+    const [tagList, setTagList] = props.tagListState;
 
 
     function addToTagList(tag) {
         let tagListArray = [...tagList]
         let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
-        let newTagListSet  = new Set(tagListLowerCase)
+        let newTagListSet = new Set(tagListLowerCase)
         if (tag === "") {
             return;
         }
@@ -34,7 +34,7 @@ export default function TagSearch(props) {
         setTagList(newTagList);
     }
 
-    function removeFromTagList(tag){
+    function removeFromTagList(tag) {
         let newTagList = new Set(tagList); // slice for sets
         newTagList.delete(tag); // push for set
         setTagList(newTagList);
@@ -56,7 +56,7 @@ export default function TagSearch(props) {
         }
     }
 
-    function handleTagDelete(tag){
+    function handleTagDelete(tag) {
         removeFromTagList(tag)
     }
 
@@ -65,7 +65,7 @@ export default function TagSearch(props) {
     const tagListRender = [];
     for (const tag of tagList) {
         tagListRender.push(
-            <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)}/>
+            <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)} />
         )
     }
 

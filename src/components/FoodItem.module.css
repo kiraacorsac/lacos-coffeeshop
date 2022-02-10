@@ -23,3 +23,8 @@
 .content {
     width: 100%;
 }
+
+.tags {
+    font-size: 16px;
+    color: gray;
+}

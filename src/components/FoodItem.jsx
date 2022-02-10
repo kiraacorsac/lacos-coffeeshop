@@ -2,7 +2,7 @@ import style from "./FoodItem.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
@@ -21,14 +21,14 @@ export default function FoodItem(props) {
             setFeedbackIkon(farHeart)
         }
     }
-    
+
     function clickHandlerThumbsUp() {
         setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1);
     }
     function clickHandlerThumbsDown() {
         setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
-      }
-console.log(props.food)
+    }
+
     return <div className={style.item}>
 
         <img className={style.image} src={props.food.image} alt="test" />
@@ -42,6 +42,9 @@ console.log(props.food)
             </div>
             <div className={style.name}>
                 {props.food.name}
+            </div>
+            <div className={style.tags}>
+                {props.food.tags}
             </div>
         </div>
     </div>

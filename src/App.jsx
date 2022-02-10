@@ -1,6 +1,7 @@
 import './App.css';
 import FoodItemList from './components/FoodItemList';
 import TagSearch from './components/TagSearch';
+import {useState} from 'react'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
       likes: 5,
       dislikes: 1,
       fave: true,
-      tags: ["italian", "meat", "bread"]
+      tags: ["italian", "meat", "baked"]
     },
     {
       id: 1,
@@ -31,9 +32,11 @@ function App() {
       likes: 15,
       dislikes: 3,
       fave: false,
-      tags: ["dessert", "sweet"]
+      tags: ["dessert", "sweet", "baked"]
     },
   ]
+
+  const [tagList, setTagList] = useState(new Set([]));
 
 
   return (
@@ -42,8 +45,8 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
-        <TagSearch />
-        <FoodItemList data={data} /> 
+        <TagSearch tagListState={[tagList, setTagList]} />
+        <FoodItemList data={data} tagFilter={tagList} /> 
       </main>
     </div>
   );
