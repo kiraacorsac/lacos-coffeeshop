@@ -24,10 +24,10 @@ export default function FoodItemList(props) {
     console.log(props.tagFilter)
     for (const food of props.data) {
         console.log(food.tags)
-        for (const tagsearch  of food.tags) {
-            foodTagsListRender.push(tagsearch)
+        for (const tag of food.tags) {
+            foodTagsListRender.push(tag)
         }
-    if (foodTagsListRender == food.tags){
+       if (foodTagsListRender == props.tagFilter){
         foodItemListRender.push(
             <FoodItem key={food.id} food={food}/>
         )
@@ -36,4 +36,4 @@ export default function FoodItemList(props) {
     return   <div className={style.foodItemList}>
     {foodItemListRender}
 </div>
-    }}
+    }
