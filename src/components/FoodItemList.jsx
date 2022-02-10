@@ -5,7 +5,7 @@ import style from "./FoodItemList.module.css"
 export default function FoodItemList(props) {
 
     const foodItemListRender = []
-
+    const foodTagsListRender = []
 
     //TODO: implement tag filtering
     //example:
@@ -24,6 +24,10 @@ export default function FoodItemList(props) {
     console.log(props.tagFilter)
     for (const food of props.data) {
         console.log(food.tags)
+        for (const tagsearch  of food.tags) {
+            foodTagsListRender.push(tagsearch)
+        }
+    if (foodTagsListRender == food.tags){
         foodItemListRender.push(
             <FoodItem key={food.id} food={food}/>
         )
@@ -32,4 +36,4 @@ export default function FoodItemList(props) {
     return   <div className={style.foodItemList}>
     {foodItemListRender}
 </div>
-}
+    }}
