@@ -21,9 +21,9 @@ export default function FoodItemList(props) {
 
     // tagFilter = {'tofu'}
     // nothing of the above passes
-    //console.log(props.tagFilter)
+    console.log(props.tagFilter)
     for (const food of props.data) {
-    //    console.log(food.tags)
+        console.log(food.tags)
     // for ( let i=0 ; i< props.tagFilter.length ; ++i)
     // {
     //     for(var j=0 ; j<food.tags.length ; ++j) {
@@ -39,12 +39,14 @@ export default function FoodItemList(props) {
     //     <FoodItem key={food.id} food={food}/>
     // )}}
     for (const filterTag of props.tagFilter) {
-        console.log(filterTag)
-    for (const foodTag of food.tags) {   
-        console.log(foodTag) 
-        if (foodTag != filterTag) {return } else {
-            return true
-        } } }
+        console.log("filterTag",filterTag)
+    // for (const foodTag of food.tags) {   
+    //     console.log("foodTag",foodTag) 
+        if (food.tags.includes(filterTag)) {console.log("filterTag included",filterTag)} else {
+            console.log("filterTag not-included",filterTag)
+            foodItemListRender.pop(<FoodItem key={food.id} food={food}/>
+                )
+        } }
        foodItemListRender.push(
             <FoodItem key={food.id} food={food}/>
         )

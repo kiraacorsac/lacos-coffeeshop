@@ -32,7 +32,7 @@ function App() {
       likes: 15,
       dislikes: 3,
       fave: false,
-      tags: ["italian","dessert", "sweet", "baked"]
+      tags: ["dessert", "sweet", "baked"]
     },
   ]
 
