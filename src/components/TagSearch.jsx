@@ -62,7 +62,8 @@ export default function TagSearch(props) {
 
 
 
-    const tagListRender = [];
+    const  tagListRender = [];
+
     for (const tag of tagList) {
         tagListRender.push(
             <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)} />

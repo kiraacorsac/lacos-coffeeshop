@@ -13,7 +13,7 @@ export default function FoodItem(props) {
     const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(0);
     const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] = useState(0);
     const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
-
+    
     function switchFeedback() {
         if (feedbackIkon == farHeart) {
             setFeedbackIkon(fasHeart)
@@ -29,22 +29,28 @@ export default function FoodItem(props) {
         setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
     }
 
+    const tagsItemListRender = []
+    for (const tag of props.food.tags) {  
+        //console.log("Tag name :",tag)  
+        tagsItemListRender.push(<div className={style.tag}>{tag},</div>)
+    }
+
     return <div className={style.item}>
 
         <img className={style.image} src={props.food.image} alt="test" />
 
         <div className={style.content}>
             <div className={style.buttons}>
-                <FontAwesomeIcon icon={feedbackIkon} onClick={switchFeedback}></FontAwesomeIcon>&nbsp;
-                <FontAwesomeIcon icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon><span>{buttonClickedTimesThumbsUp}</span>&nbsp;
-                <FontAwesomeIcon icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon><span>{buttonClickedTimesThumbsDown}</span>&nbsp;
-                <FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
+                <FontAwesomeIcon className={style.icons} icon={feedbackIkon} onClick={switchFeedback}></FontAwesomeIcon>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon><span className={style.icons}>{buttonClickedTimesThumbsUp}</span>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon><span className={style.icons}>{buttonClickedTimesThumbsDown}</span>
+                <FontAwesomeIcon className={style.icons} icon={faCog}></FontAwesomeIcon>
             </div>
-            <div className={style.name}>
+            <div className={style.name}>Name: 
                 {props.food.name}
             </div>
-            <div className={style.tags}>
-                {props.food.tags}
+            <div className={style.tags}> Tags: 
+            {tagsItemListRender}
             </div>
         </div>
     </div>

@@ -1,30 +1,58 @@
 .item {
-    display: flex;
-    background-color: white;
-    /* width: 400px; */
-    width: max-content;
-    box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.5);
-    padding: 16px;
-    font-size: 48px;
+  display: flex;
+  background-color: white;
+  width: 600px;
+  /* width: max-content; */
+  min-width: 100px;
+  box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  font-size: 48px;
 
-    line-height: 56px;
+  line-height: 56px;
 }
 
 .image {
-    width: 160px;
-    height: 160px;
+  width: 160px;
+  height: 160px;
 }
 
 .buttons {
-    text-align: right;
-    height: 48px;
+  text-align: right;
+  height: 0px;
+  display: flex;
+  direction: row;
+  position: relative;
+  top: 0px;
+}
+.icons {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  margin: 2px;
 }
 
+
 .content {
-    width: 100%;
+  width: 100%;
 }
 
 .tags {
-    font-size: 16px;
-    color: gray;
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: gray;
+  margin: 10px;
+  height: 20px;
+  position: relative;
+  top: 40px;
+}
+.tag {
+  margin-left: 5px;
+  height: 20px;
+}
+.name {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 10px;
 }
