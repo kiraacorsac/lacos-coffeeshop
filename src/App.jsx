@@ -48,11 +48,20 @@ function App() {
     {
       id: 4,
       name: "Halusky s bryndzou",
-      image: "https://erecepty.eu/wp-content/uploads/cache/2020/05/571-bryndzov%C3%A9-halu%C5%A1ky-recept/1870343419.jpg",
+      image: "https://th.bing.com/th/id/R.435c27a76b2d63c16da76e69bd93d876?rik=g3%2fjUrnXO8si3A&riu=http%3a%2f%2fwww.varenie.sk%2fcommon%2fir2%2frecepty%2f4250%2fzdet--c300xc225.jpg&ehk=EbeX9Yti0owJqRyC31cxqdJ6xo8C52u7CmY0GnG5q3w%3d&risl=&pid=ImgRaw&r=0",
       likes: 15,
       dislikes: 3,
       fave: false,
       tags: ["Slovakian", "potato", "sheep cheese", "boiled"]
+    },
+    {
+      id: 5,
+      name: "Turkish kebab",
+      image: "https://www.thespruceeats.com/thmb/j1SF4NKfL3E7eEq3QB8LLftri58=/566x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hands-744987451-5a71e9f56bf0690037b7b412.jpg",
+      likes: 15,
+      dislikes: 3,
+      fave: false,
+      tags: ["Turkey", "meat", "baked"]
     }
   ]
 
@@ -62,16 +71,40 @@ function App() {
   //   console.log("Food existing :",food) }
   //   for (const tag of food.tags)
 
+  function addToTagList(tag) {
+    let tagListArray = [...tagList]
+    let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
+    let newTagListSet = new Set(tagListLowerCase)
+    if (tag === "") {
+        return;
+    }
+    else if (newTagListSet.has(tag.toLowerCase())) {
+        return;
+    }
+
+    let newTagList = new Set(tagList); // slice for sets
+    newTagList.add(tag); // push for set
+    setTagList(newTagList);
+}
+const allTagsList = [];
+function removeFromTagList(tag) {
+  let newTagList = new Set(tagList); // slice for sets
+  newTagList.delete(tag); // push for set
+  setTagList(newTagList);
+  
+}
+
+
   return (
     <div className="App">
       <header className="App-header">
         Laco's Coffeeshop
       </header>
       <main className="App-main">
-        <TagSearch tagListState={[tagList, setTagList]} />
+        <TagSearch tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>
             <div>
-          <Tags data={data}/></div>
+          <Tags data={data} allTagsListState={[allTagsList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList}/></div>
           <div>
           <FoodItemList data={data} tagFilter={tagList} /> 
           </div>

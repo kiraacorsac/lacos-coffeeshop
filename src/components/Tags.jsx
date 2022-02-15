@@ -1,42 +1,60 @@
-import style from "./Tags.module.css"
+import style from "./Tags.module.css";
 import { useState } from "react";
 
-
 export default function Tags(props) {
-    const allTagsList = [];
-    const existingTagsListRender = new Set([]);
-    const [existingTagsList, setExistingTagsList] = useState(new Set([]));
-    // let existingTagsListAray = [...existingTagsList]
-    // let newExistingTagsListSet = new Set(existingTagsListAray)
-    for (const food of props.data) {
-    console.log("Food existing :",typeof food) 
-    for (const tag of food.tags) { 
-        console.log("item existing :",tag)
-        // if (allTagsList == tag) {console.log("Tag included:",tag)} else {
-        //     allTagsList.pusch(<Tags tag={tag} key={tag}/>);
-        // }
+  // const allTagsList = [];
+  const allTagsList = [props.allTagsListState];
+  const existingTagsListRender = new Set([]);
+  const [existingTagsList, setExistingTagsList] = useState(new Set([]));
+  // let existingTagsListAray = [...existingTagsList]
+  // let newExistingTagsListSet = new Set(existingTagsListAray)
+  // let tagListArray = [...props.data]
+  // let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
+  for (const food of props.data) {
+    console.log("Food existing :", typeof food);
+    for (const tag of food.tags) {
+      console.log("item existing :", tag);
 
-   //     let newTag = tag.stringify()
-   //existingTagsListRender.pusch(<div className={style.tag}>{tag},</div>)}
-    }}
-        // let newExistingTagsList = new Set(existingTagsList); // slice for sets
-        // newExistingTagsList.add(tag); // push for set
-        // setExistingTagsList(newExistingTagsList);
-   
-     //   food.pusch(food.tags);}
-      
-  //       setExistingTagsList(newExistingTagsListSet)
-        //  console.log("allTagsList :",allTagsList);
-           
-  
-    // for (const atag of allTagsList) {
-    //         console.log("atag existing :",atag)   }      
+      //     if (existingTagsList && Array.isArray(existingTagsList)) { console.log("tag pushed :",tag)
+      //     let newExistingTagsList = new Set(existingTagsList);
+      //     newExistingTagsList.push(<form action="mailto:lfilka@intl.att.com"><div className={style.tag}><input type="radio" name="tag" id={tag} />{tag},
+      //     </div></form>)
+      //     setExistingTagsList(newExistingTagsList)
 
-    //existingTagsListRender.push(<Tags key={tag}/>
-        // )}
-        // console.log("Tag list :",existingTagsListRender)  }
+      //   }
 
-    return <div className={style.tags}> Tags: 
-    {allTagsList}
-    </div>
+      if (allTagsList && Array.isArray(allTagsList))
+        if (allTagsList.includes(tag)) {
+          console.log("Tag already included:", tag);
+        } else {
+          console.log("tag pushed :", tag);
+          allTagsList.push(
+            <form action="mailto:lfilka@intl.att.com">
+              <div className={style.tag}>
+                <input
+                  type="radio"
+                  name="tag"
+                  id={tag}
+                  onClick={() => props.addToTagList(tag)}
+                />
+                {tag},
+              </div>
+            </form>
+          );
+        }
+      else {
+        console.log("tag added:", tag);
+        allTagsList = [tag];
+      }
     }
+    console.log("allTagsList:", existingTagsList);
+  }
+
+  return (
+    <div className={style.tags}>
+      {" "}
+      Tags:
+      {allTagsList}
+    </div>
+  );
+}

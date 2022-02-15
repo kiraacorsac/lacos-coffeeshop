@@ -31,7 +31,6 @@ export default function FoodItem(props) {
 
     const tagsItemListRender = []
     for (const tag of props.food.tags) {  
-        //console.log("Tag name :",tag)  
         tagsItemListRender.push(<div className={style.tag}>{tag},</div>)
     }
 
@@ -42,8 +41,8 @@ export default function FoodItem(props) {
         <div className={style.content}>
             <div className={style.buttons}>
                 <FontAwesomeIcon className={style.icons} icon={feedbackIkon} onClick={switchFeedback}></FontAwesomeIcon>
-                <FontAwesomeIcon className={style.icons} icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon><span className={style.icons}>{buttonClickedTimesThumbsUp}</span>
-                <FontAwesomeIcon className={style.icons} icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon><span className={style.icons}>{buttonClickedTimesThumbsDown}</span>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon><div className={style.iconsclick}>{buttonClickedTimesThumbsUp}</div>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon><div className={style.iconsclick}>{buttonClickedTimesThumbsDown}</div>
                 <FontAwesomeIcon className={style.icons} icon={faCog}></FontAwesomeIcon>
             </div>
             <div className={style.name}>Name: 

@@ -21,16 +21,20 @@
   height: 0px;
   display: flex;
   direction: row;
+  justify-content: right;
   position: relative;
   top: 0px;
+
 }
 .icons {
-  height: 20px;
-  width: 20px;
   font-size: 20px;
-  margin: 2px;
+  margin: 5px;
 }
 
+.iconsclick {
+  font-size: 20px;
+  margin: 5px;
+}
 
 .content {
   width: 100%;
