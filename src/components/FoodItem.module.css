@@ -28,12 +28,13 @@
 }
 .icons {
   font-size: 20px;
-  margin: 5px;
+  margin: 4px;
 }
 
 .iconsclick {
   font-size: 20px;
-  margin: 5px;
+  margin: 0px 4px;
+  line-height: initial;
 }
 
 .content {

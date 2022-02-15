@@ -13,7 +13,7 @@ export default function FoodItem(props) {
     const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(0);
     const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] = useState(0);
     const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
-    
+
     function switchFeedback() {
         if (feedbackIkon == farHeart) {
             setFeedbackIkon(fasHeart)
@@ -29,10 +29,12 @@ export default function FoodItem(props) {
         setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
     }
 
-    const tagsItemListRender = []
-    for (const tag of props.food.tags) {  
-        tagsItemListRender.push(<div className={style.tag}>{tag},</div>)
-    }
+    const tagsRender = <div className={style.tag}>{props.food.tags.join(", ")}</div>
+
+
+    // for (const tag of props.food.tags) {
+    //     tagsRender.push(<div className={style.tag}>{tag},</div>)
+    // }
 
     return <div className={style.item}>
 
@@ -41,15 +43,17 @@ export default function FoodItem(props) {
         <div className={style.content}>
             <div className={style.buttons}>
                 <FontAwesomeIcon className={style.icons} icon={feedbackIkon} onClick={switchFeedback}></FontAwesomeIcon>
-                <FontAwesomeIcon className={style.icons} icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon><div className={style.iconsclick}>{buttonClickedTimesThumbsUp}</div>
-                <FontAwesomeIcon className={style.icons} icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon><div className={style.iconsclick}>{buttonClickedTimesThumbsDown}</div>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsUp} onClick={clickHandlerThumbsUp}></FontAwesomeIcon>
+                <div className={style.iconsclick}>{buttonClickedTimesThumbsUp}</div>
+                <FontAwesomeIcon className={style.icons} icon={faThumbsDown} onClick={clickHandlerThumbsDown}></FontAwesomeIcon>
+                <div className={style.iconsclick}>{buttonClickedTimesThumbsDown}</div>
                 <FontAwesomeIcon className={style.icons} icon={faCog}></FontAwesomeIcon>
             </div>
-            <div className={style.name}>Name: 
+            <div className={style.name}>
                 {props.food.name}
             </div>
-            <div className={style.tags}> Tags: 
-            {tagsItemListRender}
+            <div className={style.tags}> Tags:
+                {tagsRender}
             </div>
         </div>
     </div>
