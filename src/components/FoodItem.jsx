@@ -9,9 +9,8 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function FoodItem(props) {
-
-    const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(0);
-    const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] = useState(0);
+    const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(props.food.likes);
+    const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] = useState(props.food.dislikes);
     const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
 
     function switchFeedback() {

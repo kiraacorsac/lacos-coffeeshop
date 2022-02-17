@@ -2,7 +2,7 @@ import './App.css';
 import FoodItemList from './components/FoodItemList';
 import TagSearch from './components/TagSearch';
 import Tags from './components/Tags';
-import {useState} from 'react'
+import { useState } from 'react'
 import style from "./App.module.css"
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       likes: 5,
       dislikes: 1,
       fave: true,
-      tags: [ "italian","meat","baked"]
+      tags: ["italian", "meat", "baked"]
     },
     {
       id: 1,
@@ -25,7 +25,7 @@ function App() {
       likes: 9,
       dislikes: 3,
       fave: false,
-      tags: [ "italian", "meat","pasta"]
+      tags: ["italian", "meat", "pasta"]
     },
     {
       id: 2,
@@ -76,23 +76,23 @@ function App() {
     let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase)
     if (tag === "") {
-        return;
+      return;
     }
     else if (newTagListSet.has(tag.toLowerCase())) {
-        return;
+      return;
     }
 
     let newTagList = new Set(tagList); // slice for sets
     newTagList.add(tag); // push for set
     setTagList(newTagList);
-}
-const allTagsList = [];
-function removeFromTagList(tag) {
-  let newTagList = new Set(tagList); // slice for sets
-  newTagList.delete(tag); // push for set
-  setTagList(newTagList);
-  
-}
+  }
+  const allTagsList = [];
+  function removeFromTagList(tag) {
+    let newTagList = new Set(tagList); // slice for sets
+    newTagList.delete(tag); // push for set
+    setTagList(newTagList);
+
+  }
 
 
   return (
@@ -103,10 +103,11 @@ function removeFromTagList(tag) {
       <main className="App-main">
         <TagSearch tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>
-            <div>
-          <Tags data={data} allTagsListState={[allTagsList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList}/></div>
           <div>
-          <FoodItemList data={data} tagFilter={tagList} /> 
+            <Tags data={data} allTagsListState={[allTagsList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
+          </div>
+          <div>
+            <FoodItemList data={data} tagFilter={tagList} />
           </div>
         </div>
       </main>
