@@ -13,7 +13,7 @@ function Tag(props) {
 
 //also a component
 // TODO: style everytnig
-export default function TagSearch(props) {
+export default function TagInput(props) {
     const [searchedTag, setSearchedTag] = useState("");
     const [tagList, setTagList] = props.tagListState;
 

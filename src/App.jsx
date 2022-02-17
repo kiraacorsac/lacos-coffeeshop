@@ -1,13 +1,12 @@
 import './App.css';
 import FoodItemList from './components/FoodItemList';
-import TagSearch from './components/TagSearch';
+import TagInput from './components/TagInput';
 import Tags from './components/Tags';
 import { useState } from 'react'
 import style from "./App.module.css"
+import NewFood from './components/NewFood';
 
 function App() {
-
-
   const data = [
     {
       id: 0,
@@ -101,15 +100,17 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
-        <TagSearch tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
-        <div className={style.content}>
+        <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
+        
+        <NewFood />
+        {/* <div className={style.content}>
           <div>
             <Tags data={data} allTagsListState={[allTagsList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
           </div>
           <div>
             <FoodItemList data={data} tagFilter={tagList} />
-          </div>
-        </div>
+          </div> 
+        </div> */}
       </main>
     </div>
   );
