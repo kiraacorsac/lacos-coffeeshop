@@ -7,7 +7,7 @@ import style from "./App.module.css"
 import NewFood from './components/NewFood';
 
 function App() {
-  const data = [
+  const [data, setData] = useState([
     {
       id: 0,
       name: "Pepperoni Pizza",
@@ -62,7 +62,21 @@ function App() {
       fave: false,
       tags: ["Turkey", "meat", "baked"]
     }
-  ]
+  ])
+
+  //TODO: create unique ID for food item
+  function handleNewFoodSave(foodItem){
+    let newData = data.slice();
+
+    foodItem.id = 100;
+    foodItem.likes = 0;
+    foodItem.dislikes = 0;
+    foodItem.fave = false;
+
+    newData.push(foodItem);
+    setData(newData)
+  }
+
 
   const [tagList, setTagList] = useState(new Set([]));
   // const [existingTagsList, setExistingTagsList] = new Set([])
@@ -86,6 +100,7 @@ function App() {
     setTagList(newTagList);
   }
   const allTagsList = [];
+
   function removeFromTagList(tag) {
     let newTagList = new Set(tagList); // slice for sets
     newTagList.delete(tag); // push for set
@@ -100,17 +115,16 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
+        <NewFood onFoodSave={handleNewFoodSave}/>
         <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
-        
-        <NewFood />
-        {/* <div className={style.content}>
+        <div className={style.content}>
           <div>
             <Tags data={data} allTagsListState={[allTagsList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
           </div>
           <div>
             <FoodItemList data={data} tagFilter={tagList} />
-          </div> 
-        </div> */}
+          </div>
+        </div>
       </main>
     </div>
   );
