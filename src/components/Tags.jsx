@@ -11,9 +11,9 @@ export default function Tags(props) {
   // let tagListArray = [...props.data]
   // let tagListLowerCase = tagListArray.map(str => str.toLowerCase());
   for (const food of props.data) {
-    console.log("Food existing :", typeof food);
+    //console.log("Food existing :", typeof food);
     for (const tag of food.tags) {
-      console.log("item existing :", tag);
+      //console.log("item existing :", tag);
 
       //     if (existingTagsList && Array.isArray(existingTagsList)) { console.log("tag pushed :",tag)
       //     let newExistingTagsList = new Set(existingTagsList);
@@ -25,9 +25,9 @@ export default function Tags(props) {
 
       if (allTagsList && Array.isArray(allTagsList))
         if (allTagsList.includes(tag)) {
-          console.log("Tag already included:", tag);
+          //console.log("Tag already included:", tag);
         } else {
-          console.log("tag pushed :", tag);
+          //console.log("tag pushed :", tag);
           allTagsList.push(
             <form action="mailto:lfilka@intl.att.com">
               <div className={style.tag}>
@@ -43,11 +43,11 @@ export default function Tags(props) {
           );
         }
       else {
-        console.log("tag added:", tag);
+        //console.log("tag added:", tag);
         allTagsList = [tag];
       }
     }
-    console.log("allTagsList:", existingTagsList);
+    //console.log("allTagsList:", existingTagsList);
   }
 
   return (
