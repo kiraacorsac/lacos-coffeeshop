@@ -64,11 +64,14 @@ function App() {
     }
   ])
 
-  //TODO: create unique ID for food item
-  function handleNewFoodSave(foodItem){
-    let newData = data.slice();
+  let [foodId, setFoodId] = useState(5);
 
-    foodItem.id = 100;
+  //TODO: create unique ID for food item
+  function handleNewFoodSave(foodItem) {
+    let newData = data.slice();
+    let newFoodId = foodId + 1
+    setFoodId(newFoodId)
+    foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
@@ -115,7 +118,7 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
-        <NewFood onFoodSave={handleNewFoodSave}/>
+        <NewFood onFoodSave={handleNewFoodSave} />
         <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>
           <div>
