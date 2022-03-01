@@ -76,38 +76,22 @@ function App() {
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
-    setFoodItemId(FoodItemId + 1);
+    let newFoodItemId = FoodItemId + 1;
+    setFoodItemId(newFoodItemId);
     let newData = data.slice();
-    foodItem.id = FoodItemId;
+    foodItem.id = newFoodItemId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
 
     newData.push(foodItem);
     setData(newData);
-    setTagSet("");
+    setTagSet(new Set());
     setImgLink("");
     setName("");
-    console.log(name);
-    console.log(imgLink);
-    console.log(tagSet);
-    console.log("Helllooooooooooooooooooo");
-  }
-
-  function foodClearer() {
-    setTagSet("");
-    setImgLink("");
-    setName("");
-    console.log(name);
-    console.log(imgLink);
-    console.log(tagSet);
   }
 
   const [tagList, setTagList] = useState(new Set([]));
-  // const [existingTagsList, setExistingTagsList] = new Set([])
-  // for (const food of data) {
-  //   console.log("Food existing :",food) }
-  //   for (const tag of food.tags)
 
   function addToTagList(tag) {
     let tagListArray = [...tagList];

@@ -17,10 +17,6 @@ export default function NewFood(props) {
     setName(event.target.value);
   }
 
-  function handleFoodDelete(tag) {
-    props.removeFromFoodList(tag);
-  }
-
   function addToTagList(tag) {
     let tagListArray = [...tagSet];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
