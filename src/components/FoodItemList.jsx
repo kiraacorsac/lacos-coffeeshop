@@ -4,21 +4,31 @@ import style from "./FoodItemList.module.css";
 export default function FoodItemList(props) {
   const foodItemListRender = [];
 
-  //TODO: implement tag filtering
-  //example:
-  // tagFilter = { 'italian' }
-  // food.tags = ['italian', 'baked', 'meat'] => pass
-  // food.tags = ['italian', 'meat', 'pasta'] => pass
-  // food.tags = ['baked', 'sweet'] => not
+  if (props.sorting === "A-Z") {
+    props.data.sort(function (a, b) {
+      return a.name.localeCompare(b.name); //using String.prototype.localCompare()
+    });
+  } else if (props.sorting === "Z-A") {
+    props.data.sort(function (a, b) {
+      return b.name.localeCompare(a.name); //using String.prototype.localCompare()
+    });
+  } else if (props.sorting === "Popularity-ascending") {
+    props.data.sort(function (a, b) {
+      return b.likes - a.likes;
+    });
+  } else if (props.sorting === "Popularity-descending") {
+    props.data.sort(function (a, b) {
+      return a.likes - b.likes;
+    });
+  } else if (props.sorting === "Oldest")
+    props.data.sort(function (a, b) {
+      return a.id - b.id;
+    });
+  else if (props.sorting === "Newest")
+    props.data.sort(function (a, b) {
+      return b.id - a.id;
+    });
 
-  // tagFilter = {'italian', 'baked'}
-  // food.tags = ['italian', 'baked', 'meat'] => pass
-  // food.tags = ['italian', 'meat', 'pasta'] => not
-  // food.tags = ['baked', 'sweet'] => not
-
-  // tagFilter = {'tofu'}
-  // nothing of the above passes
-  //console.log(props.tagFilter)
   for (const food of props.data) {
     const filterTagsListRender = [];
     for (const filterTag of props.tagFilter) {
@@ -29,6 +39,7 @@ export default function FoodItemList(props) {
     if (filterTagsListRender.length === 0) {
       foodItemListRender.push(<FoodItem key={food.id} food={food} />);
     }
+    
   }
 
   return <div className={style.foodItemList}>{foodItemListRender}</div>;

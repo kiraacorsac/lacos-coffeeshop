@@ -1,4 +1,42 @@
 .content {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+}
+
+.mainbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.rightbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 25px;
+}
+
+form {
+  margin-right: 5px;
+}
+input {
+  margin-right: 5px;
+}
+
+.sorting {
+  height: 25px;
+}
+.button {
+  display: inline-block;
+  border-radius: 3px;
+  text-align: center;
+  height: 25px;
+  color: white;
+  background-color: rgb(54, 47, 47);
+}
+.button:hover{
+  height: 30px;
+  background-color: rgb(122, 11, 11);
 }
