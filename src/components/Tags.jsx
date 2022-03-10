@@ -5,62 +5,28 @@ export default function Tags(props) {
   // const allTagsList = [];
   const allTagsList = [props.allTagsListState];
   const tagList = props.tagListState;
-  const existingTagsListRender = new Set([]);
-  const [existingTagsList, setExistingTagsList] = useState(new Set([]));
   const uniqueTagList = [props.uniqueTagListState];
 
+
+  let newTagListArray = [...tagList];
   function handleAddToTagList(tag) {
-    //  let newTag = tag.target.value;
-    //   if (id.checked){console.log("''''''")} else {console.log("not")}
-    // }
-    //   if(event.target.id.checked){console.log("checked")}else{console.log("not checked")}
-    // }
-    // if (tagList && Array.isArray(tagList))
-    // var radList = uniqueTagList.getElementsById(tag);
-    //   if(radList.checked) console.log("fff")// document.getElementById(radList[i].id).checked = false;
-    // }
 
-    // timesClicked++;
-    // console.log("1");
-    // if (timesClicked%2==0) {
-    //   console.log("not-included",tag)
-    //   props.addToTagList(tag);
-    // } else {
-    //   uncheckTag(tag)
-    //   props.removeFromTagList(tag)
-    // }}
-
-    // function handleAddToTagList(tag) {
-    console.log(tag);
-    console.log("tagList: ", tagList);
-    let newTags = Array.from(tagList);
-
-    //console.log("tagListArray:", tagListArray);
-    // if (tagList && Array.isArray(tagList)) {
-    //   console.log("1");
-    for (const tags of newTags) {
-      //let newTagsList = Array.from(tags);
-      let newTags = tags.toString()
-      
-      console.log("tags: ", newTags);
-      console.log("tag: ", tag);
-      if (newTags == tag) {
-        console.log("included", newTags);
-        props.removeFromTagList(tag);
+      console.log("typeof tag: ", typeof tag);
+    if (newTagListArray && Array.isArray(newTagListArray)) {
+      if (newTagListArray.includes(tag)) {
+        //console.log("included", val);
+        // props.removeFromTagList(tag);
         console.log("removeFromTagList_1", tag);
         uncheckTag(tag);
       } else {
-        console.log("not-included", newTags);
+        console.log("not included", tag);
+        console.log("tagList", newTagListArray);
         props.addToTagList(tag);
       }
     }
   }
-  // else {
-  //   console.log("aa",tag)
-  //   props.addToTagList(tag);
 
   function uncheckTag(tag) {
-    // let newText = newTextEvent.target.value;
     uniqueTagList.target.tag.checked = false;
   }
 

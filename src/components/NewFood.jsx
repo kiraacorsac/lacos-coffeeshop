@@ -13,8 +13,6 @@ export default function NewFood(props) {
     const [imgLink, setImgLink] = useState("");
     const [name, setName] = useState("");
     
-    //const current_time = datetime.now().strftime('_%d_%m_%Y')
-
     function handleImgChange(event) {
         setImgLink(event.target.value);
     }
