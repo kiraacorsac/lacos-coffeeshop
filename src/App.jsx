@@ -175,7 +175,7 @@ function App() {
             <Tags
               data={data}
               allTagsListState={[allTagsList]}
-              tagListState={[tagList]}
+              tagListState={tagList}
               addToTagList={addToTagList}
               removeFromTagList={removeFromTagList}
               uniqueTagListState={uniqueTagList}

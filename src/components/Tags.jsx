@@ -15,18 +15,19 @@ export default function Tags(props) {
     if (newTagListArray && Array.isArray(newTagListArray)) {
       if (newTagListArray.includes(tag)) {
         //console.log("included", val);
-        // props.removeFromTagList(tag);
+         props.removeFromTagList(tag);
         console.log("removeFromTagList_1", tag);
-        uncheckTag(tag);
+      //  uncheckTag(tag);
       } else {
         console.log("not included", tag);
-        console.log("tagList", newTagListArray);
+        console.log("newTagListArray", newTagListArray);
         props.addToTagList(tag);
       }
     }
   }
 
   function uncheckTag(tag) {
+    console.log("uniqueTagList: ",uniqueTagList)
     uniqueTagList.target.tag.checked = false;
   }
 
@@ -60,6 +61,7 @@ export default function Tags(props) {
           <div className={style.tag}>
             <input
               type="radio"
+              checked = {newTagListArray.includes(tag)}
               name="tag"
               id={tag}
               key={tag}
