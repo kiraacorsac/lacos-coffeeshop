@@ -5,6 +5,7 @@ import Tags from './components/Tags';
 import { useState } from 'react'
 import style from "./App.module.css"
 import NewFood from './components/NewFood';
+import Modal from './components/Modal';
 
 function App() {
   const [data, setData] = useState([
@@ -118,7 +119,6 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
-        <NewFood onFoodSave={handleNewFoodSave} />
         <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>
           <div>
@@ -128,7 +128,13 @@ function App() {
             <FoodItemList data={data} tagFilter={tagList} />
           </div>
         </div>
+        <input type="button" value="Add new food"></input>
       </main>
+      {/* Homework: Make this visible when button "Add new food is clicked", 
+      and not visible when food is saved  */}
+      <Modal visible={true}>
+        <NewFood onFoodSave={handleNewFoodSave} />
+      </Modal>
     </div>
   );
 }
