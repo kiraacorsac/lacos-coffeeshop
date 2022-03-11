@@ -6,6 +6,8 @@ import { useState } from 'react'
 import style from "./App.module.css"
 import NewFood from './components/NewFood';
 import Modal from './components/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   const [data, setData] = useState([
@@ -79,8 +81,10 @@ function App() {
 
     newData.push(foodItem);
     setData(newData)
+    setModalFlag(false)
   }
 
+  const [modalFlag, setModalFlag] = useState(false);
 
   const [tagList, setTagList] = useState(new Set([]));
   // const [existingTagsList, setExistingTagsList] = new Set([])
@@ -112,6 +116,11 @@ function App() {
 
   }
 
+  function setModalFlagTrue(flag) {
+    setModalFlag(true)
+
+  }
+
 
   return (
     <div className="App">
@@ -119,6 +128,7 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className="App-main">
+
         <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>
           <div>
@@ -128,11 +138,12 @@ function App() {
             <FoodItemList data={data} tagFilter={tagList} />
           </div>
         </div>
-        <input type="button" value="Add new food"></input>
+        {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
+        <FontAwesomeIcon className={style.addNew} icon={faPlusCircle} onClick={setModalFlagTrue}></FontAwesomeIcon>
       </main>
       {/* Homework: Make this visible when button "Add new food is clicked", 
       and not visible when food is saved  */}
-      <Modal visible={true}>
+      <Modal visible={modalFlag}>
         <NewFood onFoodSave={handleNewFoodSave} />
       </Modal>
     </div>
