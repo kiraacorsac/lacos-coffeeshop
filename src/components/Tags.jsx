@@ -25,6 +25,7 @@ export default function Tags(props) {
                 <input
                   type="radio"
                   name="tag"
+
                   id={tag}
                   onClick={() => props.addToTagList(tag)}
                 />
@@ -45,7 +46,7 @@ export default function Tags(props) {
   return (
     <div className={style.tags}>
       {" "}
-      Tags:
+      Preset Tags:
       {allTagsList}
     </div>
   );

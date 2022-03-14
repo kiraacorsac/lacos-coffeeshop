@@ -123,11 +123,11 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={style.App}>
+      <header className={style.Appheader}>
         Laco's Coffeeshop
       </header>
-      <main className="App-main">
+      <main className={style.Appmain}>
 
         <TagInput tagListState={[tagList, setTagList]} addToTagList={addToTagList} removeFromTagList={removeFromTagList} />
         <div className={style.content}>

@@ -1,20 +1,35 @@
 .tag {
-  background: white;
-  border: 1px solid black;
-  font-size: 24px;
-  padding: 4px;
-  margin: 4px;
+  
+  background: #10646a43;
+  /* border: 1px solid black; */
+  font-size: 18px;
+  color: #10646ad5;
+  font-weight: bold;
+  padding: 0px 5px 0px 3px;
+  margin: 5px;
+  border-radius: 10px;
+  text-shadow: 1px 1px 2px rgb(211, 186, 86), 0 0 1em rgb(157, 255, 0), 0 0 0.2em rgba(251, 255, 0, 0.837);
 }
 
 .searchBox {
-  background: white;
+  background: rgb(255, 255, 255);
+  
 }
 
 .tagList {
+  
   display: flex;
   flex-direction: row;
 }
 
 .tagInput {
-  font-size: 40px;
+  /* position: sticky; */
+  min-width: 200px;
+  width: 778px;
+  min-height: 50px;
+  /* font-size: 40px; */
+  border: 0px;
+  background-color: rgb(242, 242, 241);
+  font-size: 20px;
+  /* border-radius: 25px; */
 }
