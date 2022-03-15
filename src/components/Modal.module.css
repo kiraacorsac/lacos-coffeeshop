@@ -1,0 +1,11 @@
+.modal {
+    position: fixed;
+    top: 10vh;
+    /* Homeworke: FIX PLEASE */
+    width: 500px;
+    margin-left: 40px;
+    margin-right: 40px;
+    /* align-content: center; */
+    padding: 40px;
+    background-color: white;
+}

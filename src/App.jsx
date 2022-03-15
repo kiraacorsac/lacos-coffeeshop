@@ -5,6 +5,7 @@ import Tags from "./components/Tags";
 import { useState } from "react";
 import style from "./App.module.css";
 import NewFood from "./components/NewFood";
+import Modal from "./components/Modal";
 
 function App() {
   const [data, setData] = useState([
@@ -93,6 +94,12 @@ function App() {
 
     newData.push(foodItem);
     setData(newData);
+    setVisible(false);
+  }
+  const [visible, setVisible] = useState(false);
+
+  function handleNewFoodOpen() {
+    setVisible(true);
   }
 
   const [tagList, setTagList] = useState(new Set([]));
@@ -120,7 +127,7 @@ function App() {
   const allTagsList = [];
 
   function removeFromTagList(tag) {
-    console.log("removeFromTagList",tag)
+    console.log("removeFromTagList", tag);
     let newTagList = new Set(tagList); // slice for sets
     newTagList.delete(tag); // push for set
     setTagList(newTagList);
@@ -137,7 +144,6 @@ function App() {
     <div className="App">
       <header className="App-header">Laco's Coffeeshop</header>
       <main className="App-main">
-        <NewFood onFoodSave={handleNewFoodSave} />
         <div className={style.mainbox}>
           <TagInput
             tagListState={[tagList]}
@@ -166,8 +172,12 @@ function App() {
                 <option value="Oldest">Oldest</option>
               </select>
             </form>
-            <input className={style.button} type="button" value="Add Food" />
-            <input className={style.button} type="button" value="Edit Food" />
+            <input
+              className={style.button}
+              type="button"
+              value="Add Food"
+              onClick={handleNewFoodOpen}
+            />
           </div>
         </div>
         <div className={style.content}>
@@ -184,6 +194,9 @@ function App() {
           <div>
             <FoodItemList data={data} tagFilter={tagList} sorting={sorting} />
           </div>
+          <Modal visible={visible}>
+            <NewFood onFoodSave={handleNewFoodSave} />
+          </Modal>
         </div>
       </main>
     </div>
