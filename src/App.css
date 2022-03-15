@@ -12,9 +12,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 .App-main {
-  background-color: rgb(85, 82, 80);
+  /* background-color: rgb(85, 82, 80); */
   flex-grow: 1;
 }
