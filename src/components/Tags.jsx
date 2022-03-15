@@ -6,48 +6,75 @@ export default function Tags(props) {
   const allTagsList = [props.allTagsListState];
   const existingTagsListRender = new Set([]);
   const [existingTagsList, setExistingTagsList] = useState(new Set([]));
+  const tagList = props.tagListState;
+  const uniqueTagList = [props.uniqueTagListState];
 
+  let newTagListArray = [...tagList];
+  function handleAddToTagList(tag) {
 
+      console.log("typeof tag: ", typeof tag);
+    if (newTagListArray && Array.isArray(newTagListArray)) {
+      if (newTagListArray.includes(tag)) {
+        //console.log("included", val);
+         props.removeFromTagList(tag);
+        console.log("removeFromTagList_1", tag);
+      //  uncheckTag(tag);
+      } else {
+        console.log("not included", tag);
+        console.log("newTagListArray", newTagListArray);
+        props.addToTagList(tag);
+      }
+    }
+  }
 
-  let tagId = 0;
+   let tagsId = 0;
   for (const food of props.data) {
-    console.log("Food existing :", typeof food);
     for (const tag of food.tags) {
-      console.log("item existing :", tag);
       if (allTagsList && Array.isArray(allTagsList))
         if (allTagsList.includes(tag)) {
-          console.log("Tag already included:", tag);
         } else {
-          console.log("tag pushed :", tag);
-          allTagsList.push(
-            <form action="mailto:lfilka@intl.att.com" key={tagId} >
-              <div className={style.tag}>
-                <input
-                  type="radio"
-                  name="tag"
-
-                  id={tag}
-                  onClick={() => props.addToTagList(tag)}
-                />
-                {tag},
-              </div>
-            </form>
-          );
-          tagId++; // tagId = tagId + 1
+          allTagsList.push(tag);
+          tagsId++; // tagId = tagId + 1
         }
       else {
-        console.log("tag added:", tag);
         allTagsList = [tag];
       }
     }
-    console.log("allTagsList:", existingTagsList);
+  }
+
+  //sorting from A-Z
+  allTagsList.sort(function (a, b) {
+    return a.localeCompare(b); //using String.prototype.localCompare()
+  });
+
+  let tagId = 0;
+  for (const tag of allTagsList) {
+    if (uniqueTagList.includes(tag)) {
+    } else if (tag == "") {
+    } else {
+      uniqueTagList.push(
+        <form action="mailto:lfilka@intl.att.com" key={tagId}>
+          <div className={style.tag}>
+            <input
+              type="radio"
+              checked = {newTagListArray.includes(tag)}
+              name="tag"
+              id={tag}
+              key={tag}
+              onClick={() => handleAddToTagList(tag)}
+            />
+            {tag},
+          </div>
+        </form>
+      );
+      tagId++; // tagId = tagId + 1
+    }
   }
 
   return (
     <div className={style.tags}>
-      {" "}
-      Preset Tags:
-      {allTagsList}
+      Tags:
+      {uniqueTagList}
     </div>
   );
 }
