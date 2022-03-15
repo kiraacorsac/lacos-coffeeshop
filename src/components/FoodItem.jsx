@@ -64,6 +64,7 @@ export default function FoodItem(props) {
           <FontAwesomeIcon
             className={style.icons}
             icon={faCog}
+            onClick={props.setModalEditFlagTrue}
           ></FontAwesomeIcon>
         </div>
         <div className={style.name}>{props.food.name}</div>

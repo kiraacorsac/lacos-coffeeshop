@@ -4,10 +4,10 @@ import style from "./NewFood.module.css";
 
 //TODO: add rest of the inputs
 //TODO: style
-export default function NewFood(props) {
-  const [tagSet, setTagSet] = props.tagSetState
-  const [imgLink, setImgLink] = props.imgLinkState
-  const [name, setName] = props.nameState
+export default function EditFood(props) {
+    const [tagSet, setTagSet] = props.tagSetState
+    const [imgLink, setImgLink] = props.imgLinkState
+    const [name, setName] = props.nameState
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -55,7 +55,7 @@ export default function NewFood(props) {
 
   return (
     <div>
-      <input type="text" placeholder="Name" onChange={handleNameChange} />
+      <input type="text" placeholder="Name" values={name} onChange={handleNameChange} />
       <TagInput
         tagListState={[tagSet, setTagSet]}
         addToTagList={addToTagList}
@@ -69,6 +69,7 @@ export default function NewFood(props) {
       <input
         type="url"
         placeholder="http://image-url"
+
         onChange={handleImgChange}
       />
       <img className={style.image} src={imgLink} alt="Image Link Preview" />

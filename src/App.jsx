@@ -4,9 +4,11 @@ import Tags from "./components/Tags";
 import { useState } from "react";
 import style from "./App.module.css";
 import NewFood from "./components/NewFood";
+import EditFood from "./components/EditFood";
 import Modal from "./components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import ModalEdit from "./components/ModalEdit";
 
 function App() {
   const [data, setData] = useState([
@@ -74,11 +76,37 @@ function App() {
       date: "2 Mar 2022",
     },
   ]);
-
+  const [tagSet, setTagSet] = useState(new Set());
+  const [imgLink, setImgLink] = useState("");
+  const [name, setName] = useState("");
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [fave, setFave] = useState(false);
   let [foodId, setFoodId] = useState(5);
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
+    let current_time = new Date().toLocaleDateString("en-uk", {
+      day: "numeric",
+      year: "numeric",
+      month: "short",
+    });
+    let newData = data.slice();
+    let newFoodId = foodId + 1;
+    setFoodId(newFoodId);
+    foodItem.id = newFoodId;
+    foodItem.likes = likes;
+    foodItem.dislikes = dislikes;
+    foodItem.fave = fave;
+    foodItem.date = current_time;
+
+    newData.push(foodItem);
+    setData(newData);
+    setModalFlag(false);
+  }
+
+
+  function handleEditFoodSave(foodItem) {
     let current_time = new Date().toLocaleDateString("en-uk", {
       day: "numeric",
       year: "numeric",
@@ -99,6 +127,7 @@ function App() {
   }
 
   const [modalFlag, setModalFlag] = useState(false);
+  const [modalEditFlag, setModalEditFlag] = useState(false);
 
   const [tagList, setTagList] = useState(new Set([]));
   const uniqueTagList = [];
@@ -132,6 +161,12 @@ function App() {
   function setModalFlagTrue(flag) {
     setModalFlag(true);
   }
+
+  function setModalEditFlagTrue(flag) {
+    console.log("setModalEditFlagTrue")
+    setModalEditFlag(true);
+  }
+
 
   const [sorting, setSorting] = useState("");
   function handleChangeSorting(event) {
@@ -180,7 +215,7 @@ function App() {
             </div>
           </div>
           <div>
-            <FoodItemList data={data} tagFilter={tagList} sorting={sorting} />
+            <FoodItemList data={data} tagFilter={tagList} sorting={sorting} setModalEditFlagTrue={setModalEditFlagTrue}/>
           </div>
         </div>
         {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
@@ -191,8 +226,11 @@ function App() {
         ></FontAwesomeIcon>
       </main>
       <Modal visible={modalFlag} setModalFlag={setModalFlag}>
-        <NewFood onFoodSave={handleNewFoodSave} />
+        <NewFood onFoodSave={handleNewFoodSave} tagSetState={[tagSet, setTagSet]}  imgLinkState={[imgLink, setImgLink]} nameState={[name, setName]} />
       </Modal>
+      <ModalEdit visible={modalEditFlag} setModalEditFlag={setModalEditFlag}>
+        <EditFood onFoodSave={handleEditFoodSave} tagSetState={[tagSet, setTagSet]}  imgLinkState={[imgLink, setImgLink]} nameState={[name, setName]}/>
+      </ModalEdit>
       {/* TODO: Modal window for edititing foods */}
     </div>
   );
