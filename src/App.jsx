@@ -6,6 +6,8 @@ import { useState } from "react";
 import style from "./App.module.css";
 import NewFood from "./components/NewFood";
 import Modal from "./components/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [data, setData] = useState([
@@ -172,12 +174,18 @@ function App() {
                 <option value="Oldest">Oldest</option>
               </select>
             </form>
-            <input
+            <FontAwesomeIcon
+              className={style.button}
+              size={"3x"}
+              icon={faPlusCircle}
+              onClick={handleNewFoodOpen}
+            ></FontAwesomeIcon>
+            {/* <input
               className={style.button}
               type="button"
               value="Add Food"
               onClick={handleNewFoodOpen}
-            />
+            /> */}
           </div>
         </div>
         <div className={style.content}>
