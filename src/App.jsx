@@ -1,4 +1,3 @@
-import './App.css';
 import FoodItemList from './components/FoodItemList';
 import TagInput from './components/TagInput';
 import Tags from './components/Tags';
@@ -141,9 +140,7 @@ function App() {
         {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
         <FontAwesomeIcon className={style.addNew} icon={faPlusCircle} onClick={setModalFlagTrue}></FontAwesomeIcon>
       </main>
-      {/* Homework: Make this visible when button "Add new food is clicked", 
-      and not visible when food is saved  */}
-      <Modal visible={modalFlag}>
+      <Modal visible={modalFlag} setModalFlag={setModalFlag}>
         <NewFood onFoodSave={handleNewFoodSave} />
       </Modal>
     </div>
