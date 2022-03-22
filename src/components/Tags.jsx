@@ -53,19 +53,19 @@ export default function Tags(props) {
     } else if (tag == "") {
     } else {
       uniqueTagList.push(
-        <form action="mailto:lfilka@intl.att.com" key={tagId}>
-          <div className={style.tag}>
+          <div className={style.tag} key={tagId}>
             <input
-              type="radio"
+              type="checkbox"
               checked = {newTagListArray.includes(tag)}
               name="tag"
               id={tag}
               key={tag}
-              onClick={() => handleAddToTagList(tag)}
+              onChange={() => handleAddToTagList(tag)}
             />
-            {tag},
+            <label htmlFor={tag} >
+             {tag}
+            </label>
           </div>
-        </form>
       );
       tagId++; // tagId = tagId + 1
     }

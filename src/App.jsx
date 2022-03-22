@@ -127,7 +127,6 @@ function App() {
     let newTagList = new Set(tagList); // slice for sets
     newTagList.delete(tag); // push for set
     setTagList(newTagList);
-    uniqueTagList.tag.checked = false;
   }
 
   function setModalFlagTrue(flag) {
@@ -151,7 +150,7 @@ function App() {
         <div className={style.content}>
           <div className={style.sortags}>
           <form>
-            <label className={style.labelsorting} for="sorting">Sorting: </label>
+            <label className={style.labelsorting} htmlFor="sorting">Sorting: </label>
             <select
               className={style.sorting}
               name="sorting"
@@ -194,6 +193,7 @@ function App() {
       <Modal visible={modalFlag} setModalFlag={setModalFlag}>
         <NewFood onFoodSave={handleNewFoodSave} />
       </Modal>
+      {/* TODO: Modal window for edititing foods */}
     </div>
   );
 }
