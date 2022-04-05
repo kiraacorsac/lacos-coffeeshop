@@ -5,9 +5,12 @@ import style from "./NewFood.module.css";
 //TODO: add rest of the inputs
 //TODO: style
 export default function EditFood(props) {
-    const [tagSet, setTagSet] = props.tagSetState
-    const [imgLink, setImgLink] = props.imgLinkState
-    const [name, setName] = props.nameState
+  const [tagSet, setTagSet] = props.tagSetState;
+  const [imgLink, setImgLink] = props.imgLinkState;
+  const [name, setName] = props.nameState;
+  const food = props.foodState;
+  const [foodItemEditRender, setFoodItemEditRender] =
+    props.foodItemEditRenderState;
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -17,20 +20,20 @@ export default function EditFood(props) {
     setName(event.target.value);
   }
 
-  function addToTagList(tag) {
-    let tagListArray = [...tagSet];
-    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
-    let newTagListSet = new Set(tagListLowerCase);
-    if (tag === "") {
-      return;
-    } else if (newTagListSet.has(tag.toLowerCase())) {
-      return;
-    }
+  // function addToTagList(tag) {
+  //   let tagListArray = [...tagSet];
+  //   let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+  //   let newTagListSet = new Set(tagListLowerCase);
+  //   if (tag === "") {
+  //     return;
+  //   } else if (newTagListSet.has(tag.toLowerCase())) {
+  //     return;
+  //   }
 
-    let newTagList = new Set(tagSet); // slice for sets
-    newTagList.add(tag); // push for set
-    setTagSet(newTagList);
-  }
+  //   let newTagList = new Set(tagSet); // slice for sets
+  //   newTagList.add(tag); // push for set
+  //   setTagSet(newTagList);
+  // }
 
   function makeFoodRecord() {
     if (name === "" && imgLink === "" && tagSet === "") {
@@ -55,10 +58,15 @@ export default function EditFood(props) {
 
   return (
     <div>
-      <input type="text" placeholder="Name" values={name} onChange={handleNameChange} />
+      <input
+        type="text"
+        placeholder="Name"
+        value={foodItemEditRender.name}
+        onChange={handleNameChange}
+      />
       <TagInput
         tagListState={[tagSet, setTagSet]}
-        addToTagList={addToTagList}
+        addToTagList={props.addToTagList}
       />
       <input
         type="button"
@@ -69,10 +77,14 @@ export default function EditFood(props) {
       <input
         type="url"
         placeholder="http://image-url"
-
         onChange={handleImgChange}
+        value={foodItemEditRender.image}
       />
-      <img className={style.image} src={imgLink} alt="Image Link Preview" />
+      <img
+        className={style.image}
+        src={foodItemEditRender.image}
+        alt="Image Link Preview"
+      />
     </div>
   );
 }

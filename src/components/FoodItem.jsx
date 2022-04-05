@@ -6,6 +6,19 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+function Tag(props) {
+  return (
+    <div className={style.tag}>
+      <FontAwesomeIcon
+        icon={faTimesCircle}
+        onClick={props.onTagDelete}
+      ></FontAwesomeIcon>{" "}
+      {props.tag}
+    </div>
+  );
+}
 
 export default function FoodItem(props) {
   const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(
@@ -14,6 +27,17 @@ export default function FoodItem(props) {
   const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] =
     useState(props.food.dislikes);
   const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
+  const [foodItemEditRender, setFoodItemEditRender] =
+    props.foodItemEditRenderState;
+  const tagListRender = props.tagListRenderState;
+  const foodItemRender = [];
+
+  function handlePushFoodToEditRender() {
+    console.log("handlePushFoodToEditRender", props.food);
+    setFoodItemEditRender(props.food);
+    console.log("props.food.tags: ", props.food.tags);
+    props.setModalEditFlagTrue();
+  }
 
   function switchFeedback() {
     if (feedbackIkon == farHeart) {
@@ -33,6 +57,13 @@ export default function FoodItem(props) {
   const tagsRender = (
     <div className={style.tag}>{props.food.tags.join(", ")}</div>
   );
+
+  // for (const tag of props.food.tags) {
+  //   console.log("tag: ", tag);
+  //   tagListRender.push(
+  //     <Tag tag={tag} key={tag}  />
+  //   );
+  // }
 
   // for (const tag of props.food.tags) {
   //     tagsRender.push(<div className={style.tag}>{tag},</div>)
@@ -64,7 +95,7 @@ export default function FoodItem(props) {
           <FontAwesomeIcon
             className={style.icons}
             icon={faCog}
-            onClick={props.setModalEditFlagTrue}
+            onClick={handlePushFoodToEditRender}
           ></FontAwesomeIcon>
         </div>
         <div className={style.name}>{props.food.name}</div>

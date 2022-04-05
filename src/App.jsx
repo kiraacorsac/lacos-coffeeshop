@@ -83,7 +83,8 @@ function App() {
   const [dislikes, setDislikes] = useState(0);
   const [fave, setFave] = useState(false);
   let [foodId, setFoodId] = useState(5);
-
+  const [foodItemEditRender, setFoodItemEditRender] = useState(new Set());
+  const  tagListRender = [];
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
     let current_time = new Date().toLocaleDateString("en-uk", {
@@ -102,9 +103,8 @@ function App() {
 
     newData.push(foodItem);
     setData(newData);
-    setModalFlag(false);
+    setModalNewFlag(false);
   }
-
 
   function handleEditFoodSave(foodItem) {
     let current_time = new Date().toLocaleDateString("en-uk", {
@@ -123,14 +123,14 @@ function App() {
 
     newData.push(foodItem);
     setData(newData);
-    setModalFlag(false);
+    setModalNewFlag(false);
   }
 
-  const [modalFlag, setModalFlag] = useState(false);
+  const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
-
   const [tagList, setTagList] = useState(new Set([]));
   const uniqueTagList = [];
+
   // const [existingTagsList, setExistingTagsList] = new Set([])
   // for (const food of data) {
   //   console.log("Food existing :",food) }
@@ -159,20 +159,22 @@ function App() {
   }
 
   function setModalFlagTrue(flag) {
-    setModalFlag(true);
+    setModalNewFlag(true);
   }
 
   function setModalEditFlagTrue(flag) {
-    console.log("setModalEditFlagTrue")
+    console.log("setModalEditFlagTrue");
     setModalEditFlag(true);
   }
-
 
   const [sorting, setSorting] = useState("");
   function handleChangeSorting(event) {
     setSorting(event.target.value);
   }
 
+  function nothing() {
+    return;
+  }
   return (
     <div className={style.App}>
       <header className={style.Appheader}>Laco's Coffeeshop</header>
@@ -181,41 +183,54 @@ function App() {
           tagListState={[tagList, setTagList]}
           addToTagList={addToTagList}
           removeFromTagList={removeFromTagList}
+          tagListRenderState= {tagListRender}
         />
         <div className={style.content}>
           <div className={style.sortags}>
-          <form>
-            <label className={style.labelsorting} htmlFor="sorting">Sorting: </label>
-            <select
-              className={style.sorting}
-              name="sorting"
-              id="option"
-              onChange={handleChangeSorting}
-            >
-              <option> ---Choose sorting--- </option>
-              <option value="A-Z">A-Z</option>
-              <option value="Z-A">Z-A</option>
-              <option value="Popularity-ascending">Popularity-ascending</option>
-              <option value="Popularity-descending">
-                Popularity-descending
-              </option>
-              <option value="Newest">Newest</option>
-              <option value="Oldest">Oldest</option>
-            </select>
-          </form>
-          <div>
-            <Tags
-              data={data}
-              allTagsListState={[allTagsList]}
-              tagListState={tagList}
-              addToTagList={addToTagList}
-              removeFromTagList={removeFromTagList}
-              uniqueTagListState={uniqueTagList}
-            />
+            <form>
+              <label className={style.labelsorting} htmlFor="sorting">
+                Sorting:{" "}
+              </label>
+              <select
+                className={style.sorting}
+                name="sorting"
+                id="option"
+                onChange={handleChangeSorting}
+              >
+                <option> ---Choose sorting--- </option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+                <option value="Popularity-ascending">
+                  Popularity-ascending
+                </option>
+                <option value="Popularity-descending">
+                  Popularity-descending
+                </option>
+                <option value="Newest">Newest</option>
+                <option value="Oldest">Oldest</option>
+              </select>
+            </form>
+            <div>
+              <Tags
+                data={data}
+                allTagsListState={[allTagsList]}
+                tagListState={tagList}
+                addToTagList={addToTagList}
+                removeFromTagList={removeFromTagList}
+                uniqueTagListState={uniqueTagList}
+              />
             </div>
           </div>
           <div>
-            <FoodItemList data={data} tagFilter={tagList} sorting={sorting} setModalEditFlagTrue={setModalEditFlagTrue}/>
+            <FoodItemList
+              data={data}
+              tagFilter={tagList}
+              sorting={sorting}
+              setModalEditFlagTrue={setModalEditFlagTrue}
+              foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+              tagListRenderState= {tagListRender}
+              addToTagList={addToTagList}
+            />
           </div>
         </div>
         {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
@@ -225,12 +240,24 @@ function App() {
           onClick={setModalFlagTrue}
         ></FontAwesomeIcon>
       </main>
-      <Modal visible={modalFlag} setModalFlag={setModalFlag}>
-        <NewFood onFoodSave={handleNewFoodSave} tagSetState={[tagSet, setTagSet]}  imgLinkState={[imgLink, setImgLink]} nameState={[name, setName]} />
+      <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
+        <NewFood
+          onFoodSave={handleNewFoodSave}
+          tagSetState={[tagSet, setTagSet]}
+          imgLinkState={[imgLink, setImgLink]}
+          nameState={[name, setName]}
+          onclick={nothing}
+        />
       </Modal>
-      <ModalEdit visible={modalEditFlag} setModalEditFlag={setModalEditFlag}>
-        <EditFood onFoodSave={handleEditFoodSave} tagSetState={[tagSet, setTagSet]}  imgLinkState={[imgLink, setImgLink]} nameState={[name, setName]}/>
-      </ModalEdit>
+      <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
+        <EditFood
+          onFoodSave={handleEditFoodSave}
+          tagSetState={[tagSet, setTagSet]}
+          imgLinkState={[imgLink, setImgLink]}
+          nameState={[name, setName]}
+          foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+        />
+      </Modal>
       {/* TODO: Modal window for edititing foods */}
     </div>
   );
