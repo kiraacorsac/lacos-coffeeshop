@@ -3,8 +3,9 @@ import style from "./FoodItemList.module.css";
 
 export default function FoodItemList(props) {
   const foodItemListRender = [];
+  const [foodItemEditRender, setFoodItemEditRender] = props.foodItemEditRenderState
+  const tagListRender = props.tagListRenderState;
 
-  
   if (props.sorting === "A-Z") {
     props.data.sort(function (a, b) {
       return a.name.localeCompare(b.name); //using String.prototype.localCompare()
@@ -38,7 +39,7 @@ export default function FoodItemList(props) {
       }
     }
     if (filterTagsListRender.length === 0) {
-      foodItemListRender.push(<FoodItem key={food.id} food={food} />);
+      foodItemListRender.push(<FoodItem key={food.id} food={food} setModalEditFlagTrue={props.setModalEditFlagTrue} foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} tagListRenderState= {tagListRender} />);
     }
   }
 
