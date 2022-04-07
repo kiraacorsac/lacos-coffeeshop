@@ -6,19 +6,9 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
-function Tag(props) {
-  return (
-    <div className={style.tag}>
-      <FontAwesomeIcon
-        icon={faTimesCircle}
-        onClick={props.onTagDelete}
-      ></FontAwesomeIcon>{" "}
-      {props.tag}
-    </div>
-  );
-}
+
+
 
 export default function FoodItem(props) {
   const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(
@@ -58,16 +48,7 @@ export default function FoodItem(props) {
     <div className={style.tag}>{props.food.tags.join(", ")}</div>
   );
 
-  // for (const tag of props.food.tags) {
-  //   console.log("tag: ", tag);
-  //   tagListRender.push(
-  //     <Tag tag={tag} key={tag}  />
-  //   );
-  // }
 
-  // for (const tag of props.food.tags) {
-  //     tagsRender.push(<div className={style.tag}>{tag},</div>)
-  // }
 
   return (
     <div className={style.item}>
