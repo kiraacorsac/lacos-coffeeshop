@@ -8,7 +8,6 @@ import EditFood from "./components/EditFood";
 import Modal from "./components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import ModalEdit from "./components/ModalEdit";
 
 function App() {
   const [data, setData] = useState([
@@ -76,14 +75,15 @@ function App() {
       date: "2 Mar 2022",
     },
   ]);
-  const [tagSet, setTagSet] = useState(new Set());
-  const [imgLink, setImgLink] = useState("");
-  const [name, setName] = useState("");
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
-  const [fave, setFave] = useState(false);
-  let [foodId, setFoodId] = useState(5);
+
+
+  const [maxFoodId, setMaxFoodId] = useState(5);
   const [foodItemEditRender, setFoodItemEditRender] = useState(new Set());
+  const [modalNewFlag, setModalNewFlag] = useState(false);
+  const [modalEditFlag, setModalEditFlag] = useState(false);
+
+  const [tagList, setTagList] = useState(new Set([]));
+  const uniqueTagList = [];
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
@@ -93,12 +93,12 @@ function App() {
       month: "short",
     });
     let newData = data.slice();
-    let newFoodId = foodId + 1;
-    setFoodId(newFoodId);
+    let newFoodId = maxFoodId + 1;
+    setMaxFoodId(newFoodId);
     foodItem.id = newFoodId;
-    foodItem.likes = likes;
-    foodItem.dislikes = dislikes;
-    foodItem.fave = fave;
+    foodItem.likes = 0;
+    foodItem.dislikes = 0;
+    foodItem.fave = false;
     foodItem.date = current_time;
 
     newData.push(foodItem);
@@ -109,26 +109,23 @@ function App() {
   function handleEditFoodSave(foodItem) {
     let newData = data.slice();
     for (const dat of data) {
-      for( const ids of dat.id){
-      if (ids == foodItem.id) {
-        console.log("data.id: ",data)
-        console.log("foodItem.id: ",foodItem.id)
-        // foodItem.id = data.id;
-        // foodItem.likes = data.likes;
-        // foodItem.dislikes = data.dislikes;
-        // foodItem.fave = data.fave;
-        // foodItem.date = data.current_time;
-        // newData.push(foodItem);
-        // setData(newData);
-        // setModalEditFlag(false);
+      for (const ids of dat.id) {
+        if (ids == foodItem.id) {
+          console.log("data.id: ", data)
+          console.log("foodItem.id: ", foodItem.id)
+          // foodItem.id = data.id;
+          // foodItem.likes = data.likes;
+          // foodItem.dislikes = data.dislikes;
+          // foodItem.fave = data.fave;
+          // foodItem.date = data.current_time;
+          // newData.push(foodItem);
+          // setData(newData);
+          // setModalEditFlag(false);
+        }
       }
     }
-  }}
+  }
 
-  const [modalNewFlag, setModalNewFlag] = useState(false);
-  const [modalEditFlag, setModalEditFlag] = useState(false);
-  const [tagList, setTagList] = useState(new Set([]));
-  const uniqueTagList = [];
 
   // const [existingTagsList, setExistingTagsList] = new Set([])
   // for (const food of data) {
@@ -171,9 +168,6 @@ function App() {
     setSorting(event.target.value);
   }
 
-  function nothing() {
-    return;
-  }
   return (
     <div className={style.App}>
       <header className={style.Appheader}>Laco's Coffeeshop</header>
@@ -243,22 +237,14 @@ function App() {
       <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
         <NewFood
           onFoodSave={handleNewFoodSave}
-          tagSetState={[tagSet, setTagSet]}
-          imgLinkState={[imgLink, setImgLink]}
-          nameState={[name, setName]}
-          onclick={nothing}
         />
       </Modal>
       <Modal
         visible={modalEditFlag}
         setModalFlag={setModalEditFlag}
-        setTagSet={setTagSet}
       >
         <EditFood
           onFoodEditSave={handleEditFoodSave}
-          tagSetState={[tagSet, setTagSet]}
-          imgLinkState={[imgLink, setImgLink]}
-          nameState={[name, setName]}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
           removeFromTagList={removeFromTagList}
         />

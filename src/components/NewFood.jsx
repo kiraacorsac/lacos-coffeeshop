@@ -5,9 +5,10 @@ import style from "./NewFood.module.css";
 //TODO: add rest of the inputs
 //TODO: style
 export default function NewFood(props) {
-  const [tagSet, setTagSet] = props.tagSetState
-  const [imgLink, setImgLink] = props.imgLinkState
-  const [name, setName] = props.nameState
+  const [imgLink, setImgLink] = useState("");
+  const [name, setName] = useState("");
+  const [tagSet, setTagSet] = useState(new Set());
+
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -16,6 +17,15 @@ export default function NewFood(props) {
   function handleNameChange(event) {
     setName(event.target.value);
   }
+
+  //HOMEWORK: implement
+  //tag comparison is not case sensitive
+  //returns true, if tag1 and tag2 are equivalent
+  //returns false otherwise
+  function compareTags(tag1, tag2) {
+
+  }
+
 
   function addToTagList(tag) {
     let tagListArray = [...tagSet];
@@ -29,6 +39,13 @@ export default function NewFood(props) {
 
     let newTagList = new Set(tagSet); // slice for sets
     newTagList.add(tag); // push for set
+    setTagSet(newTagList);
+  }
+
+
+  function removeFromTagSet(tag) {
+    let newTagList = new Set(tagSet); // slice for sets
+    newTagList.delete(tag); // push for set
     setTagSet(newTagList);
   }
 
@@ -59,6 +76,7 @@ export default function NewFood(props) {
       <TagInput
         tagListState={[tagSet, setTagSet]}
         addToTagList={addToTagList}
+        removeFromTagList={removeFromTagSet}
       />
       <input
         type="button"
