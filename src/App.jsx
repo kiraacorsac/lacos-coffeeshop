@@ -84,7 +84,7 @@ function App() {
   const [fave, setFave] = useState(false);
   let [foodId, setFoodId] = useState(5);
   const [foodItemEditRender, setFoodItemEditRender] = useState(new Set());
-  const  tagListRender = [];
+
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
     let current_time = new Date().toLocaleDateString("en-uk", {
@@ -107,24 +107,23 @@ function App() {
   }
 
   function handleEditFoodSave(foodItem) {
-    let current_time = new Date().toLocaleDateString("en-uk", {
-      day: "numeric",
-      year: "numeric",
-      month: "short",
-    });
     let newData = data.slice();
-    let newFoodId = foodId + 1;
-    setFoodId(newFoodId);
-    foodItem.id = newFoodId;
-    foodItem.likes = 0;
-    foodItem.dislikes = 0;
-    foodItem.fave = false;
-    foodItem.date = current_time;
-
-    newData.push(foodItem);
-    setData(newData);
-    setModalNewFlag(false);
-  }
+    for (const dat of data) {
+      for( const ids of dat.id){
+      if (ids == foodItem.id) {
+        console.log("data.id: ",data)
+        console.log("foodItem.id: ",foodItem.id)
+        // foodItem.id = data.id;
+        // foodItem.likes = data.likes;
+        // foodItem.dislikes = data.dislikes;
+        // foodItem.fave = data.fave;
+        // foodItem.date = data.current_time;
+        // newData.push(foodItem);
+        // setData(newData);
+        // setModalEditFlag(false);
+      }
+    }
+  }}
 
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
@@ -183,7 +182,6 @@ function App() {
           tagListState={[tagList, setTagList]}
           addToTagList={addToTagList}
           removeFromTagList={removeFromTagList}
-          tagListRenderState= {tagListRender}
         />
         <div className={style.content}>
           <div className={style.sortags}>
@@ -227,8 +225,10 @@ function App() {
               tagFilter={tagList}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
-              foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
-              tagListRenderState= {tagListRender}
+              foodItemEditRenderState={[
+                foodItemEditRender,
+                setFoodItemEditRender,
+              ]}
               addToTagList={addToTagList}
             />
           </div>
@@ -249,13 +249,18 @@ function App() {
           onclick={nothing}
         />
       </Modal>
-      <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
+      <Modal
+        visible={modalEditFlag}
+        setModalFlag={setModalEditFlag}
+        setTagSet={setTagSet}
+      >
         <EditFood
-          onFoodSave={handleEditFoodSave}
+          onFoodEditSave={handleEditFoodSave}
           tagSetState={[tagSet, setTagSet]}
           imgLinkState={[imgLink, setImgLink]}
           nameState={[name, setName]}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+          removeFromTagList={removeFromTagList}
         />
       </Modal>
       {/* TODO: Modal window for edititing foods */}

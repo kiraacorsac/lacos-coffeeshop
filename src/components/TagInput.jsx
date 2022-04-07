@@ -38,12 +38,13 @@ export default function TagInput(props) {
   }
 
   function handleTagDelete(tag) {
+      console.log("tag delete", tag)
     props.removeFromTagList(tag);
   }
 
-  const tagListRender = props.tagListRenderState;
-  console.log("tagListRender: ", tagListRender);
+  const tagListRender = [];
   
+
   for (const tag of tagList) {
     tagListRender.push(
       <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)} />

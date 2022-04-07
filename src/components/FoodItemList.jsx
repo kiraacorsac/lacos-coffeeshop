@@ -39,7 +39,7 @@ export default function FoodItemList(props) {
       }
     }
     if (filterTagsListRender.length === 0) {
-      foodItemListRender.push(<FoodItem key={food.id} food={food} setModalEditFlagTrue={props.setModalEditFlagTrue} foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} tagListRenderState= {tagListRender} />);
+      foodItemListRender.push(<FoodItem key={food.id} food={food} setModalEditFlagTrue={props.setModalEditFlagTrue} foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} />);
     }
   }
 

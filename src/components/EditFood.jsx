@@ -20,20 +20,20 @@ export default function EditFood(props) {
     setName(event.target.value);
   }
 
-  // function addToTagList(tag) {
-  //   let tagListArray = [...tagSet];
-  //   let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
-  //   let newTagListSet = new Set(tagListLowerCase);
-  //   if (tag === "") {
-  //     return;
-  //   } else if (newTagListSet.has(tag.toLowerCase())) {
-  //     return;
-  //   }
+  function addToTagList(tag) {
+    let tagListArray = [...tagSet];
+    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+    let newTagListSet = new Set(tagListLowerCase);
+    if (tag === "") {
+      return;
+    } else if (newTagListSet.has(tag.toLowerCase())) {
+      return;
+    }
 
-  //   let newTagList = new Set(tagSet); // slice for sets
-  //   newTagList.add(tag); // push for set
-  //   setTagSet(newTagList);
-  // }
+    let newTagList = new Set(tagSet); // slice for sets
+    newTagList.add(tag); // push for set
+    setTagSet(newTagList);
+  }
 
   function makeFoodRecord() {
     if (name === "" && imgLink === "" && tagSet === "") {
@@ -56,29 +56,34 @@ export default function EditFood(props) {
       };
   }
 
+  for (const tag of foodItemEditRender.tags) {
+    addToTagList(tag);
+  }
+
   return (
     <div>
       <input
         type="text"
         placeholder="Name"
-        value={foodItemEditRender.name}
+        defaultValue={foodItemEditRender.name}
         onChange={handleNameChange}
       />
       <TagInput
         tagListState={[tagSet, setTagSet]}
-        addToTagList={props.addToTagList}
+        addToTagList={addToTagList}
+        removeFromTagList={props.removeFromTagList}
       />
       <input
         type="button"
         value="Save"
-        onClick={() => props.onFoodSave(makeFoodRecord())}
+        onClick={() => props.onFoodEditSave(makeFoodRecord())}
       />
 
       <input
         type="url"
         placeholder="http://image-url"
         onChange={handleImgChange}
-        value={foodItemEditRender.image}
+        defaultValue={foodItemEditRender.image}
       />
       <img
         className={style.image}
