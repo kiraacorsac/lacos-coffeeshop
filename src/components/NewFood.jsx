@@ -18,10 +18,7 @@ export default function NewFood(props) {
     setName(event.target.value);
   }
 
-  //HOMEWORK: implement
-  //tag comparison is not case sensitive
-  //returns true, if tag1 and tag2 are equivalent
-  //returns false otherwise
+
   function compareTags(tag1, tag2) {
     let tag1LowerCase = tag1.toLowerCase();
     let tag2LowerCase = tag2.toLowerCase();

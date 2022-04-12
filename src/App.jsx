@@ -82,8 +82,7 @@ function App() {
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
 
-  const [tagList, setTagList] = useState(new Set([]));
-  const uniqueTagList = [];
+  const [filterTagList, setFilterTagList] = useState(new Set([]));
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
@@ -133,7 +132,7 @@ function App() {
   //   for (const tag of food.tags)
 
   function addToTagList(tag) {
-    let tagListArray = [...tagList];
+    let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
     if (tag === "") {
@@ -142,16 +141,15 @@ function App() {
       return;
     }
 
-    let newTagList = new Set(tagList); // slice for sets
+    let newTagList = new Set(filterTagList); // slice for sets
     newTagList.add(tag); // push for set
-    setTagList(newTagList);
+    setFilterTagList(newTagList);
   }
-  const allTagsList = [];
 
   function removeFromTagList(tag) {
-    let newTagList = new Set(tagList); // slice for sets
+    let newTagList = new Set(filterTagList); // slice for sets
     newTagList.delete(tag); // push for set
-    setTagList(newTagList);
+    setFilterTagList(newTagList);
   }
 
   function setModalFlagTrue(flag) {
@@ -173,7 +171,7 @@ function App() {
       <header className={style.Appheader}>Laco's Coffeeshop</header>
       <main className={style.Appmain}>
         <TagInput
-          tagListState={[tagList, setTagList]}
+          tagListState={[filterTagList, setFilterTagList]}
           addToTagList={addToTagList}
           removeFromTagList={removeFromTagList}
         />
@@ -205,18 +203,16 @@ function App() {
             <div>
               <Tags
                 data={data}
-                allTagsListState={[allTagsList]}
-                tagListState={tagList}
+                tagListState={filterTagList}
                 addToTagList={addToTagList}
                 removeFromTagList={removeFromTagList}
-                uniqueTagListState={uniqueTagList}
               />
             </div>
           </div>
           <div>
             <FoodItemList
               data={data}
-              tagFilter={tagList}
+              tagFilter={filterTagList}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
               foodItemEditRenderState={[
