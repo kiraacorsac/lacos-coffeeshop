@@ -23,8 +23,11 @@ export default function NewFood(props) {
   //returns true, if tag1 and tag2 are equivalent
   //returns false otherwise
   function compareTags(tag1, tag2) {
-
+    let tag1LowerCase = tag1.toLowerCase();
+    let tag2LowerCase = tag2.toLowerCase();
+    return (tag1LowerCase == tag2LowerCase);
   }
+
 
 
   function addToTagList(tag) {
