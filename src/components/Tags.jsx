@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Tags(props) {
   const tagList = props.tagListState;
-  const allTagsList = [props.allTagsListState];
+  const allTagsList = [];
   const renderedTagToggleList = [];
 
   let newTagListArray = [...tagList];
@@ -25,17 +25,13 @@ export default function Tags(props) {
     }
   }
 
-  let tagsId = 0;
   for (const food of props.data) {
     for (const tag of food.tags) {
-      if (allTagsList && Array.isArray(allTagsList))
-        if (allTagsList.includes(tag)) {
-
-        } else {
+      if (allTagsList && Array.isArray(allTagsList)) {
+        if (!allTagsList.includes(tag)) {
           allTagsList.push(tag);
-          tagsId++; // tagId = tagId + 1
         }
-      else {
+      } else {
         allTagsList = [tag];
       }
     }
@@ -46,8 +42,6 @@ export default function Tags(props) {
     return a.localeCompare(b); //using String.prototype.localCompare()
   });
 
-  // HOMEWORK:
-  // figure out, why there is an empty tag in the list
   let tagId = 0;
   for (const tag of allTagsList) {
     renderedTagToggleList.push(

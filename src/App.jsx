@@ -78,7 +78,7 @@ function App() {
 
 
   const [maxFoodId, setMaxFoodId] = useState(5);
-  const [foodItemEditRender, setFoodItemEditRender] = useState(new Set());
+  const [foodItemEditRender, setFoodItemEditRender] = useState(null);
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
 
@@ -105,24 +105,13 @@ function App() {
     setModalNewFlag(false);
   }
 
+  //homework: implement this function
+  //find food item in data by ID and delete it
+  //insert food item in data with the same ID
   function handleEditFoodSave(foodItem) {
-    let newData = data.slice();
-    for (const dat of data) {
-      for (const ids of dat.id) {
-        if (ids == foodItem.id) {
-          console.log("data.id: ", data)
-          console.log("foodItem.id: ", foodItem.id)
-          // foodItem.id = data.id;
-          // foodItem.likes = data.likes;
-          // foodItem.dislikes = data.dislikes;
-          // foodItem.fave = data.fave;
-          // foodItem.date = data.current_time;
-          // newData.push(foodItem);
-          // setData(newData);
-          // setModalEditFlag(false);
-        }
-      }
-    }
+    console.log(foodItem);
+
+
   }
 
 

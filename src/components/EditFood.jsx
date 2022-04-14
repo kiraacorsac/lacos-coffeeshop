@@ -5,12 +5,11 @@ import style from "./NewFood.module.css";
 //TODO: add rest of the inputs
 //TODO: style
 export default function EditFood(props) {
-  const [tagSet, setTagSet] = props.tagSetState;
-  const [imgLink, setImgLink] = props.imgLinkState;
-  const [name, setName] = props.nameState;
-  const food = props.foodState;
-  const [foodItemEditRender, setFoodItemEditRender] =
-    props.foodItemEditRenderState;
+  const [foodItemEditRender, setFoodItemEditRender] = props.foodItemEditRenderState;
+  const [tagSet, setTagSet] = useState(new Set(foodItemEditRender.tags));
+  const [imgLink, setImgLink] = useState(foodItemEditRender.image);
+  const [name, setName] = useState(foodItemEditRender.name);
+
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -20,7 +19,7 @@ export default function EditFood(props) {
     setName(event.target.value);
   }
 
-  function addToTagList(tag) {
+  function addToTagSet(tag) {
     let tagListArray = [...tagSet];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
@@ -33,6 +32,13 @@ export default function EditFood(props) {
     let newTagList = new Set(tagSet); // slice for sets
     newTagList.add(tag); // push for set
     setTagSet(newTagList);
+  }
+
+
+  function removeFromTagSet(tag) {
+    let newTagSet = new Set(tagSet); // slice for sets
+    newTagSet.delete(tag); // push for set
+    setTagSet(newTagSet);
   }
 
   function makeFoodRecord() {
@@ -50,28 +56,29 @@ export default function EditFood(props) {
       alert("Tags can not be empty");
     } else
       return {
+        ...foodItemEditRender,
+        id: foodItemEditRender.id,
         name: name,
         image: imgLink,
-        tags: [...tagSet],
+        tags: [...tagSet]
       };
   }
 
-  for (const tag of foodItemEditRender.tags) {
-    addToTagList(tag);
-  }
+
+
 
   return (
     <div>
       <input
         type="text"
         placeholder="Name"
-        defaultValue={foodItemEditRender.name}
+        value={name}
         onChange={handleNameChange}
       />
       <TagInput
         tagListState={[tagSet, setTagSet]}
-        addToTagList={addToTagList}
-        removeFromTagList={props.removeFromTagList}
+        addToTagList={addToTagSet}
+        removeFromTagList={removeFromTagSet}
       />
       <input
         type="button"
@@ -83,11 +90,11 @@ export default function EditFood(props) {
         type="url"
         placeholder="http://image-url"
         onChange={handleImgChange}
-        defaultValue={foodItemEditRender.image}
+        value={imgLink}
       />
       <img
         className={style.image}
-        src={foodItemEditRender.image}
+        src={imgLink}
         alt="Image Link Preview"
       />
     </div>

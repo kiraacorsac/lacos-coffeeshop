@@ -64,6 +64,7 @@ export default function NewFood(props) {
       alert("Tags can not be empty");
     } else
       return {
+        id: props.foodItemEditRender.id,
         name: name,
         image: imgLink,
         tags: [...tagSet],
