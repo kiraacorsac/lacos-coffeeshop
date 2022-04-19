@@ -76,7 +76,6 @@ function App() {
     },
   ]);
 
-
   const [maxFoodId, setMaxFoodId] = useState(5);
   const [foodItemEditRender, setFoodItemEditRender] = useState(null);
   const [modalNewFlag, setModalNewFlag] = useState(false);
@@ -105,20 +104,13 @@ function App() {
     setModalNewFlag(false);
   }
 
-  //homework: implement this function
-  //find food item in data by ID and delete it
-  //insert food item in data with the same ID
   function handleEditFoodSave(foodItem) {
-    console.log(foodItem);
-
-
+    let newData = data.filter((d) => d.id != foodItem.id);
+    newData.push(foodItem);
+    newData.sort((a, b) => a.id - b.id);
+    setData(newData);
+    setModalEditFlag(false);
   }
-
-
-  // const [existingTagsList, setExistingTagsList] = new Set([])
-  // for (const food of data) {
-  //   console.log("Food existing :",food) }
-  //   for (const tag of food.tags)
 
   function addToTagList(tag) {
     let tagListArray = [...filterTagList];
@@ -146,7 +138,7 @@ function App() {
   }
 
   function setModalEditFlagTrue(flag) {
-    console.log("setModalEditFlagTrue");
+    //   console.log("setModalEditFlagTrue");
     setModalEditFlag(true);
   }
 
@@ -220,14 +212,9 @@ function App() {
         ></FontAwesomeIcon>
       </main>
       <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
-        <NewFood
-          onFoodSave={handleNewFoodSave}
-        />
+        <NewFood onFoodSave={handleNewFoodSave} />
       </Modal>
-      <Modal
-        visible={modalEditFlag}
-        setModalFlag={setModalEditFlag}
-      >
+      <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
         <EditFood
           onFoodEditSave={handleEditFoodSave}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
