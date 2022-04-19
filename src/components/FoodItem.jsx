@@ -23,9 +23,9 @@ export default function FoodItem(props) {
   const foodItemRender = [];
 
   function handlePushFoodToEditRender() {
-    console.log("handlePushFoodToEditRender", props.food);
+    // console.log("handlePushFoodToEditRender", props.food);
     setFoodItemEditRender(props.food);
-    console.log("props.food.tags: ", props.food.tags);
+    // console.log("props.food.tags: ", props.food.tags);
     props.setModalEditFlagTrue();
   }
 
