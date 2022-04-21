@@ -112,6 +112,13 @@ function App() {
     setModalEditFlag(false);
   }
 
+  function handleDeleteFood(foodItem) {
+    let newData = data.filter((d) => d.id != foodItem.id);
+    newData.sort((a, b) => a.id - b.id);
+    setData(newData);
+    setModalEditFlag(false);
+  }
+
   function addToTagList(tag) {
     let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
@@ -217,6 +224,7 @@ function App() {
       <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
         <EditFood
           onFoodEditSave={handleEditFoodSave}
+          onDeleteFood={handleDeleteFood}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
           removeFromTagList={removeFromTagList}
         />
