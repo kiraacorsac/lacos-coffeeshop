@@ -5,11 +5,11 @@ import style from "./NewFood.module.css";
 //TODO: add rest of the inputs
 //TODO: style
 export default function EditFood(props) {
-  const [foodItemEditRender, setFoodItemEditRender] = props.foodItemEditRenderState;
+  const [foodItemEditRender, setFoodItemEditRender] =
+    props.foodItemEditRenderState;
   const [tagSet, setTagSet] = useState(new Set(foodItemEditRender.tags));
   const [imgLink, setImgLink] = useState(foodItemEditRender.image);
   const [name, setName] = useState(foodItemEditRender.name);
-
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -33,7 +33,6 @@ export default function EditFood(props) {
     newTagList.add(tag); // push for set
     setTagSet(newTagList);
   }
-
 
   function removeFromTagSet(tag) {
     let newTagSet = new Set(tagSet); // slice for sets
@@ -60,12 +59,9 @@ export default function EditFood(props) {
         id: foodItemEditRender.id,
         name: name,
         image: imgLink,
-        tags: [...tagSet]
+        tags: [...tagSet],
       };
   }
-
-
-
 
   return (
     <div>
@@ -87,16 +83,18 @@ export default function EditFood(props) {
       />
 
       <input
+        type="button"
+        value="Delete"
+        onClick={() => props.onDeleteFood(makeFoodRecord())}
+      />
+
+      <input
         type="url"
         placeholder="http://image-url"
         onChange={handleImgChange}
         value={imgLink}
       />
-      <img
-        className={style.image}
-        src={imgLink}
-        alt="Image Link Preview"
-      />
+      <img className={style.image} src={imgLink} alt="Image Link Preview" />
     </div>
   );
 }
