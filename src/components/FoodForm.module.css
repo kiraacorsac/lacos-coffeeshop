@@ -1,0 +1,12 @@
+/* HOMEWORK: write CSS so EditFood and NewFood forms look nice! */
+
+.image {
+    width: 400px;
+    height: 400px;
+}
+
+.form {
+    background-color: white;
+    padding: 16px;
+    border-radius: 4px;
+}

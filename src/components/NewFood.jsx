@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TagInput from "./TagInput";
-import style from "./NewFood.module.css";
+import style from "./FoodForm.module.css";
 
 //TODO: add rest of the inputs
 //TODO: style

@@ -12,12 +12,5 @@
 .modal {
     position: fixed;
     top: 15vh;
-    /* Homeworke: FIX PLEASE */
     width: 740px;
-    /* margin-left: 40px;
-    margin-right: 40px; */
-    /* align-content: center; */
-
-    /* padding: 40px; */
-    background-color: rgb(126, 29, 126);
 }
