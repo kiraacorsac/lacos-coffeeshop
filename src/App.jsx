@@ -112,12 +112,11 @@ function App() {
     setModalEditFlag(false);
   }
 
-  function handleDeleteFood() {
-    let newData = data.filter((d) => d.id != deleteFood.id);
+  function handleDeleteFood(foodItem) {
+    let newData = data.filter((d) => d.id != foodItem.id);
     newData.sort((a, b) => a.id - b.id);
     setData(newData);
     setModalEditFlag(false);
-    setDeleteFood("");
   }
 
   function addToTagList(tag) {
