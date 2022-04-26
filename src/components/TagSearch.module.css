@@ -23,12 +23,9 @@
 }
 
 .tagInput {
-  min-width: 200px;
-  width: 100%;
-  min-height: 50px;
-  border: 0px;
-  outline: 0px;
-  background-color: rgb(242, 242, 241);
-  font-size: 20px;
-  padding: 0px 16px;
+  width: 300px;
+  border: 1px grey dotted;
+  border-radius: 10px;
+  margin: 10px 0 10px 5px;
+  height: 30px;
 }

@@ -3,6 +3,7 @@
 .image {
     width: 400px;
     height: 400px;
+    margin-left: 50px;
 }
 
 .form {
@@ -10,3 +11,45 @@
     padding: 16px;
     border-radius: 4px;
 }
+
+.foodName {
+    width: 200px;
+    border: 1px grey dotted;
+    border-radius: 10px;
+    margin: 0 0 0 5px;
+    height: 30px;
+}
+
+.imgLink{    width: 100px;
+    border: 1px grey dotted;
+    border-radius: 10px;
+    margin: 0 10px 0 10px;
+    height: 22px;}
+.saveButton ,.deleteButton {
+
+    background-color: #558113;
+    border: 1px solid;
+    border-color: rgb(233, 229, 229);
+    border-radius: 8px;
+    height: 22px;
+    width: 50px;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
+    color: white;
+    font-size: x-small;
+    padding-left: 0px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .saveButton:hover {
+    background-color: #81c221;
+  }
+
+  .deleteButton{
+    background-color: #e00c0c;
+  }
+
+  .deleteButton:hover{
+    background-color: #eb6767;
+  }
+
