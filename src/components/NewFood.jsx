@@ -9,7 +9,6 @@ export default function NewFood(props) {
   const [name, setName] = useState("");
   const [tagSet, setTagSet] = useState(new Set());
 
-
   function handleImgChange(event) {
     setImgLink(event.target.value);
   }
@@ -18,14 +17,11 @@ export default function NewFood(props) {
     setName(event.target.value);
   }
 
-
   function compareTags(tag1, tag2) {
     let tag1LowerCase = tag1.toLowerCase();
     let tag2LowerCase = tag2.toLowerCase();
-    return (tag1LowerCase == tag2LowerCase);
+    return tag1LowerCase == tag2LowerCase;
   }
-
-
 
   function addToTagList(tag) {
     let tagListArray = [...tagSet];
@@ -41,7 +37,6 @@ export default function NewFood(props) {
     newTagList.add(tag); // push for set
     setTagSet(newTagList);
   }
-
 
   function removeFromTagSet(tag) {
     let newTagList = new Set(tagSet); // slice for sets
@@ -64,7 +59,6 @@ export default function NewFood(props) {
       alert("Tags can not be empty");
     } else
       return {
-        id: props.foodItemEditRender.id,
         name: name,
         image: imgLink,
         tags: [...tagSet],

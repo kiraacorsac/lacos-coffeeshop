@@ -67,6 +67,7 @@ export default function EditFood(props) {
     <div className={style.form}>
       <input
         type="text"
+        className={style.foodName}
         placeholder="Name"
         value={name}
         onChange={handleNameChange}
@@ -77,12 +78,14 @@ export default function EditFood(props) {
         removeFromTagList={removeFromTagSet}
       />
       <input
+        className={style.saveButton}
         type="button"
         value="Save"
         onClick={() => props.onFoodEditSave(makeFoodRecord())}
       />
 
       <input
+        className={style.deleteButton}
         type="button"
         value="Delete"
         onClick={() => props.onDeleteFood(makeFoodRecord())}
@@ -90,6 +93,7 @@ export default function EditFood(props) {
 
       <input
         type="url"
+        className={style.imgLink}
         placeholder="http://image-url"
         onChange={handleImgChange}
         value={imgLink}
