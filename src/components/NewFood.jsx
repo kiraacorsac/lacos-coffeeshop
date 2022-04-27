@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TagInput from "./TagInput";
 import style from "./FoodForm.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 //TODO: add rest of the inputs
 //TODO: style
@@ -66,25 +68,41 @@ export default function NewFood(props) {
   }
 
   return (
-    <div>
-      <input type="text" placeholder="Name" onChange={handleNameChange} />
-      <TagInput
-        tagListState={[tagSet, setTagSet]}
-        addToTagList={addToTagList}
-        removeFromTagList={removeFromTagSet}
-      />
-      <input
-        type="button"
-        value="Save"
-        onClick={() => props.onFoodSave(makeFoodRecord())}
-      />
-
-      <input
-        type="url"
-        placeholder="http://image-url"
-        onChange={handleImgChange}
-      />
-      <img className={style.image} src={imgLink} alt="Image Link Preview" />
-    </div>
+    <>
+      <div className={style.header}>
+        <div className={style.projectname}>
+          {" "}
+          <FontAwesomeIcon
+            className={style.icon}
+            icon={faCoffee}
+          ></FontAwesomeIcon>{" "}
+          LACO"S COFFEESHOP
+        </div>
+        <div className={style.newfood}>NEW FOOD</div>
+      </div>
+      <div className={style.form}>
+        <img className={style.image} src={imgLink} alt="Image Link Preview" />
+        <div className={style.secondbox}>
+          <input type="text" className={style.foodName} placeholder="Name" onChange={handleNameChange} />
+          <TagInput
+            tagListState={[tagSet, setTagSet]}
+            addToTagList={addToTagList}
+            removeFromTagList={removeFromTagSet}
+          />
+          <input
+            type="url"
+            className={style.imgLink}
+            placeholder="http://image-url"
+            onChange={handleImgChange}
+          />
+          <input
+            type="button"
+            className={style.saveButton}
+            value="Save"
+            onClick={() => props.onFoodSave(makeFoodRecord())}
+          />
+        </div>
+      </div>
+    </>
   );
 }

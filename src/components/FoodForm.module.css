@@ -1,31 +1,56 @@
 /* HOMEWORK: write CSS so EditFood and NewFood forms look nice! */
 
-.image {
-    width: 400px;
-    height: 400px;
-    margin-left: 50px;
-}
+.header{  
+    background-color: white;
+  }
 
+.projectname{
+  position: absolute;
+  color: brown;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: small;
+  padding: 5px 0 0 5px;
+}
+.newfood{color: brown;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  font-size: large; 
+  font-style: bold;
+  padding: 15px 0  0 0;
+text-align: center;}
 .form {
+  display: flex;
+  flex-direction: row;
     background-color: white;
     padding: 16px;
     border-radius: 4px;
 }
 
+
+.image {
+  width: 400px;
+  height: 400px;
+
+}
+
+
 .foodName {
-    width: 200px;
+    width: 300px;
     border: 1px grey dotted;
     border-radius: 10px;
-    margin: 0 0 0 5px;
+    margin: 0 0 10px 10px;
     height: 30px;
 }
 
-.imgLink{    width: 100px;
+.imgLink{    width: 300px;
     border: 1px grey dotted;
     border-radius: 10px;
     margin: 0 10px 0 10px;
-    height: 22px;}
+    height: 30px;}
 .saveButton ,.deleteButton {
+text-align: center;
+
 
     background-color: #558113;
     border: 1px solid;
@@ -36,10 +61,14 @@
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
     color: white;
     font-size: x-small;
-    padding-left: 0px;
+    padding: auto;
     margin-top: 5px;
     margin-left: 5px;
   }
+  .saveButton {position: absolute;right: 16px;
+    bottom: 16px;}
+    .deleteButton {position: absolute;right: 76px;
+      bottom: 16px;}
 
   .saveButton:hover {
     background-color: #81c221;
