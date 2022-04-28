@@ -1,5 +1,4 @@
 .tag {
-  
   background: #10646a43;
   /* border: 1px solid black; */
   font-size: 18px;
@@ -8,24 +7,24 @@
   padding: 0px 5px 0px 3px;
   margin: 5px;
   border-radius: 10px;
-  text-shadow: 1px 1px 2px rgb(211, 186, 86), 0 0 1em rgb(157, 255, 0), 0 0 0.2em rgba(251, 255, 0, 0.837);
+  text-shadow: 1px 1px 2px rgb(211, 186, 86), 0 0 1em rgb(157, 255, 0),
+    0 0 0.2em rgba(251, 255, 0, 0.837);
 }
 
 .searchBox {
   background: rgb(255, 255, 255);
-  
 }
 
 .tagList {
-  
   display: flex;
   flex-direction: row;
 }
 
 .tagInput {
-  width: 300px;
+  margin: 10px 0px;
+  width: 100%;
+  /* width: 300px; */
   border: 1px grey dotted;
   border-radius: 10px;
-  margin: 10px 0 10px 5px;
   height: 30px;
 }

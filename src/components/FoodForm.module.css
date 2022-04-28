@@ -1,55 +1,57 @@
 /* HOMEWORK: write CSS so EditFood and NewFood forms look nice! */
 
 .image {
-    width: 400px;
-    height: 400px;
-    margin-left: 50px;
+  width: 400px;
+  height: 400px;
+  margin-left: 50px;
 }
 
 .form {
-    background-color: white;
-    padding: 16px;
-    border-radius: 4px;
+  background-color: white;
+  padding: 16px;
+  border-radius: 4px;
 }
 
 .foodName {
-    width: 200px;
-    border: 1px grey dotted;
-    border-radius: 10px;
-    margin: 0 0 0 5px;
-    height: 30px;
+  width: 200px;
+  border: 1px grey dotted;
+  border-radius: 10px;
+  height: 30px;
 }
 
-.imgLink{    width: 100px;
-    border: 1px grey dotted;
-    border-radius: 10px;
-    margin: 0 10px 0 10px;
-    height: 22px;}
-.saveButton ,.deleteButton {
+.imgLink {
+  width: 100px;
+  border: 1px grey dotted;
+  border-radius: 10px;
+  margin: 0 10px 0 10px;
+  height: 22px;
+}
 
-    background-color: #558113;
-    border: 1px solid;
-    border-color: rgb(233, 229, 229);
-    border-radius: 8px;
-    height: 22px;
-    width: 50px;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
-    color: white;
-    font-size: x-small;
-    padding-left: 0px;
-    margin-top: 5px;
-    margin-left: 5px;
-  }
+.saveButton,
+.deleteButton {
+  border: 1px solid;
+  border-color: rgb(233, 229, 229);
+  border-radius: 8px;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  font-size: medium;
+  padding: 4px 8px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
 
-  .saveButton:hover {
-    background-color: #81c221;
-  }
+.saveButton {
+  background-color: #558113;
+}
 
-  .deleteButton{
-    background-color: #e00c0c;
-  }
+.saveButton:hover {
+  background-color: #81c221;
+}
 
-  .deleteButton:hover{
-    background-color: #eb6767;
-  }
+.deleteButton {
+  background-color: #e00c0c;
+}
 
+.deleteButton:hover {
+  background-color: #eb6767;
+}
