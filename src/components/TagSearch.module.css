@@ -1,14 +1,12 @@
 .tag {
-  background: #10646a43;
+  background: whitesmoke;
   /* border: 1px solid black; */
-  font-size: 18px;
-  color: #10646ad5;
-  font-weight: bold;
-  padding: 0px 5px 0px 3px;
-  margin: 5px;
+  font-size: 12px;
+  color: black;
+
+  padding: 5px 5px 5px 5px;
+  margin: 0 0 10px 10px;
   border-radius: 10px;
-  text-shadow: 1px 1px 2px rgb(211, 186, 86), 0 0 1em rgb(157, 255, 0),
-    0 0 0.2em rgba(251, 255, 0, 0.837);
 }
 
 .searchBox {
@@ -16,8 +14,10 @@
 }
 
 .tagList {
+  width: 310px;
   display: flex;
-  flex-direction: row;
+  justify-content: left;
+  flex-flow: row-reverse wrap;
 }
 
 .tagInput {
@@ -26,5 +26,6 @@
   /* width: 300px; */
   border: 1px grey dotted;
   border-radius: 10px;
+  margin: 0 0 10px 10px;
   height: 30px;
 }
