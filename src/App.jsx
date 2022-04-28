@@ -8,6 +8,7 @@ import EditFood from "./components/EditFood";
 import Modal from "./components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [data, setData] = useState([
@@ -156,7 +157,13 @@ function App() {
 
   return (
     <div className={style.App}>
-      <header className={style.Appheader}>Laco's Coffeeshop</header>
+      <header className={style.Appheader}>
+        <FontAwesomeIcon
+          className={style.icon}
+          icon={faCoffee}
+        ></FontAwesomeIcon>{" "}
+        Laco's Coffeeshop
+      </header>
       <main className={style.Appmain}>
         <TagInput
           tagListState={[filterTagList, setFilterTagList]}
