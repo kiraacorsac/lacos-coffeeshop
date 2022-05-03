@@ -43,7 +43,9 @@
 }
 
 .nametagsbox{display: flex;
-  flex-direction: column;}
+  flex-direction: column;
+  justify-content:space-between;
+  height: 160px;}
 .name {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,20 +69,17 @@
   flex-direction: column;
   justify-content:flex-end;
 }
-.dateheight{height: 90px;}
+
 .date {
   
   font-size: 16px;
   color: gray; 
 }
-.namebox{height: 150px;}
+
 .tagsDate {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
   align-items: flex-end;
   width: 400px;
-  height: 135px;
-  
-
 }
