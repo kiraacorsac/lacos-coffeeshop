@@ -10,7 +10,9 @@
 }
 
 .searchBox {
+  box-sizing: border-box;
   background: rgb(255, 255, 255);
+  
 }
 
 .tagList {
@@ -26,6 +28,5 @@
   /* width: 300px; */
   border: 1px grey dotted;
   border-radius: 10px;
-  margin: 0 0 10px 10px;
   height: 30px;
 }
