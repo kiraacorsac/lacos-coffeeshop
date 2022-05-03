@@ -7,9 +7,6 @@ import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
 export default function FoodItem(props) {
   const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(
     props.food.likes
@@ -48,8 +45,6 @@ export default function FoodItem(props) {
     <div className={style.tag}>{props.food.tags.join(", ")}</div>
   );
 
-
-
   return (
     <div className={style.item}>
       <img className={style.image} src={props.food.image} alt="test" />
@@ -79,9 +74,12 @@ export default function FoodItem(props) {
             onClick={handlePushFoodToEditRender}
           ></FontAwesomeIcon>
         </div>
-        <div className={style.name}>{props.food.name}</div>
+        <div className={style.nametagsbox}>
+          <div className={style.name}>{props.food.name}</div>
+        </div>
         <div className={style.tagsDate}>
           <div className={style.tags}>Tags: {tagsRender}</div>
+
           <div className={style.date}>Date: {props.food.date}</div>
         </div>
       </div>
