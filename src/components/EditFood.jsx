@@ -80,7 +80,7 @@ export default function EditFood(props) {
       </div>
       <div className={style.form}>
         <img className={style.image} src={imgLink} alt="Image Link Preview" />
-        <div className={style.secondbox}>
+        <div className={style.inputs}>
           <input
             type="text"
             className={style.foodName}

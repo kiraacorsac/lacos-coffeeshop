@@ -42,7 +42,6 @@
 .foodName {
   width: 100%;
   border: 1px grey dotted;
-  margin: 0 10px 4px 10px;
   border-radius: 10px;
   height: 30px;
 }
@@ -50,7 +49,6 @@
 .imgLink {
   width: 100%;
   border: 1px grey dotted;
-  margin: 0 10px 4px 10px;
   border-radius: 10px;
   height: 30px;
 }
@@ -94,4 +92,11 @@
 
 .deleteButton:hover {
   background-color: #eb6767;
+}
+
+.inputs {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

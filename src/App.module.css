@@ -5,6 +5,11 @@
   max-width: 782px;
 }
 
+.tagInputWrapper {
+  padding: 8px;
+  padding-top: 16px;
+}
+
 .Appheader {
   position: sticky;
   width: 100%;
@@ -16,8 +21,7 @@
   font-weight: bold;
   color: rgb(232, 242, 49);
   box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.5);
-  text-shadow: 1px 1px 8px rgb(211, 186, 86),
-    0px 0px 16px rgb(157, 255, 0),
+  text-shadow: 1px 1px 8px rgb(211, 186, 86), 0px 0px 16px rgb(157, 255, 0),
     0px 0px 4px rgba(251, 255, 0, 0.837);
 }
 

@@ -165,11 +165,13 @@ function App() {
         Laco's Coffeeshop
       </header>
       <main className={style.Appmain}>
-        <TagInput
-          tagListState={[filterTagList, setFilterTagList]}
-          addToTagList={addToTagList}
-          removeFromTagList={removeFromTagList}
-        />
+        <div className={style.tagInputWrapper}>
+          <TagInput
+            tagListState={[filterTagList, setFilterTagList]}
+            addToTagList={addToTagList}
+            removeFromTagList={removeFromTagList}
+          />
+        </div>
         <div className={style.content}>
           <div className={style.sortags}>
             <form>

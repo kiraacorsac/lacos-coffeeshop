@@ -12,7 +12,8 @@
 .searchBox {
   box-sizing: border-box;
   background: rgb(255, 255, 255);
-  
+  padding: 8px;
+  padding-top: 16px;
 }
 
 .tagList {
@@ -23,9 +24,7 @@
 }
 
 .tagInput {
-  margin: 6px 10px 10px 10px;
   width: 100%;
-  /* width: 300px; */
   border: 1px grey dotted;
   border-radius: 10px;
   height: 30px;
