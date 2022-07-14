@@ -1,7 +1,7 @@
 import FoodItemList from "./components/FoodItemList";
 import TagInput from "./components/TagInput";
 import Tags from "./components/Tags";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./App.module.css";
 import NewFood from "./components/NewFood";
 import EditFood from "./components/EditFood";
@@ -9,8 +9,27 @@ import Modal from "./components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useGet, useMutate } from "restful-react";
 
 function App() {
+
+  const { data: rawFoods } = useGet({
+    path: "/foods/",
+  });
+
+
+  // if (rawFoods == null) {
+  //   foods = []
+  // } else {
+  //   foods = rawFoods;
+  // }
+  const foods = rawFoods ?? [];
+
+
+  console.log("Foods", foods);
+
+
   const [data, setData] = useState([
     {
       id: 0,
@@ -155,6 +174,7 @@ function App() {
     setSorting(event.target.value);
   }
 
+
   return (
     <div className={style.App}>
       <header className={style.Appheader}>
@@ -199,7 +219,7 @@ function App() {
             </form>
             <div>
               <Tags
-                data={data}
+                data={foods}
                 tagListState={filterTagList}
                 addToTagList={addToTagList}
                 removeFromTagList={removeFromTagList}
@@ -208,7 +228,7 @@ function App() {
           </div>
           <div>
             <FoodItemList
-              data={data}
+              data={foods}
               tagFilter={filterTagList}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
