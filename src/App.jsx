@@ -11,28 +11,24 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useGet, useMutate } from "restful-react";
-import { Poll } from "restful-react";
 
 function App() {
-  const MyComponent = () => {
-    const { data: foods } = useGet({
-      path: "/foods/",
-      // resolve: foods => (foods && foods.name),
-    });
-    console.log("Foods", foods);
 
-    return (
-      <>
-        <div>
-          {foods?.map((item, i) => (
-            <div key={i}>
-              {item.id} {item.name}
-            </div>
-          ))}
-        </div>
-      </>
-    );
-  };
+  const { data: rawFoods } = useGet({
+    path: "/foods/",
+  });
+
+
+  // if (rawFoods == null) {
+  //   foods = []
+  // } else {
+  //   foods = rawFoods;
+  // }
+  const foods = rawFoods ?? [];
+
+
+  console.log("Foods", foods);
+
 
   const [data, setData] = useState([
     {
@@ -178,91 +174,92 @@ function App() {
     setSorting(event.target.value);
   }
 
+
   return (
-    // <div className={style.App}>
-    //   <header className={style.Appheader}>
-    //     <FontAwesomeIcon
-    //       className={style.icon}
-    //       icon={faCoffee}
-    //     ></FontAwesomeIcon>{" "}
-    //     Laco's Coffeeshop
-    //   </header>
-    //   <main className={style.Appmain}>
-    //     <div className={style.tagInputWrapper}>
-    //       <TagInput
-    //         tagListState={[filterTagList, setFilterTagList]}
-    //         addToTagList={addToTagList}
-    //         removeFromTagList={removeFromTagList}
-    //       />
-    //     </div>
-    //     <div className={style.content}>
-    //       <div className={style.sortags}>
-    //         <form>
-    //           <label className={style.labelsorting} htmlFor="sorting">
-    //             Sorting:{" "}
-    //           </label>
-    //           <select
-    //             className={style.sorting}
-    //             name="sorting"
-    //             id="option"
-    //             onChange={handleChangeSorting}
-    //           >
-    //             <option> ---Choose sorting--- </option>
-    //             <option value="A-Z">A-Z</option>
-    //             <option value="Z-A">Z-A</option>
-    //             <option value="Popularity-ascending">
-    //               Popularity-ascending
-    //             </option>
-    //             <option value="Popularity-descending">
-    //               Popularity-descending
-    //             </option>
-    //             <option value="Newest">Newest</option>
-    //             <option value="Oldest">Oldest</option>
-    //           </select>
-    //         </form>
-    //         <div>
-    //           <Tags
-    //             data={data}
-    //             tagListState={filterTagList}
-    //             addToTagList={addToTagList}
-    //             removeFromTagList={removeFromTagList}
-    //           />
-    //         </div>
-    //       </div>
-    //       <div>
-    //         <FoodItemList
-    //           data={data}
-    //           tagFilter={filterTagList}
-    //           sorting={sorting}
-    //           setModalEditFlagTrue={setModalEditFlagTrue}
-    //           foodItemEditRenderState={[
-    //             foodItemEditRender,
-    //             setFoodItemEditRender,
-    //           ]}
-    //           addToTagList={addToTagList}
-    //         />
-    //       </div>
-    //     </div>
-    //     {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
-    //     <FontAwesomeIcon
-    //       className={style.addNew}
-    //       icon={faPlusCircle}
-    //       onClick={setModalFlagTrue}
-    //     ></FontAwesomeIcon>
-    //   </main>
-    //   <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
-    //     <NewFood onFoodSave={handleNewFoodSave} />
-    //   </Modal>
-    //   <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
-    //     <EditFood
-    //       onFoodEditSave={handleEditFoodSave}
-    //       onDeleteFood={handleDeleteFood}
-    //       foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
-    //       removeFromTagList={removeFromTagList}
-    //     />
-    //   </Modal>
-    //   {/* TODO: Modal window for edititing foods */}
-    <MyComponent />
+    <div className={style.App}>
+      <header className={style.Appheader}>
+        <FontAwesomeIcon
+          className={style.icon}
+          icon={faCoffee}
+        ></FontAwesomeIcon>{" "}
+        Laco's Coffeeshop
+      </header>
+      <main className={style.Appmain}>
+        <div className={style.tagInputWrapper}>
+          <TagInput
+            tagListState={[filterTagList, setFilterTagList]}
+            addToTagList={addToTagList}
+            removeFromTagList={removeFromTagList}
+          />
+        </div>
+        <div className={style.content}>
+          <div className={style.sortags}>
+            <form>
+              <label className={style.labelsorting} htmlFor="sorting">
+                Sorting:{" "}
+              </label>
+              <select
+                className={style.sorting}
+                name="sorting"
+                id="option"
+                onChange={handleChangeSorting}
+              >
+                <option> ---Choose sorting--- </option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+                <option value="Popularity-ascending">
+                  Popularity-ascending
+                </option>
+                <option value="Popularity-descending">
+                  Popularity-descending
+                </option>
+                <option value="Newest">Newest</option>
+                <option value="Oldest">Oldest</option>
+              </select>
+            </form>
+            <div>
+              <Tags
+                data={foods}
+                tagListState={filterTagList}
+                addToTagList={addToTagList}
+                removeFromTagList={removeFromTagList}
+              />
+            </div>
+          </div>
+          <div>
+            <FoodItemList
+              data={foods}
+              tagFilter={filterTagList}
+              sorting={sorting}
+              setModalEditFlagTrue={setModalEditFlagTrue}
+              foodItemEditRenderState={[
+                foodItemEditRender,
+                setFoodItemEditRender,
+              ]}
+              addToTagList={addToTagList}
+            />
+          </div>
+        </div>
+        {/* <input type="button" value="Add new food" onClick={setModalFlagTrue}></input> */}
+        <FontAwesomeIcon
+          className={style.addNew}
+          icon={faPlusCircle}
+          onClick={setModalFlagTrue}
+        ></FontAwesomeIcon>
+      </main>
+      <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
+        <NewFood onFoodSave={handleNewFoodSave} />
+      </Modal>
+      <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
+        <EditFood
+          onFoodEditSave={handleEditFoodSave}
+          onDeleteFood={handleDeleteFood}
+          foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+          removeFromTagList={removeFromTagList}
+        />
+      </Modal>
+      {/* TODO: Modal window for edititing foods */}
+    </div>
   );
 }
 

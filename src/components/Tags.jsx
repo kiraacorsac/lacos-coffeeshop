@@ -39,7 +39,7 @@ export default function Tags(props) {
 
   //sorting from A-Z
   allTagsList.sort(function (a, b) {
-    return a.localeCompare(b); //using String.prototype.localCompare()
+    return String(a).localeCompare(String(b)); //using String.prototype.localCompare()
   });
 
   let tagId = 0;
