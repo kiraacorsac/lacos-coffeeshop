@@ -104,6 +104,7 @@ export default function EditFood(props) {
             className={style.saveButton}
             type="button"
             value="Save"
+            
             onClick={() => props.onFoodEditSave(makeFoodRecord())}
           />
 
