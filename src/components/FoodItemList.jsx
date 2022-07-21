@@ -24,13 +24,13 @@ export default function FoodItemList(props) {
     });
   } else if (props.sorting === "Oldest")
     props.data.sort(function (a, b) {
-      return a.id - b.id;
+      return a.date.localeCompare(b.date);
     });
   else if (props.sorting === "Newest")
     props.data.sort(function (a, b) {
-      return b.id - a.id;
+      return b.date.localeCompare(a.date);
     });
-    
+
   for (const food of props.data) {
     const filterTagsListRender = [];
     for (const filterTag of props.tagFilter) {

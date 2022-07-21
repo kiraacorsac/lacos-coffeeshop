@@ -16,7 +16,7 @@ function App() {
   const { data: rawFoods } = useGet({
     path: "/foods/",
   });
-  const { data: tags } = useGet({
+  const { data: rawTags } = useGet({
     path: "/tags/",
   });
 
@@ -28,6 +28,7 @@ function App() {
   // }
 
   let foodsRaw = rawFoods ?? [];
+  let tags = rawTags ?? [];
 
   let foods = [];
   foodsRaw.forEach((data) => {
