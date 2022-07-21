@@ -11,13 +11,41 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useGet, useMutate } from "restful-react";
+import { Mutate } from "restful-react";
+import axios from "axios";
 
 function App() {
   const { data: rawFoods } = useGet({
     path: "/foods/",
+    debounce: {
+      // wait: 200,
+      // options: { leading: true, maxWait: 300, trailing: false },
+    } /* ms */,
   });
   const { data: tags } = useGet({
     path: "/tags/",
+  });
+
+  const { mutate: del, loading } = useMutate({
+    verb: "DELETE",
+    path: "/foods",
+    mock: {
+      mutate: (id) => console.log(`The item ${id} was deleted`),
+    },
+  });
+
+  const { mutate: post } = useMutate({
+    verb: "POST",
+    path: "/foods/",
+    mock: {
+      loading: true,
+      error: "oh no!",
+    },
+  });
+
+  const { mutate: put } = useMutate({
+    verb: "PUT",
+    path: "/foods/",
   });
 
   // const foods = []
@@ -28,14 +56,13 @@ function App() {
   // }
 
   let foodsRaw = rawFoods ?? [];
-
   let foods = [];
   foodsRaw.forEach((data) => {
     let tagsList = [];
     data.tags.forEach((datatags) => {
       tags.map((e) => {
         if (e.id === datatags) {
-          console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
+          // console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
           tagsList.push(e.tag);
         }
       });
@@ -118,7 +145,7 @@ function App() {
     },
   ]);
 
-  const [maxFoodId, setMaxFoodId] = useState(5);
+  const [maxFoodId, setMaxFoodId] = useState(100);
   const [foodItemEditRender, setFoodItemEditRender] = useState(null);
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
@@ -135,14 +162,15 @@ function App() {
     let newData = data.slice();
     let newFoodId = maxFoodId + 1;
     setMaxFoodId(newFoodId);
-    foodItem.id = newFoodId;
+    // foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
 
     newData.push(foodItem);
-    setData(newData);
+    // setData(newData);
+    post(newData).then(rawFoods);
     setModalNewFlag(false);
   }
 
@@ -150,16 +178,17 @@ function App() {
     let newData = data.filter((d) => d.id != foodItem.id);
     newData.push(foodItem);
     newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    // setData(newData);
+    put(newData).then(rawFoods);
     setModalEditFlag(false);
-    console.log("Data", data);
   }
 
   function handleDeleteFood(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
-    setModalEditFlag(false);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.sort((a, b) => a.id - b.id);
+    // setData(newData);
+    // setModalEditFlag(false);
+    del(foodItem.id).then(rawFoods);
     setModalEditFlag(false);
   }
 
