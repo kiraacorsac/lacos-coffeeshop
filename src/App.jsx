@@ -17,10 +17,6 @@ import axios from "axios";
 function App() {
   const { data: rawFoods } = useGet({
     path: "/foods/",
-    debounce: {
-      // wait: 200,
-      // options: { leading: true, maxWait: 300, trailing: false },
-    } /* ms */,
   });
   const { data: tags } = useGet({
     path: "/tags/",
@@ -29,18 +25,11 @@ function App() {
   const { mutate: del, loading } = useMutate({
     verb: "DELETE",
     path: "/foods",
-    mock: {
-      mutate: (id) => console.log(`The item ${id} was deleted`),
-    },
   });
 
   const { mutate: post } = useMutate({
     verb: "POST",
     path: "/foods/",
-    mock: {
-      loading: true,
-      error: "oh no!",
-    },
   });
 
   const { mutate: put } = useMutate({
@@ -160,8 +149,8 @@ function App() {
       month: "short",
     });
     let newData = data.slice();
-    let newFoodId = maxFoodId + 1;
-    setMaxFoodId(newFoodId);
+    // let newFoodId = maxFoodId + 1;
+    // setMaxFoodId(newFoodId);
     // foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
@@ -170,7 +159,7 @@ function App() {
 
     newData.push(foodItem);
     // setData(newData);
-    post(newData).then(rawFoods);
+    post(foodItem).then(rawFoods);
     setModalNewFlag(false);
   }
 
