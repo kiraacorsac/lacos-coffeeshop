@@ -3,15 +3,30 @@ import TagInput from "./TagInput";
 import style from "./FoodForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useGet, useMutate } from "restful-react";
 
 //TODO: add rest of the inputs
 //TODO: style
 export default function EditFood(props) {
+  const { data: rawTags } = useGet({
+    path: "/tags/",
+  });
+  let tags = rawTags ?? [];
   const [foodItemEditRender, setFoodItemEditRender] =
     props.foodItemEditRenderState;
   const [tagSet, setTagSet] = useState(new Set(foodItemEditRender.tags));
   const [imgLink, setImgLink] = useState(foodItemEditRender.image);
   const [name, setName] = useState(foodItemEditRender.name);
+
+  let tagsList = [];
+  tagSet.forEach((tag) => {
+    tags.map((e) => {
+      if (e.tag === tag) {
+        tagsList.push(e.id);
+      }
+    });
+  });
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -61,7 +76,7 @@ export default function EditFood(props) {
         id: foodItemEditRender.id,
         name: name,
         image: imgLink,
-        tags: [...tagSet],
+        tags: tagsList,
       };
   }
 
@@ -104,7 +119,6 @@ export default function EditFood(props) {
             className={style.saveButton}
             type="button"
             value="Save"
-            
             onClick={() => props.onFoodEditSave(makeFoodRecord())}
           />
 

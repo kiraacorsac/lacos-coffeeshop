@@ -9,9 +9,10 @@ import { useGet, useMutate } from "restful-react";
 //TODO: add rest of the inputs
 //TODO: style
 export default function NewFood(props) {
-  const { data: tags } = useGet({
+  const { data: rawTags } = useGet({
     path: "/tags/",
   });
+  let tags = rawTags ?? [];
 
   const [imgLink, setImgLink] = useState("");
   const [name, setName] = useState("");
@@ -21,7 +22,6 @@ export default function NewFood(props) {
   tagSet.forEach((tag) => {
     tags.map((e) => {
       if (e.tag === tag) {
-        console.log("tags: ", tag, "e.id:", e.id, "e.tag: ", e.tag);
         tagsList.push(e.id);
       }
     });

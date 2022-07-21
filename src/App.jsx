@@ -16,10 +16,24 @@ function App() {
   const { data: rawFoods } = useGet({
     path: "/foods/",
   });
-  const { data: tags } = useGet({
+  const { data: rawTags } = useGet({
     path: "/tags/",
   });
 
+  const { mutate: del, loading } = useMutate({
+    verb: "DELETE",
+    path: "/foods",
+  });
+
+  const { mutate: post } = useMutate({
+    verb: "POST",
+    path: "/foods/",
+  });
+
+  const { mutate: put } = useMutate({
+    verb: "PUT",
+    path: "/foods/",
+  });
   // const foods = []
   // if (rawFoods == null) {
   //   const foods = []
@@ -28,6 +42,7 @@ function App() {
   // }
 
   let foodsRaw = rawFoods ?? [];
+  let tags = rawTags ?? [];
 
   let foods = [];
   foodsRaw.forEach((data) => {
@@ -35,7 +50,7 @@ function App() {
     data.tags.forEach((datatags) => {
       tags.map((e) => {
         if (e.id === datatags) {
-          console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
+          // console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
           tagsList.push(e.tag);
         }
       });
@@ -127,39 +142,40 @@ function App() {
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
-    let current_time = new Date().toLocaleDateString("en-uk", {
+    let current_time = new Date().toLocaleDateString("en-ca", {
       year: "numeric",
       month: "numeric",
       day: "numeric",
     });
-    let newData = data.slice();
-    let newFoodId = maxFoodId + 1;
-    setMaxFoodId(newFoodId);
-    foodItem.id = newFoodId;
+    // let newData = data.slice();
+    // let newFoodId = maxFoodId + 1;
+    // setMaxFoodId(newFoodId);
+    // foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-
-    newData.push(foodItem);
-    setData(newData);
+    console.log("foodItem.date", foodItem.date);
+    // newData.push(foodItem);
+    post(foodItem).then(rawFoods);
+    // setData(newData);
     setModalNewFlag(false);
   }
 
   function handleEditFoodSave(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.push(foodItem);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.push(foodItem);
+    // newData.sort((a, b) => a.id - b.id);
+    put(foodItem).then(rawFoods);
+    // setData(newData);
     setModalEditFlag(false);
-    console.log("Data", data);
   }
 
   function handleDeleteFood(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
-    setModalEditFlag(false);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.sort((a, b) => a.id - b.id);
+    // setData(newData);
+    del(foodItem).then(rawFoods);
     setModalEditFlag(false);
   }
 
