@@ -3,13 +3,29 @@ import TagInput from "./TagInput";
 import style from "./FoodForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useGet, useMutate } from "restful-react";
 
 //TODO: add rest of the inputs
 //TODO: style
 export default function NewFood(props) {
+  const { data: tags } = useGet({
+    path: "/tags/",
+  });
+
   const [imgLink, setImgLink] = useState("");
   const [name, setName] = useState("");
   const [tagSet, setTagSet] = useState(new Set());
+
+  let tagsList = [];
+  tagSet.forEach((tag) => {
+    tags.map((e) => {
+      if (e.tag === tag) {
+        console.log("tags: ", tag, "e.id:", e.id, "e.tag: ", e.tag);
+        tagsList.push(e.id);
+      }
+    });
+  });
 
   function handleImgChange(event) {
     setImgLink(event.target.value);
@@ -63,7 +79,7 @@ export default function NewFood(props) {
       return {
         name: name,
         image: imgLink,
-        tags: [...tagSet],
+        tags: tagsList,
       };
   }
 
@@ -83,7 +99,12 @@ export default function NewFood(props) {
       <div className={style.form}>
         <img className={style.image} src={imgLink} alt="Image Link Preview" />
         <div className={style.secondbox}>
-          <input type="text" className={style.foodName} placeholder="Name" onChange={handleNameChange} />
+          <input
+            type="text"
+            className={style.foodName}
+            placeholder="Name"
+            onChange={handleNameChange}
+          />
           <TagInput
             tagListState={[tagSet, setTagSet]}
             addToTagList={addToTagList}

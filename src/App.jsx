@@ -128,9 +128,9 @@ function App() {
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
     let current_time = new Date().toLocaleDateString("en-uk", {
-      day: "numeric",
       year: "numeric",
-      month: "short",
+      month: "numeric",
+      day: "numeric",
     });
     let newData = data.slice();
     let newFoodId = maxFoodId + 1;
