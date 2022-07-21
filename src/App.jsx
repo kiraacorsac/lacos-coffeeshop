@@ -13,22 +13,44 @@ import React from "react";
 import { useGet, useMutate } from "restful-react";
 
 function App() {
-
   const { data: rawFoods } = useGet({
     path: "/foods/",
   });
+  const { data: tags } = useGet({
+    path: "/tags/",
+  });
 
-
+  // const foods = []
   // if (rawFoods == null) {
-  //   foods = []
+  //   const foods = []
   // } else {
-  //   foods = rawFoods;
+  //   const foods = rawFoods;
   // }
-  const foods = rawFoods ?? [];
 
+  let foodsRaw = rawFoods ?? [];
 
-  console.log("Foods", foods);
-
+  let foods = [];
+  foodsRaw.forEach((data) => {
+    let tagsList = [];
+    data.tags.forEach((datatags) => {
+      tags.map((e) => {
+        if (e.id === datatags) {
+          console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
+          tagsList.push(e.tag);
+        }
+      });
+    });
+    foods.push({
+      id: data.id,
+      name: data.name,
+      image: data.image,
+      likes: data.likes,
+      dislikes: data.dislikes,
+      fave: data.fave,
+      tags: tagsList,
+      date: data.date,
+    });
+  });
 
   const [data, setData] = useState([
     {
@@ -130,12 +152,14 @@ function App() {
     newData.sort((a, b) => a.id - b.id);
     setData(newData);
     setModalEditFlag(false);
+    console.log("Data", data);
   }
 
   function handleDeleteFood(foodItem) {
     let newData = data.filter((d) => d.id != foodItem.id);
     newData.sort((a, b) => a.id - b.id);
     setData(newData);
+    setModalEditFlag(false);
     setModalEditFlag(false);
   }
 
@@ -173,7 +197,6 @@ function App() {
   function handleChangeSorting(event) {
     setSorting(event.target.value);
   }
-
 
   return (
     <div className={style.App}>
