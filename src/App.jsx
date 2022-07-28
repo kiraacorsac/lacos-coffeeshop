@@ -176,7 +176,7 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.sort((a, b) => a.id - b.id);
     // setData(newData);
-    del(foodItem.id).then(rawFoods).then(rawFoods);
+    del(foodItem.id).then(rawFoods);
     setModalEditFlag(false);
   }
 
