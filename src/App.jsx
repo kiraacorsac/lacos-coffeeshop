@@ -13,7 +13,7 @@ import React from "react";
 import { useGet, useMutate } from "restful-react";
 
 function App() {
-  const { data: rawFoods } = useGet({
+  const { data: rawFoods, refetch } = useGet({
     path: "/foods/",
   });
   const { data: rawTags } = useGet({
@@ -157,7 +157,7 @@ function App() {
     foodItem.date = current_time;
     // newData.push(foodItem);
     console.log("new foodItem".foodItem);
-    post(foodItem).then(rawFoods);
+    post(foodItem).then(refetch);
     // setData(newData);
     setModalNewFlag(false);
   }
@@ -167,7 +167,7 @@ function App() {
     // newData.push(foodItem);
     // newData.sort((a, b) => a.id - b.id);
     console.log("edit foodItem".foodItem);
-    put(foodItem).then(rawFoods);
+    put(foodItem.id, { pathParams: "localhost" }).then(refetch);
     // setData(newData);
     setModalEditFlag(false);
   }
@@ -176,7 +176,7 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.sort((a, b) => a.id - b.id);
     // setData(newData);
-    del(foodItem.id).then(rawFoods);
+    del(foodItem.id).then(refetch);
     setModalEditFlag(false);
   }
 
