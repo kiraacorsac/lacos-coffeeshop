@@ -70,14 +70,22 @@ export default function EditFood(props) {
       alert("Image can not be empty");
     } else if (tagSet === "") {
       alert("Tags can not be empty");
-    } else
-      return {
-        ...foodItemEditRender,
-        id: foodItemEditRender.id,
-        name: name,
-        image: imgLink,
-        tags: tagsList,
-      };
+    } else console.log("foodItemEditRender", foodItemEditRender);
+    return {
+      ...foodItemEditRender,
+      id: foodItemEditRender.id,
+      name: name,
+      image: imgLink,
+      tags: tagsList,
+      // id: foodItemEditRender.id,
+      // name: name,
+      // image: imgLink,
+      // tags: tagsList,
+      // likes: foodItemEditRender.likes,
+      // dislikes: foodItemEditRender.dislikes,
+      // fave: foodItemEditRender.fave,
+      // date: foodItemEditRender.date,
+    };
   }
 
   return (

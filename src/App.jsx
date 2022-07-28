@@ -20,7 +20,7 @@ function App() {
     path: "/tags/",
   });
 
-  const { mutate: del, loading } = useMutate({
+  const { mutate: del } = useMutate({
     verb: "DELETE",
     path: "/foods",
   });
@@ -155,8 +155,8 @@ function App() {
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-    console.log("foodItem.date", foodItem.date);
     // newData.push(foodItem);
+    console.log("new foodItem".foodItem);
     post(foodItem).then(rawFoods);
     // setData(newData);
     setModalNewFlag(false);
@@ -166,6 +166,7 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.push(foodItem);
     // newData.sort((a, b) => a.id - b.id);
+    console.log("edit foodItem".foodItem);
     put(foodItem).then(rawFoods);
     // setData(newData);
     setModalEditFlag(false);
@@ -175,7 +176,7 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.sort((a, b) => a.id - b.id);
     // setData(newData);
-    del(foodItem).then(rawFoods);
+    del(foodItem.id).then(rawFoods).then(rawFoods);
     setModalEditFlag(false);
   }
 
@@ -214,9 +215,117 @@ function App() {
     setSorting(event.target.value);
   }
 
+  const [getTodoSK, setTodoSK] = useState("");
+  const [getTodoCZ, setTodoCZ] = useState("");
+  const [getTodoCH, setTodoCH] = useState("");
+
+  var apiKey = "6de9bfb3c9bb1f5bb3f71b73e0e0dc0d";
+  var Stupava = "Bratislava";
+  var Brno = "Brno";
+  var Geneva = "Geneva";
+  var GenevaLat = "46.2022";
+  var GenevaLon = "6.1457";
+
+  function fetchSelectedData() {
+    let requestSt = fetch(
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+        Stupava +
+        "&appid=" +
+        apiKey +
+        "&units=metric"
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((parsedData) => {
+        console.log(parsedData);
+        setTodoSK(parsedData);
+      });
+
+    let requestCZ = fetch(
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+        Brno +
+        "&appid=" +
+        apiKey +
+        "&units=metric"
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((parsedData) => {
+        // console.log(parsedData);
+        setTodoCZ(parsedData);
+      });
+
+    let requestCH = fetch(
+      "https://api.openweathermap.org/data/2.5/weather?lat=" +
+        GenevaLat +
+        "&lon=" +
+        GenevaLon +
+        "&appid=" +
+        apiKey +
+        "&units=metric"
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((parsedData) => {
+        // console.log(parsedData);
+        setTodoCH(parsedData);
+      });
+    setTimeout(fetchSelectedData, 60000);
+  }
+  function getTargetData(getTodoSK) {
+    if (getTodoSK == "") {
+      //|| getTodoCZ == "" || getTodoCH == "")
+      return "";
+    }
+    return (
+      <>
+        <div className={style.temp}>
+          {Stupava} : {getTodoSK.main.temp}°C
+          <img
+            src={
+              "https://openweathermap.org/img/wn/" +
+              getTodoSK.weather[0].icon +
+              "@2x.png"
+            }
+          ></img>
+        </div>
+        <div className={style.temp}>
+          {Brno} : {getTodoCZ.main.temp}°C
+          <img
+            src={
+              "https://openweathermap.org/img/wn/" +
+              getTodoCZ.weather[0].icon +
+              "@2x.png"
+            }
+          ></img>
+        </div>
+        <div className={style.temp}>
+          {Geneva} : {getTodoCH.main.temp}°C
+          <img
+            src={
+              "https://openweathermap.org/img/wn/" +
+              getTodoCH.weather[0].icon +
+              "@2x.png"
+            }
+          ></img>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className={style.App}>
       <header className={style.Appheader}>
+        <input
+          className={style.tempbutton}
+          type="button"
+          value="Fetch data!"
+          onClick={fetchSelectedData}
+        />
+        <h2> {getTargetData(getTodoSK)}</h2>
         <FontAwesomeIcon
           className={style.icon}
           icon={faCoffee}
@@ -301,5 +410,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
