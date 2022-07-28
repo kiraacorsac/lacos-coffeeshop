@@ -13,13 +13,27 @@ import React from "react";
 import { useGet, useMutate } from "restful-react";
 
 function App() {
-  const { data: rawFoods } = useGet({
+  const { data: rawFoods, refetch } = useGet({
     path: "/foods/",
   });
   const { data: rawTags } = useGet({
     path: "/tags/",
   });
 
+  const { mutate: del } = useMutate({
+    verb: "DELETE",
+    path: "/foods",
+  });
+
+  const { mutate: post } = useMutate({
+    verb: "POST",
+    path: "/foods/",
+  });
+
+  const { mutate: put } = useMutate({
+    verb: "PUT",
+    path: "/foods/",
+  });
   // const foods = []
   // if (rawFoods == null) {
   //   const foods = []
@@ -36,7 +50,7 @@ function App() {
     data.tags.forEach((datatags) => {
       tags.map((e) => {
         if (e.id === datatags) {
-          console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
+          // console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
           tagsList.push(e.tag);
         }
       });
@@ -128,39 +142,41 @@ function App() {
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
-    let current_time = new Date().toLocaleDateString("en-uk", {
-      day: "numeric",
+    let current_time = new Date().toLocaleDateString("en-ca", {
       year: "numeric",
-      month: "short",
+      month: "numeric",
+      day: "numeric",
     });
-    let newData = data.slice();
-    let newFoodId = maxFoodId + 1;
-    setMaxFoodId(newFoodId);
-    foodItem.id = newFoodId;
+    // let newData = data.slice();
+    // let newFoodId = maxFoodId + 1;
+    // setMaxFoodId(newFoodId);
+    // foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-
-    newData.push(foodItem);
-    setData(newData);
+    // newData.push(foodItem);
+    console.log("new foodItem".foodItem);
+    post(foodItem).then(refetch);
+    // setData(newData);
     setModalNewFlag(false);
   }
 
   function handleEditFoodSave(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.push(foodItem);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.push(foodItem);
+    // newData.sort((a, b) => a.id - b.id);
+    console.log("edit foodItem".foodItem);
+    put(foodItem.id, { pathParams: "localhost" }).then(refetch);
+    // setData(newData);
     setModalEditFlag(false);
-    console.log("Data", data);
   }
 
   function handleDeleteFood(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
-    setModalEditFlag(false);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.sort((a, b) => a.id - b.id);
+    // setData(newData);
+    del(foodItem.id).then(refetch);
     setModalEditFlag(false);
   }
 
@@ -286,5 +302,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

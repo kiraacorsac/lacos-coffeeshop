@@ -79,7 +79,6 @@ export default function FoodItem(props) {
 
           <div className={style.tagsDate}>
             <div className={style.tags}>Tags: {tagsRender}</div>
-
             <div className={style.date}>Date: {new Date(props.food.date).toLocaleDateString("en-uk", {
               day: "numeric",
               year: "numeric",
