@@ -27,12 +27,12 @@ function App() {
 
   const { mutate: post } = useMutate({
     verb: "POST",
-    path: "/foods/",
+    path: "/foods",
   });
 
   const { mutate: put } = useMutate({
     verb: "PUT",
-    path: "/foods/",
+    path: (id) => `/foods/${id}/`,
   });
   // const foods = []
   // if (rawFoods == null) {
@@ -156,7 +156,7 @@ function App() {
     foodItem.fave = false;
     foodItem.date = current_time;
     // newData.push(foodItem);
-    console.log("new foodItem".foodItem);
+    console.log("new foodItem", foodItem);
     post(foodItem).then(refetch);
     // setData(newData);
     setModalNewFlag(false);
@@ -166,8 +166,8 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.push(foodItem);
     // newData.sort((a, b) => a.id - b.id);
-    console.log("edit foodItem".foodItem);
-    put(foodItem.id, { pathParams: "localhost" }).then(refetch);
+    console.log("edit foodItem", foodItem);
+    put(foodItem, { pathParams: foodItem.id }).then(refetch);
     // setData(newData);
     setModalEditFlag(false);
   }
@@ -272,6 +272,7 @@ function App() {
               tagFilter={filterTagList}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
+              onFoodEditSave={handleEditFoodSave}
               foodItemEditRenderState={[
                 foodItemEditRender,
                 setFoodItemEditRender,

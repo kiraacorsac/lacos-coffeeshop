@@ -29,18 +29,35 @@ export default function FoodItem(props) {
   function switchFeedback() {
     if (feedbackIkon == farHeart) {
       setFeedbackIkon(fasHeart);
+      handleEditFoodSave();
     } else {
       setFeedbackIkon(farHeart);
+      handleEditFoodSave();
     }
   }
 
   function clickHandlerThumbsUp() {
     setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1);
+    handleEditFoodSave();
   }
   function clickHandlerThumbsDown() {
     setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
+    handleEditFoodSave();
   }
 
+  function makeFoodRecord() {
+    return {
+      ...foodItemEditRender,
+      id: foodItemEditRender.id,
+      likes: buttonClickedTimesThumbsUp,
+      dislikes: buttonClickedTimesThumbsDown,
+      fave: feedbackIkon,
+    };
+  }
+
+  function handleEditFoodSave() {
+    props.handleEditFoodSave(makeFoodRecord());
+  }
   const tagsRender = (
     <div className={style.tag}>{props.food.tags.join(", ")}</div>
   );
@@ -79,11 +96,14 @@ export default function FoodItem(props) {
 
           <div className={style.tagsDate}>
             <div className={style.tags}>Tags: {tagsRender}</div>
-            <div className={style.date}>Date: {new Date(props.food.date).toLocaleDateString("en-uk", {
-              day: "numeric",
-              year: "numeric",
-              month: "short",
-            })}</div>
+            <div className={style.date}>
+              Date:{" "}
+              {new Date(props.food.date).toLocaleDateString("en-uk", {
+                day: "numeric",
+                year: "numeric",
+                month: "short",
+              })}
+            </div>
           </div>
         </div>
       </div>
