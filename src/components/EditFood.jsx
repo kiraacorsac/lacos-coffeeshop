@@ -37,6 +37,7 @@ export default function EditFood(props) {
   }
 
   function addToTagSet(tag) {
+    console.log("cau");
     let tagListArray = [...tagSet];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
@@ -47,8 +48,11 @@ export default function EditFood(props) {
     }
 
     let newTagList = new Set(tagSet); // slice for sets
+    console.log("newTagList", newTagList);
+    console.log("newTagList", tag);
     newTagList.add(tag); // push for set
     setTagSet(newTagList);
+    console.log("tagSet", tagSet);
   }
 
   function removeFromTagSet(tag) {
@@ -71,12 +75,13 @@ export default function EditFood(props) {
     } else if (tagSet === "") {
       alert("Tags can not be empty");
     } else console.log("foodItemEditRender", foodItemEditRender);
+    console.log("tagSet from Edit", tagSet);
     return {
       ...foodItemEditRender,
       id: foodItemEditRender.id,
       name: name,
       image: imgLink,
-      tags: tagsList,
+      tags: [...tagSet],
       // id: foodItemEditRender.id,
       // name: name,
       // image: imgLink,

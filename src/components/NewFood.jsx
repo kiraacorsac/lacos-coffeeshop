@@ -79,7 +79,7 @@ export default function NewFood(props) {
       return {
         name: name,
         image: imgLink,
-        tags: tagsList,
+        tags: [...tagSet],
       };
   }
 

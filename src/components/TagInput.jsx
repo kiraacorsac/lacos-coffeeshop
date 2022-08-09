@@ -23,27 +23,31 @@ export default function TagInput(props) {
   const [tagList, setTagList] = props.tagListState;
 
   function addSearchTagToTagList() {
+    console.log("searchedTag2", searchedTag);
     props.addToTagList(searchedTag);
     setSearchedTag("");
   }
 
   function handleChange(event) {
     setSearchedTag(event.target.value);
+    console.log("value", event.target.value);
   }
 
   function handleKeyPress(event) {
     if (event.key === "Enter") {
+      console.log("searchedTag1", searchedTag);
       addSearchTagToTagList();
+      console.log("handleKeyPress");
+      
     }
   }
 
   function handleTagDelete(tag) {
-      console.log("tag delete", tag)
+    console.log("tag delete", tag);
     props.removeFromTagList(tag);
   }
 
   const tagListRender = [];
-  
 
   for (const tag of tagList) {
     tagListRender.push(

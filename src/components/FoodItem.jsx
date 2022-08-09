@@ -6,57 +6,78 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useGet, useMutate } from "restful-react";
 
 export default function FoodItem(props) {
-  const [buttonClickedTimesThumbsUp, setbuttonClickedTimesThumbsUp] = useState(
-    props.food.likes
-  );
-  const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] =
-    useState(props.food.dislikes);
-  const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
+  const { data: rawTags } = useGet({
+    path: "/tags/",
+  });
+  let tags = rawTags ?? [];
+
+  let buttonClickedTimesThumbsUp = props.food.likes;
+  let buttonClickedTimesThumbsDown = props.food.dislikes;
+  let feedbackIkon = fasHeart;
+  let feedbackBoolean = props.food.fave;
+  let tagSet = [props.food.tags];
+  // const [tagSet, setTagSet] = useState(new Set(props.food.tags));
   const [foodItemEditRender, setFoodItemEditRender] =
     props.foodItemEditRenderState;
   const tagListRender = props.tagListRenderState;
   const foodItemRender = [];
 
+  if (props.food.fave === false) {
+    feedbackIkon = farHeart;
+  } else {
+    feedbackIkon = fasHeart;
+  }
+
+  let tagsList = [];
+  tagSet.forEach((tag) => {
+    tags.map((e) => {
+      if (e.tag === tag) {
+        tagsList.push(e.id);
+      }
+    });
+  });
+
   function handlePushFoodToEditRender() {
-    // console.log("handlePushFoodToEditRender", props.food);
     setFoodItemEditRender(props.food);
-    // console.log("props.food.tags: ", props.food.tags);
     props.setModalEditFlagTrue();
   }
 
   function switchFeedback() {
-    if (feedbackIkon == farHeart) {
-      setFeedbackIkon(fasHeart);
+    if (props.food.fave == false) {
+      feedbackBoolean = true;
       handleEditFoodSave();
     } else {
-      setFeedbackIkon(farHeart);
+      feedbackBoolean = false;
       handleEditFoodSave();
     }
   }
 
   function clickHandlerThumbsUp() {
-    setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1);
+    buttonClickedTimesThumbsUp = buttonClickedTimesThumbsUp + 1;
     handleEditFoodSave();
   }
   function clickHandlerThumbsDown() {
-    setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
+    buttonClickedTimesThumbsDown = buttonClickedTimesThumbsDown + 1;
     handleEditFoodSave();
   }
 
   function makeFoodRecord() {
     return {
-      ...foodItemEditRender,
-      id: foodItemEditRender.id,
+      ...props.food,
+      id: props.food.id,
       likes: buttonClickedTimesThumbsUp,
       dislikes: buttonClickedTimesThumbsDown,
-      fave: feedbackIkon,
+      fave: feedbackBoolean,
+      tags: tagsList,
     };
   }
 
   function handleEditFoodSave() {
-    props.handleEditFoodSave(makeFoodRecord());
+    props.onFoodEditSave(makeFoodRecord());
   }
   const tagsRender = (
     <div className={style.tag}>{props.food.tags.join(", ")}</div>

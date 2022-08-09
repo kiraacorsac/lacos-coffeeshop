@@ -27,19 +27,18 @@ function App() {
 
   const { mutate: post } = useMutate({
     verb: "POST",
-    path: "/foods",
+    path: "/foods/",
+  });
+
+  const { mutate: posttags } = useMutate({
+    verb: "POST",
+    path: "/tags/",
   });
 
   const { mutate: put } = useMutate({
     verb: "PUT",
     path: (id) => `/foods/${id}/`,
   });
-  // const foods = []
-  // if (rawFoods == null) {
-  //   const foods = []
-  // } else {
-  //   const foods = rawFoods;
-  // }
 
   let foodsRaw = rawFoods ?? [];
   let tags = rawTags ?? [];
@@ -50,7 +49,6 @@ function App() {
     data.tags.forEach((datatags) => {
       tags.map((e) => {
         if (e.id === datatags) {
-          // console.log("datatags: ", datatags, "e.id:", e.id, "e.tag: ", e.tag);
           tagsList.push(e.tag);
         }
       });
@@ -162,11 +160,33 @@ function App() {
     setModalNewFlag(false);
   }
 
+  function handleNewTagSave(tagItems) {
+    // let tagsListtag = [];
+    // tagItems.forEach((tag) => {
+    //   tags.map((e) => {
+    //     if (e.id === tag) {
+    //       tagsListtag.push(e.tag);
+    //     }
+    //   });
+    // });
+    // console.log("tagsListtag tags", tagsListtag);
+    tagItems.forEach((tag) => {
+      tags.map((e) => {
+        console.log("e.tag", e.tag);
+        if (e.tag != tag) {
+          console.log("tag nie je", tag);
+          posttags(tag).then(refetch);
+        }
+      });
+    });
+  }
+
   function handleEditFoodSave(foodItem) {
+    console.log("foodItem.tags", foodItem.tags);
+    handleNewTagSave(foodItem.tags);
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.push(foodItem);
     // newData.sort((a, b) => a.id - b.id);
-    console.log("edit foodItem", foodItem);
     put(foodItem, { pathParams: foodItem.id }).then(refetch);
     // setData(newData);
     setModalEditFlag(false);
