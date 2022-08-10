@@ -132,7 +132,7 @@ function App() {
   ]);
 
   const [maxFoodId, setMaxFoodId] = useState(5);
-  const [foodItemEditRender, setFoodItemEditRender] = useState(null);
+  const [foodItemEditRender, setFoodItemEditRender] = useState(foods);
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
 
@@ -161,6 +161,12 @@ function App() {
   }
 
   function handleNewTagSave(tagItems) {
+    let tagsListtag = [];
+    tags.forEach((tag) => {
+      tagsListtag.push(tag.tag);
+    });
+
+    console.log("tagsListtag tags", tagsListtag);
     // let tagsListtag = [];
     // tagItems.forEach((tag) => {
     //   tags.map((e) => {
@@ -170,14 +176,28 @@ function App() {
     //   });
     // });
     // console.log("tagsListtag tags", tagsListtag);
+
+    //   tagItems.forEach((tag) => {
+    //     tags.map((e) => {
+    //       console.log("e.tag", e.tag);
+    //       if (e.tag != tag) {
+    //         console.log("tag nie je", tag);
+    //         posttags(tag).then(refetch);
+    //         console.log(tag, "posted");
+    //       }
+    //     });
+    //   });
+    // }
+
     tagItems.forEach((tag) => {
-      tags.map((e) => {
-        console.log("e.tag", e.tag);
-        if (e.tag != tag) {
-          console.log("tag nie je", tag);
-          posttags(tag).then(refetch);
-        }
-      });
+      console.log(tags, "tags");
+      if (!tagsListtag.includes(tag)) {
+        console.log(tag, "nie je v backends");
+        posttags(tag).then(refetch);
+        console.log(tag, "posted");
+      } else {
+        console.log(tag, "je v backends");
+      }
     });
   }
 
