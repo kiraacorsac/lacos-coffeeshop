@@ -68,11 +68,9 @@ export default function FoodItem(props) {
   function makeFoodRecord() {
     return {
       ...props.food,
-      id: props.food.id,
       likes: buttonClickedTimesThumbsUp,
       dislikes: buttonClickedTimesThumbsDown,
       fave: feedbackBoolean,
-      tags: tagsList,
     };
   }
 
