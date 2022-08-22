@@ -9,20 +9,30 @@ import { useGet, useMutate } from "restful-react";
 //TODO: add rest of the inputs
 //TODO: style
 export default function NewFood(props) {
-  const { data: rawTags } = useGet({
+  const { data: rawTags, refetch } = useGet({
     path: "/tags/",
   });
   let tags = rawTags ?? [];
+
+  const { mutate: postTags } = useMutate({
+    verb: "POST",
+    path: "/tags/",
+  });
 
   const [imgLink, setImgLink] = useState("");
   const [name, setName] = useState("");
   const [tagSet, setTagSet] = useState(new Set());
 
-  let tagsList = [];
+  let tagsListTag = [];
+  tags.forEach((tag) => {
+    tagsListTag.push(tag.tag);
+  });
+
+  let tagsListID = [];
   tagSet.forEach((tag) => {
     tags.map((e) => {
       if (e.tag === tag) {
-        tagsList.push(e.id);
+        tagsListID.push(e.id);
       }
     });
   });
@@ -41,7 +51,7 @@ export default function NewFood(props) {
     return tag1LowerCase == tag2LowerCase;
   }
 
-  function addToTagList(tag) {
+  function addToTagSet(tag) {
     let tagListArray = [...tagSet];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
@@ -54,6 +64,13 @@ export default function NewFood(props) {
     let newTagList = new Set(tagSet); // slice for sets
     newTagList.add(tag); // push for set
     setTagSet(newTagList);
+    tagPost(tag);
+  }
+
+  function tagPost(tag) {
+    if (!tagsListTag.includes(tag)) {
+      postTags({ tag: tag }).then(refetch);
+    }
   }
 
   function removeFromTagSet(tag) {
@@ -79,7 +96,7 @@ export default function NewFood(props) {
       return {
         name: name,
         image: imgLink,
-        tags: [...tagSet],
+        tags: tagsListID,
       };
   }
 
@@ -107,7 +124,7 @@ export default function NewFood(props) {
           />
           <TagInput
             tagListState={[tagSet, setTagSet]}
-            addToTagList={addToTagList}
+            addToTagList={addToTagSet}
             removeFromTagList={removeFromTagSet}
           />
           <input

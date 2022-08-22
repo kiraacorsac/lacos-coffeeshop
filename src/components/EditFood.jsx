@@ -9,21 +9,30 @@ import { useGet, useMutate } from "restful-react";
 //TODO: add rest of the inputs
 //TODO: style
 export default function EditFood(props) {
-  const { data: rawTags } = useGet({
+  const [rawTags, refetchTags] = props.tags;
+  let tags = rawTags ?? [];
+
+  const { mutate: postTags } = useMutate({
+    verb: "POST",
     path: "/tags/",
   });
-  let tags = rawTags ?? [];
+
   const [foodItemEditRender, setFoodItemEditRender] =
     props.foodItemEditRenderState;
   const [tagSet, setTagSet] = useState(new Set(foodItemEditRender.tags));
   const [imgLink, setImgLink] = useState(foodItemEditRender.image);
   const [name, setName] = useState(foodItemEditRender.name);
 
-  let tagsList = [];
+  let tagsListTag = [];
+  tags.forEach((tag) => {
+    tagsListTag.push(tag.tag);
+  });
+
+  let tagsListID = [];
   tagSet.forEach((tag) => {
     tags.map((e) => {
       if (e.tag === tag) {
-        tagsList.push(e.id);
+        tagsListID.push(e.id);
       }
     });
   });
@@ -36,8 +45,7 @@ export default function EditFood(props) {
     setName(event.target.value);
   }
 
-  function addToTagSet(tag) {
-    console.log("cau");
+  function addToTagList(tag) {
     let tagListArray = [...tagSet];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
@@ -51,8 +59,15 @@ export default function EditFood(props) {
     console.log("newTagList", newTagList);
     console.log("newTagList", tag);
     newTagList.add(tag); // push for set
+    tagPost(tag);
     setTagSet(newTagList);
     console.log("tagSet", tagSet);
+  }
+
+  function tagPost(tag) {
+    if (!tagsListTag.includes(tag)) {
+      postTags({ tag: tag }).then(refetchTags);
+    }
   }
 
   function removeFromTagSet(tag) {
@@ -81,7 +96,7 @@ export default function EditFood(props) {
       id: foodItemEditRender.id,
       name: name,
       image: imgLink,
-      tags: [...tagSet],
+      tags: tagsListID,
       // id: foodItemEditRender.id,
       // name: name,
       // image: imgLink,
@@ -118,7 +133,7 @@ export default function EditFood(props) {
           />
           <TagInput
             tagListState={[tagSet, setTagSet]}
-            addToTagList={addToTagSet}
+            addToTagList={addToTagList}
             removeFromTagList={removeFromTagSet}
           />
           <input

@@ -13,10 +13,10 @@ import React from "react";
 import { useGet, useMutate } from "restful-react";
 
 function App() {
-  const { data: rawFoods, refetch } = useGet({
+  const { data: rawFoods, refetch: refetchFood } = useGet({
     path: "/foods/",
   });
-  const { data: rawTags } = useGet({
+  const { data: rawTags, refetch: refetchTags } = useGet({
     path: "/tags/",
   });
 
@@ -30,7 +30,7 @@ function App() {
     path: "/foods/",
   });
 
-  const { mutate: posttags } = useMutate({
+  const { mutate: postTags } = useMutate({
     verb: "POST",
     path: "/tags/",
   });
@@ -155,59 +155,17 @@ function App() {
     foodItem.date = current_time;
     // newData.push(foodItem);
     console.log("new foodItem", foodItem);
-    post(foodItem).then(refetch);
+    post(foodItem).then(refetchFood);
     // setData(newData);
     setModalNewFlag(false);
   }
 
-  function handleNewTagSave(tagItems) {
-    let tagsListtag = [];
-    tags.forEach((tag) => {
-      tagsListtag.push(tag.tag);
-    });
-
-    console.log("tagsListtag tags", tagsListtag);
-    // let tagsListtag = [];
-    // tagItems.forEach((tag) => {
-    //   tags.map((e) => {
-    //     if (e.id === tag) {
-    //       tagsListtag.push(e.tag);
-    //     }
-    //   });
-    // });
-    // console.log("tagsListtag tags", tagsListtag);
-
-    //   tagItems.forEach((tag) => {
-    //     tags.map((e) => {
-    //       console.log("e.tag", e.tag);
-    //       if (e.tag != tag) {
-    //         console.log("tag nie je", tag);
-    //         posttags(tag).then(refetch);
-    //         console.log(tag, "posted");
-    //       }
-    //     });
-    //   });
-    // }
-
-    tagItems.forEach((tag) => {
-      console.log(tags, "tags");
-      if (!tagsListtag.includes(tag)) {
-        console.log(tag, "nie je v backends");
-        posttags(tag).then(refetch);
-        console.log(tag, "posted");
-      } else {
-        console.log(tag, "je v backends");
-      }
-    });
-  }
-
   function handleEditFoodSave(foodItem) {
-    console.log("foodItem.tags", foodItem.tags);
-    handleNewTagSave(foodItem.tags);
+    // handleNewTagSave(foodItem.tags);
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.push(foodItem);
     // newData.sort((a, b) => a.id - b.id);
-    put(foodItem, { pathParams: foodItem.id }).then(refetch);
+    put(foodItem, { pathParams: foodItem.id }).then(refetchFood);
     // setData(newData);
     setModalEditFlag(false);
   }
@@ -216,7 +174,7 @@ function App() {
     // let newData = data.filter((d) => d.id != foodItem.id);
     // newData.sort((a, b) => a.id - b.id);
     // setData(newData);
-    del(foodItem.id).then(refetch);
+    del(foodItem.id).then(refetchFood);
     setModalEditFlag(false);
   }
 
@@ -246,7 +204,6 @@ function App() {
   }
 
   function setModalEditFlagTrue(flag) {
-    //   console.log("setModalEditFlagTrue");
     setModalEditFlag(true);
   }
 
@@ -337,6 +294,7 @@ function App() {
           onDeleteFood={handleDeleteFood}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
           removeFromTagList={removeFromTagList}
+          tags={[rawTags, refetchTags]}
         />
       </Modal>
       {/* TODO: Modal window for edititing foods */}
