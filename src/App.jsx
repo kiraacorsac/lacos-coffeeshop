@@ -28,39 +28,29 @@ function App() {
   // } else {
   //   foods = rawFoods;
   // }
-  let foods = rawFoods ?? [];
-  for (let food of foods) {
+  let rawFoodsArray = rawFoods ?? [];
+  let foods = [];
+  for (let food of rawFoodsArray) {
     let stringTagList = [];
     for (let tag of food.tags) {
-      console.log("Filip's Proof:", tags);
-      console.log("Fetching the Tag name:", tags.find(element => element.id === tag));
       stringTagList.push(tags.find(element => element.id === tag)?.tag);
       // food.tags.push(tags.find(element => element.id === tag)?.tag);
     }
-    console.log("Named Tag list:", stringTagList);
-    console.log("Current food tags:", food.tags);
-    // food.tags = stringTagList;
-    food.tags = stringTagList;
-    console.log("After replace food tags:", food.tags);
-    // food.tags = stringTagList;
-
-    console.log("What does the food look like?", food);
-    console.log("Looking again:", food.tags);
-
+    // //foods.push({
+    // //  id: food.id,
+    //   name: food.name,
+    //   image: food.image,
+    //   likes: food.likes,
+    //   dislikes: food.dislikes,
+    //   fave: food.fave,
+    //   tags: stringTagList,
+    //   date: food.date,
+    // })
+    foods.push({
+      ...food,
+      tags: stringTagList,
+    })
   }
-
-
-  console.log("Foods", foods);
-  for (let food of foods) {
-    console.log("looping through the foods list, looking at food tag list:", food.tags);
-    console.log("last food print:", food)
-  }
-
-  console.log("Tags", tags);
-  for (let each of tags) {
-    console.log("Tag:", each);
-  }
-
 
   const [data, setData] = useState([
     // {
