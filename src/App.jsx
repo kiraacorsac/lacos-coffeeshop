@@ -18,82 +18,62 @@ function App() {
     path: "/foods/",
   });
 
+  const { data: rawtags } = useGet({ path: "/tags/", });
+
+  const tags = rawtags ?? [];
+
 
   // if (rawFoods == null) {
   //   foods = []
   // } else {
   //   foods = rawFoods;
   // }
-  const foods = rawFoods ?? [];
+  let foods = rawFoods ?? [];
+  for (let food of foods) {
+    let stringTagList = [];
+    for (let tag of food.tags) {
+      console.log("Filip's Proof:", tags);
+      console.log("Fetching the Tag name:", tags.find(element => element.id === tag));
+      stringTagList.push(tags.find(element => element.id === tag)?.tag);
+      // food.tags.push(tags.find(element => element.id === tag)?.tag);
+    }
+    console.log("Named Tag list:", stringTagList);
+    console.log("Current food tags:", food.tags);
+    // food.tags = stringTagList;
+    food.tags = stringTagList;
+    console.log("After replace food tags:", food.tags);
+    // food.tags = stringTagList;
+
+    console.log("What does the food look like?", food);
+    console.log("Looking again:", food.tags);
+
+  }
 
 
   console.log("Foods", foods);
+  for (let food of foods) {
+    console.log("looping through the foods list, looking at food tag list:", food.tags);
+    console.log("last food print:", food)
+  }
+
+  console.log("Tags", tags);
+  for (let each of tags) {
+    console.log("Tag:", each);
+  }
 
 
   const [data, setData] = useState([
-    {
-      id: 0,
-      name: "Pepperoni Pizza",
-      image: "https://i.imgur.com/YBZacyX.jpeg",
-      likes: 5,
-      dislikes: 1,
-      fave: true,
-      tags: ["italian", "meat", "baked"],
-      date: "1 Feb 2018",
-    },
-    {
-      id: 1,
-      name: "Meatball Spaghetti",
-      image:
-        "https://th.bing.com/th/id/R.b9461de6a6d92e22a0093e54f44aa766?rik=KyLC75MJQaLtHA&riu=http%3a%2f%2fwww.realfoodfinds.com%2fwp-content%2fuploads%2f2014%2f09%2fSpaghetti-Meatballs-10.jpg&ehk=XoDGoZkndS3itt6AQmeCu6oMkZK%2fEk0tnxrNjsJsjp4%3d&risl=&pid=ImgRaw&r=0", //"https://i.imgur.com/1JR95n3.jpeg",
-      likes: 9,
-      dislikes: 3,
-      fave: false,
-      tags: ["italian", "meat", "pasta"],
-      date: "1 Mar 2018",
-    },
-    {
-      id: 2,
-      name: "Cake",
-      image: "https://i.imgur.com/BgAvBzn.jpeg",
-      likes: 15,
-      dislikes: 3,
-      fave: false,
-      tags: ["dessert", "sweet", "baked"],
-      date: "15 Jul 2018",
-    },
-    {
-      id: 3,
-      name: "Svieckova",
-      image: "https://denzeny.sk/wp-content/uploads/2015/08/svieckova.jpg",
-      likes: 15,
-      dislikes: 3,
-      fave: false,
-      tags: ["Czech", "meat", "baked"],
-      date: "19 Sep 2020",
-    },
-    {
-      id: 4,
-      name: "Halusky s bryndzou",
-      image:
-        "https://th.bing.com/th/id/R.435c27a76b2d63c16da76e69bd93d876?rik=g3%2fjUrnXO8si3A&riu=http%3a%2f%2fwww.varenie.sk%2fcommon%2fir2%2frecepty%2f4250%2fzdet--c300xc225.jpg&ehk=EbeX9Yti0owJqRyC31cxqdJ6xo8C52u7CmY0GnG5q3w%3d&risl=&pid=ImgRaw&r=0",
-      likes: 15,
-      dislikes: 3,
-      fave: false,
-      tags: ["Slovakian", "potato", "sheep cheese", "boiled"],
-      date: "15 Feb 2022",
-    },
-    {
-      id: 5,
-      name: "Turkish kebab",
-      image:
-        "https://www.thespruceeats.com/thmb/j1SF4NKfL3E7eEq3QB8LLftri58=/566x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hands-744987451-5a71e9f56bf0690037b7b412.jpg",
-      likes: 15,
-      dislikes: 3,
-      fave: false,
-      tags: ["Turkey", "meat", "baked"],
-      date: "2 Mar 2022",
-    },
+    // {
+    //   id: 0,
+    //   name: "Pepperoni Pizza",
+    //   image: "https://i.imgur.com/YBZacyX.jpeg",
+    //   likes: 5,
+    //   dislikes: 1,
+    //   fave: true,
+    //   tags: ["italian", "meat", "baked"],
+    //   date: "1 Feb 2018",
+    // },
+
   ]);
 
   const [maxFoodId, setMaxFoodId] = useState(5);

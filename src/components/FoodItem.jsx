@@ -76,12 +76,12 @@ export default function FoodItem(props) {
         </div>
         <div className={style.nametagsbox}>
           <div className={style.name}>{props.food.name}</div>
-        
-        <div className={style.tagsDate}>
-          <div className={style.tags}>Tags: {tagsRender}</div>
 
-          <div className={style.date}>Date: {props.food.date}</div>
-        </div>
+          <div className={style.tagsDate}>
+            <div className={style.tags}>Tags: {tagsRender}</div>
+
+            <div className={style.date}>Date: {props.food.date}</div>
+          </div>
         </div>
       </div>
     </div>
