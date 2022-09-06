@@ -14,7 +14,12 @@ import { useGet, useMutate } from "restful-react";
 
 function App() {
 
-  const { data: rawFoods } = useGet({
+  const { data: rawFoods, refetch } = useGet({
+    path: "/foods/",
+  });
+
+  const { mutate: post } = useMutate({
+    verb: "POST",
     path: "/foods/",
   });
 
@@ -22,6 +27,7 @@ function App() {
 
   const tags = rawtags ?? [];
 
+  
 
   // if (rawFoods == null) {
   //   foods = []
@@ -75,22 +81,12 @@ function App() {
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
-    let current_time = new Date().toLocaleDateString("en-uk", {
-      day: "numeric",
-      year: "numeric",
-      month: "short",
-    });
-    let newData = data.slice();
-    let newFoodId = maxFoodId + 1;
-    setMaxFoodId(newFoodId);
-    foodItem.id = newFoodId;
+    let current_time = new Date().toISOString().substring(0, 10);
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-
-    newData.push(foodItem);
-    setData(newData);
+    post(foodItem).then(refetch)
     setModalNewFlag(false);
   }
 
