@@ -14,7 +14,7 @@ import { useGet, useMutate } from "restful-react";
 
 function App() {
 
-  const { data: rawFoods } = useGet({
+  const { data: rawFoods, refetch } = useGet({
     path: "/foods/",
   });
 
@@ -22,7 +22,26 @@ function App() {
 
   const tags = rawtags ?? [];
 
+  const { mutate: del } = useMutate({
+    verb: "DELETE",
+    path: "/foods",
+  })
 
+  const { mutate: post } = useMutate({
+    verb: "POST",
+    path: "/foods/",
+  })
+
+  const { mutate: put } = useMutate({
+    verb: "PUT",
+    path: makePutPath,
+  })
+
+
+  function makePutPath(foodID) {
+    return `/foods/${foodID}/`
+
+  }
   // if (rawFoods == null) {
   //   foods = []
   // } else {
@@ -73,39 +92,37 @@ function App() {
 
   const [filterTagList, setFilterTagList] = useState(new Set([]));
 
-  //TODO: create unique ID for food item
+
   function handleNewFoodSave(foodItem) {
-    let current_time = new Date().toLocaleDateString("en-uk", {
-      day: "numeric",
-      year: "numeric",
-      month: "short",
-    });
-    let newData = data.slice();
-    let newFoodId = maxFoodId + 1;
-    setMaxFoodId(newFoodId);
-    foodItem.id = newFoodId;
+    let current_time = new Date().toISOString().substring(0, 10);
+    // let newData = data.slice();
+    // let newFoodId = maxFoodId + 1;
+    // setMaxFoodId(newFoodId);
+    // foodItem.id = newFoodId;
     foodItem.likes = 0;
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
 
-    newData.push(foodItem);
-    setData(newData);
+    post(foodItem).then(refetch);
+    // setData(newData);
     setModalNewFlag(false);
   }
 
   function handleEditFoodSave(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.push(foodItem);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    console.log("Edit Food".foodItem)
+    put(foodItem, { pathParams: foodItem.id }).then(refetch);
+    // newData.sort((a, b) => a.id - b.id);
+    // setData(newData);
     setModalEditFlag(false);
   }
 
   function handleDeleteFood(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    // let newData = data.filter((d) => d.id != foodItem.id);
+    // newData.sort((a, b) => a.id - b.id);
+    // setData(newData);
+    del(foodItem.id).then(refetch);
     setModalEditFlag(false);
   }
 
