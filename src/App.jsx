@@ -25,8 +25,12 @@ function App() {
 
   const { mutate: put } = useMutate({
     verb: "PUT",
-    path: "/foods",
+    path: makePutPath,
   });
+
+  function makePutPath(foodID){
+    return `/foods/${foodID}/`
+  }
 
   const { mutate: del } = useMutate({
     verb: "DELETE",
@@ -105,7 +109,7 @@ function App() {
     //newData.push(foodItem);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    put(foodItem.id).then(refetch)
+    put(foodItem, { pathParams: foodItem.id }).then(refetch);
     setModalEditFlag(false);
   }
 
