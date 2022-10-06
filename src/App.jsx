@@ -28,7 +28,7 @@ function App() {
     path: makePutPath,
   });
 
-  function makePutPath(foodID){
+  function makePutPath(foodID) {
     return `/foods/${foodID}/`
   }
 
@@ -41,7 +41,7 @@ function App() {
 
   const tags = rawtags ?? [];
 
-  
+
 
   // if (rawFoods == null) {
   //   foods = []
@@ -214,6 +214,7 @@ function App() {
               tagFilter={filterTagList}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
+              onFoodEditSave={handleEditFoodSave}
               foodItemEditRenderState={[
                 foodItemEditRender,
                 setFoodItemEditRender,

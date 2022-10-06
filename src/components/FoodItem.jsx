@@ -35,10 +35,22 @@ export default function FoodItem(props) {
   }
 
   function clickHandlerThumbsUp() {
-    setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1);
+    setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1)
+    let newFood = {
+      ...props.food
+    }
+    newFood.likes = newFood.likes + 1
+    props.onFoodEditSave(newFood);
   }
+
+
   function clickHandlerThumbsDown() {
-    setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
+    setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1)
+    let newFood = {
+      ...props.food
+    }
+    newFood.dislikes = newFood.dislikes + 1
+    props.onFoodEditSave(newFood);
   }
 
   const tagsRender = (

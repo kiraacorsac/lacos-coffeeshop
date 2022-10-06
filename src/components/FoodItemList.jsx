@@ -30,7 +30,7 @@ export default function FoodItemList(props) {
     props.data.sort(function (a, b) {
       return b.id - a.id;
     });
-    
+
   for (const food of props.data) {
     const filterTagsListRender = [];
     for (const filterTag of props.tagFilter) {
@@ -39,7 +39,12 @@ export default function FoodItemList(props) {
       }
     }
     if (filterTagsListRender.length === 0) {
-      foodItemListRender.push(<FoodItem key={food.id} food={food} setModalEditFlagTrue={props.setModalEditFlagTrue} foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} />);
+      foodItemListRender.push(<FoodItem
+        key={food.id}
+        food={food}
+        setModalEditFlagTrue={props.setModalEditFlagTrue}
+        onFoodEditSave={props.onFoodEditSave}
+        foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} />);
     }
   }
 
