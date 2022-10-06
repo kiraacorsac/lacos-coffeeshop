@@ -23,6 +23,16 @@ function App() {
     path: "/foods/",
   });
 
+  const { mutate: put } = useMutate({
+    verb: "PUT",
+    path: "/foods",
+  });
+
+  const { mutate: del } = useMutate({
+    verb: "DELETE",
+    path: "/foods",
+  });
+
   const { data: rawtags } = useGet({ path: "/tags/", });
 
   const tags = rawtags ?? [];
@@ -91,17 +101,19 @@ function App() {
   }
 
   function handleEditFoodSave(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.push(foodItem);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    //let newData = data.filter((d) => d.id != foodItem.id);
+    //newData.push(foodItem);
+    //newData.sort((a, b) => a.id - b.id);
+    //setData(newData);
+    put(foodItem.id).then(refetch)
     setModalEditFlag(false);
   }
 
   function handleDeleteFood(foodItem) {
-    let newData = data.filter((d) => d.id != foodItem.id);
-    newData.sort((a, b) => a.id - b.id);
-    setData(newData);
+    //let newData = data.filter((d) => d.id != foodItem.id);
+    //newData.sort((a, b) => a.id - b.id);
+    //setData(newData);
+    del(foodItem.id).then(refetch)
     setModalEditFlag(false);
   }
 
