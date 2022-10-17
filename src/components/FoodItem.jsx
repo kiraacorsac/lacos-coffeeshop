@@ -13,11 +13,15 @@ export default function FoodItem(props) {
   );
   const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] =
     useState(props.food.dislikes);
-  const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
   const [foodItemEditRender, setFoodItemEditRender] =
     props.foodItemEditRenderState;
   const tagListRender = props.tagListRenderState;
   const foodItemRender = [];
+
+  let feedbackIkon = farHeart;
+  if (props.food.fave) {
+    feedbackIkon = fasHeart;
+  }
 
   function handlePushFoodToEditRender() {
     // console.log("handlePushFoodToEditRender", props.food);
@@ -27,11 +31,11 @@ export default function FoodItem(props) {
   }
 
   function switchFeedback() {
-    if (feedbackIkon == farHeart) {
-      setFeedbackIkon(fasHeart);
-    } else {
-      setFeedbackIkon(farHeart);
+    let newFood = {
+      ...props.food
     }
+    newFood.fave = !newFood.fave
+    props.onFoodEditSave(newFood);
   }
 
   function clickHandlerThumbsUp() {
