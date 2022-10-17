@@ -13,11 +13,11 @@ export default function FoodItem(props) {
   );
   const [buttonClickedTimesThumbsDown, setbuttonClickedTimesThumbsDown] =
     useState(props.food.dislikes);
-  const [feedbackIkon, setFeedbackIkon] = useState(farHeart);
+  // const [feedbackIkon, setFeedbackIkon] = useState(props.food.fave);
   const [foodItemEditRender, setFoodItemEditRender] =
     props.foodItemEditRenderState;
-  const tagListRender = props.tagListRenderState;
-  const foodItemRender = [];
+  // const tagListRender = props.tagListRenderState;
+  // const foodItemRender = [];
 
   function handlePushFoodToEditRender() {
     // console.log("handlePushFoodToEditRender", props.food);
@@ -27,11 +27,9 @@ export default function FoodItem(props) {
   }
 
   function switchFeedback() {
-    if (feedbackIkon == farHeart) {
-      setFeedbackIkon(fasHeart);
-    } else {
-      setFeedbackIkon(farHeart);
-    }
+    let newFood = { ...props.food };
+    newFood.fave = !props.food.fave;
+    props.onFoodEditSave(newFood);
   }
 
   function clickHandlerThumbsUp() {
@@ -53,6 +51,18 @@ export default function FoodItem(props) {
     props.onFoodEditSave(newFood);
   }
 
+  function ikonRender() {
+    if (props.food.fave == true) {
+      let ikonRef = fasHeart;
+      return ikonRef
+    } else {
+      let ikonRef = farHeart;
+      return ikonRef
+    }
+
+
+  }
+
   const tagsRender = (
     <div className={style.tag}>{props.food.tags.join(", ")}</div>
   );
@@ -65,7 +75,7 @@ export default function FoodItem(props) {
         <div className={style.buttons}>
           <FontAwesomeIcon
             className={style.icons}
-            icon={feedbackIkon}
+            icon={ikonRender()}
             onClick={switchFeedback}
           ></FontAwesomeIcon>
           <FontAwesomeIcon
