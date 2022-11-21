@@ -58,7 +58,7 @@ export default function FoodItem(props) {
   }
 
   const tagsRender = (
-    <div className={style.tag}>{props.food.tags.join(", ")}</div>
+    <div className={style.tag}>{props.food.tags.map((t)=> t.name).join(", ")}</div>
   );
 
   return (
