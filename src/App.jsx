@@ -43,32 +43,22 @@ function App() {
 
 
 
-  // if (rawFoods == null) {
-  //   foods = []
-  // } else {
-  //   foods = rawFoods;
-  // }
+
   let rawFoodsArray = rawFoods ?? [];
   let foods = [];
   for (let food of rawFoodsArray) {
-    let stringTagList = [];
-    for (let tag of food.tags) {
-      stringTagList.push(tags.find(element => element.id === tag)?.tag);
-      // food.tags.push(tags.find(element => element.id === tag)?.tag);
+    //let stringTagList = [];
+    let tagObjectList = [];
+    for (let tagId of food.tags) {
+        tagObjectList.push({
+          id: tagId,
+          name: tags.find(element => element.id === tagId)?.tag  
+        })
+    //  stringTagList.push(tags.find(element => element.id === tag)?.tag);
     }
-    // //foods.push({
-    // //  id: food.id,
-    //   name: food.name,
-    //   image: food.image,
-    //   likes: food.likes,
-    //   dislikes: food.dislikes,
-    //   fave: food.fave,
-    //   tags: stringTagList,
-    //   date: food.date,
-    // })
     foods.push({
       ...food,
-      tags: stringTagList,
+      tags: tagObjectList,
     })
   }
 
