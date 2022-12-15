@@ -51,9 +51,16 @@ function App() {
   let rawFoodsArray = rawFoods ?? [];
   let foods = [];
   for (let food of rawFoodsArray) {
-    let stringTagList = [];
-    for (let tag of food.tags) {
-      stringTagList.push(tags.find(element => element.id === tag)?.tag);
+    // let stringTagList = [];
+    let tagObjectList = [];
+
+    for (let tagId of food.tags) {
+      // stringTagList.push(tags.find(element => element.id === tag)?.tag);
+      tagObjectList.push(
+        {
+          id: tagId,
+          name: tags.find(element => element.id === tagId)?.tag,
+        })
       // food.tags.push(tags.find(element => element.id === tag)?.tag);
     }
     // //foods.push({
@@ -68,7 +75,7 @@ function App() {
     // })
     foods.push({
       ...food,
-      tags: stringTagList,
+      tags: tagObjectList,
     })
   }
 
@@ -125,20 +132,20 @@ function App() {
     let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
-    if (tag === "") {
+    if (tag.name === "") {
       return;
-    } else if (newTagListSet.has(tag.toLowerCase())) {
+    } else if (newTagListSet.has(tag.name.toLowerCase())) {
       return;
     }
 
     let newTagList = new Set(filterTagList); // slice for sets
-    newTagList.add(tag); // push for set
+    newTagList.add(tag.id); // push for set
     setFilterTagList(newTagList);
   }
 
   function removeFromTagList(tag) {
     let newTagList = new Set(filterTagList); // slice for sets
-    newTagList.delete(tag); // push for set
+    newTagList.delete(tag.id); // push for set
     setFilterTagList(newTagList);
   }
 

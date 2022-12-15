@@ -28,11 +28,11 @@ export default function Tags(props) {
   for (const food of props.data) {
     for (const tag of food.tags) {
       if (allTagsList && Array.isArray(allTagsList)) {
-        if (!allTagsList.includes(tag)) {
-          allTagsList.push(tag);
+        if (!allTagsList.includes(tag.name)) {
+          allTagsList.push(tag.name);
         }
       } else {
-        allTagsList = [tag];
+        allTagsList = [tag.name];
       }
     }
   }
@@ -43,19 +43,19 @@ export default function Tags(props) {
   });
 
   let tagId = 0;
-  for (const tag of allTagsList) {
+  for (const tagName of allTagsList) {
     renderedTagToggleList.push(
       <div className={style.tag} key={tagId}>
         <input
           type="checkbox"
-          checked={newTagListArray.includes(tag)}
+          checked={newTagListArray.includes(tagName)}
           name="tag"
-          id={tag}
-          key={tag}
-          onChange={() => handleAddToTagList(tag)}
+          id={tagName}
+          key={tagName}
+          onChange={() => handleAddToTagList(tagName)}
         />
-        <label htmlFor={tag} >
-          {tag}
+        <label htmlFor={tagName} >
+          {tagName}
         </label>
       </div>
     );

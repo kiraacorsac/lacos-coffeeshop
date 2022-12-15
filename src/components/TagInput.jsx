@@ -11,7 +11,7 @@ function Tag(props) {
         icon={faTimesCircle}
         onClick={props.onTagDelete}
       ></FontAwesomeIcon>{" "}
-      {props.tag}
+      {props.tag.name}
     </div>
   );
 }
@@ -38,16 +38,16 @@ export default function TagInput(props) {
   }
 
   function handleTagDelete(tag) {
-      console.log("tag delete", tag)
+    console.log("tag delete", tag)
     props.removeFromTagList(tag);
   }
 
   const tagListRender = [];
-  
+
 
   for (const tag of tagList) {
     tagListRender.push(
-      <Tag tag={tag} key={tag} onTagDelete={() => handleTagDelete(tag)} />
+      <Tag tag={tag} key={tag.id} onTagDelete={() => handleTagDelete(tag)} />
     );
   }
 
