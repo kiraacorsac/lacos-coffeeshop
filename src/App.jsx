@@ -112,11 +112,21 @@ function App() {
   }
 
   function handleEditFoodSave(foodItem) {
+    let trimmedFoodItem = { ...foodItem }
+    let trimmedTagsList = []
+    console.log("FoodItem", trimmedFoodItem)
+    for (let tag of trimmedFoodItem.tags) {
+      console.log("Tag", tag.id)
+      trimmedTagsList.push(tag.id)
+    }
+    trimmedFoodItem.tags = trimmedTagsList
+    console.log("TrimmedFoodItem", trimmedFoodItem)
+
     //let newData = data.filter((d) => d.id != foodItem.id);
     //newData.push(foodItem);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    put(foodItem, { pathParams: foodItem.id }).then(refetch);
+    put(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetch);
     setModalEditFlag(false);
   }
 
