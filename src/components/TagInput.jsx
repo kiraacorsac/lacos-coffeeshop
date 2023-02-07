@@ -59,7 +59,7 @@ export default function TagInput(props) {
         placeholder="enter tags"
         value={searchedTag}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
       />
       <div className={style.tagList}>{tagListRender}</div>
     </div>

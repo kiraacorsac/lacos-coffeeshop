@@ -14,7 +14,7 @@ import { useGet, useMutate } from "restful-react";
 
 function App() {
 
-  const { data: rawFoods, refetch } = useGet({
+  const { data: rawFoods, refetch: refetchFoods } = useGet({
     path: "/foods/",
   });
 
@@ -37,7 +37,8 @@ function App() {
     path: "/foods",
   });
 
-  const { data: rawtags } = useGet({ path: "/tags/", });
+  const { data: rawtags, refetch: refetchTags } = useGet({ path: "/tags/", });
+
 
   const tags = rawtags ?? [];
 
@@ -107,7 +108,7 @@ function App() {
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-    post(foodItem).then(refetch)
+    post(foodItem).then(refetchFoods)
     setModalNewFlag(false);
   }
 
@@ -126,7 +127,7 @@ function App() {
     //newData.push(foodItem);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    put(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetch);
+    put(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetchFoods);
     setModalEditFlag(false);
   }
 
@@ -134,7 +135,7 @@ function App() {
     //let newData = data.filter((d) => d.id != foodItem.id);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    del(foodItem.id).then(refetch)
+    del(foodItem.id).then(refetchFoods)
     setModalEditFlag(false);
   }
 
