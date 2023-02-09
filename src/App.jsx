@@ -139,6 +139,13 @@ function App() {
     setModalEditFlag(false);
   }
 
+  function handleAddTag(tag, foodItem) {
+    refetchTags().then(()=>{ 
+      
+     })
+    console.log(foodItem)
+  }
+
   function addToTagList(tag) {
     let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
@@ -255,6 +262,7 @@ function App() {
         <EditFood
           onFoodEditSave={handleEditFoodSave}
           onDeleteFood={handleDeleteFood}
+          onAddTag={handleAddTag}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
           removeFromTagList={removeFromTagList}
         />

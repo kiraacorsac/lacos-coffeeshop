@@ -30,11 +30,11 @@ export default function EditFood(props) {
     } else if (newTagListSet.has(tag.toLowerCase())) {
       return;
     }
-
-    let newTagList = new Set(tagSet); // slice for sets
-    newTagList.add(tag); // push for set
-    setTagSet(newTagList);
-  }
+    props.onAddTag(tag, foodItemEditRender);
+  //   let newTagList = new Set(tagSet); // slice for sets
+  //   newTagList.add(tag); // push for set
+  //   setTagSet(newTagList);
+   }
 
   function removeFromTagSet(tag) {
     let newTagSet = new Set(tagSet); // slice for sets
