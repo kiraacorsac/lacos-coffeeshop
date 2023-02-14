@@ -18,12 +18,12 @@ function App() {
     path: "/foods/",
   });
 
-  const { mutate: post } = useMutate({
+  const { mutate: postFood } = useMutate({
     verb: "POST",
     path: "/foods/",
   });
 
-  const { mutate: put } = useMutate({
+  const { mutate: putFood } = useMutate({
     verb: "PUT",
     path: makePutPath,
   });
@@ -32,12 +32,16 @@ function App() {
     return `/foods/${foodID}/`
   }
 
-  const { mutate: del } = useMutate({
+  const { mutate: delFood } = useMutate({
     verb: "DELETE",
     path: "/foods",
   });
 
   const { data: rawtags, refetch: refetchTags } = useGet({ path: "/tags/", });
+  const { mutate: postTag } = useMutate({
+    verb: "POST",
+    path: "/tags/",
+  });
 
 
   const tags = rawtags ?? [];
@@ -108,8 +112,12 @@ function App() {
     foodItem.dislikes = 0;
     foodItem.fave = false;
     foodItem.date = current_time;
-    post(foodItem).then(refetchFoods)
+    postFood(foodItem).then(refetchFoods)
     setModalNewFlag(false);
+  }
+
+  function handleNewTagSave(tag) {
+    return postTag({ tag: tag }).then(refetchTags)
   }
 
   function handleEditFoodSave(foodItem) {
@@ -127,7 +135,7 @@ function App() {
     //newData.push(foodItem);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    put(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetchFoods);
+    putFood(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetchFoods);
     setModalEditFlag(false);
   }
 
@@ -135,14 +143,23 @@ function App() {
     //let newData = data.filter((d) => d.id != foodItem.id);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    del(foodItem.id).then(refetchFoods)
+    delFood(foodItem.id).then(refetchFoods)
     setModalEditFlag(false);
   }
 
   function handleAddTag(tag, foodItem) {
-    refetchTags().then(()=>{ 
-      
-     })
+    refetchTags().then(() => {
+      let tagListArray = [...tags];
+      let tagListLowerCase = tagListArray.map((existingTag) => existingTag.tag.toLowerCase());
+      if (!tagListLowerCase.includes(tag.toLowerCase())) {
+        console.log("tag not included")
+        handleNewTagSave(tag).then(console.log("Here we are"));
+
+      } else {
+        console.log("tag included")
+      }
+
+    })
     console.log(foodItem)
   }
 
