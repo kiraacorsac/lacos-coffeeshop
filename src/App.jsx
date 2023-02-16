@@ -116,10 +116,6 @@ function App() {
     setModalNewFlag(false);
   }
 
-  function handleNewTagSave(tag) {
-    return postTag({ tag: tag }).then(refetchTags)
-  }
-
   function handleEditFoodSave(foodItem) {
     let trimmedFoodItem = { ...foodItem }
     let trimmedTagsList = []
@@ -147,13 +143,25 @@ function App() {
     setModalEditFlag(false);
   }
 
+
+
+
   function handleAddTag(tag, foodItem) {
     refetchTags().then(() => {
       let tagListArray = [...tags];
+      let newFoodItem = { ...foodItem };
+
       let tagListLowerCase = tagListArray.map((existingTag) => existingTag.tag.toLowerCase());
       if (!tagListLowerCase.includes(tag.toLowerCase())) {
         console.log("tag not included")
-        handleNewTagSave(tag).then(console.log("Here we are"));
+        postTag({ tag: tag }).then((newTag) => {
+          console.log(newTag);
+          newFoodItem.tags.push(newTag);
+          // handleEditFoodSave(newFoodItem);
+
+
+        });
+
 
       } else {
         console.log("tag included")
@@ -162,6 +170,8 @@ function App() {
     })
     console.log(foodItem)
   }
+
+
 
   function addToTagList(tag) {
     let tagListArray = [...filterTagList];
