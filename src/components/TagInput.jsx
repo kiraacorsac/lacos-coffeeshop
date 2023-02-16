@@ -38,7 +38,6 @@ export default function TagInput(props) {
       console.log("searchedTag1", searchedTag);
       addSearchTagToTagList();
       console.log("handleKeyPress");
-      
     }
   }
 
@@ -63,7 +62,7 @@ export default function TagInput(props) {
         placeholder="enter tags"
         value={searchedTag}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
+        onKeydown={handleKeyPress}
       />
       <div className={style.tagList}>{tagListRender}</div>
     </div>
