@@ -64,7 +64,7 @@ function App() {
       tagObjectList.push(
         {
           id: tagId,
-          name: tags.find(element => element.id === tagId)?.tag,
+          tag: tags.find(element => element.id === tagId)?.tag,
         })
       // food.tags.push(tags.find(element => element.id === tag)?.tag);
     }
@@ -131,7 +131,10 @@ function App() {
     //newData.push(foodItem);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    putFood(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(refetchFoods);
+    putFood(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(() => {
+      refetchFoods();
+      refetchTags();
+    })
     setModalEditFlag(false);
   }
 
@@ -168,7 +171,7 @@ function App() {
 
       } else {
         console.log("tag included")
-        let existingTag = tagListArray.filter((tagObject) => tagObject.name.toLowerCase() == tag.toLowerCase());
+        let existingTag = tagListArray.filter((tagObject) => tagObject.tag.toLowerCase() == tag.toLowerCase());
         return existingTag[0]
       }
 
@@ -185,9 +188,9 @@ function App() {
     let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
-    if (tag.name === "") {
+    if (tag.tag === "") {
       return;
-    } else if (newTagListSet.has(tag.name.toLowerCase())) {
+    } else if (newTagListSet.has(tag.tag.toLowerCase())) {
       return;
     }
 

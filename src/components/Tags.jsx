@@ -28,11 +28,11 @@ export default function Tags(props) {
   for (const food of props.data) {
     for (const tag of food.tags) {
       if (allTagsList && Array.isArray(allTagsList)) {
-        if (!allTagsList.includes(tag.name)) {
-          allTagsList.push(tag.name);
+        if (!allTagsList.includes(tag.tag)) {
+          allTagsList.push(tag.tag);
         }
       } else {
-        allTagsList = [tag.name];
+        allTagsList = [tag.tag];
       }
     }
   }

@@ -11,7 +11,7 @@ function Tag(props) {
         icon={faTimesCircle}
         onClick={props.onTagDelete}
       ></FontAwesomeIcon>{" "}
-      {props.tag.name}
+      {props.tag.tag}
     </div>
   );
 }
