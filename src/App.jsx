@@ -145,18 +145,21 @@ function App() {
 
 
 
-
+  /// TODO: resolve promise chain of different length
   function handleAddTag(tag, foodItem) {
-    refetchTags().then(() => {
+    return refetchTags().then(() => {
       let tagListArray = [...tags];
       let newFoodItem = { ...foodItem };
 
       let tagListLowerCase = tagListArray.map((existingTag) => existingTag.tag.toLowerCase());
       if (!tagListLowerCase.includes(tag.toLowerCase())) {
         console.log("tag not included")
-        postTag({ tag: tag }).then((newTag) => {
+        return postTag({ tag: tag }).then((newTag) => {
           console.log(newTag);
-          newFoodItem.tags.push(newTag);
+          return newTag
+
+
+          // newFoodItem.tags.push(newTag);
           // handleEditFoodSave(newFoodItem);
 
 
@@ -165,11 +168,16 @@ function App() {
 
       } else {
         console.log("tag included")
+        let existingTag = tagListArray.filter((tagObject) => tagObject.name.toLowerCase() == tag.toLowerCase());
+        return existingTag[0]
       }
 
     })
     console.log(foodItem)
+
   }
+
+
 
 
 

@@ -23,7 +23,8 @@ export default function EditFood(props) {
 
   function addToTagSet(tag) {
     let tagListArray = [...tagSet];
-    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+    console.log("taglistarray", tagListArray)
+    let tagListLowerCase = tagListArray.map((tagObject) => tagObject.name.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
     if (tag === "") {
       return;
