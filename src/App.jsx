@@ -13,7 +13,6 @@ import React from "react";
 import { useGet, useMutate } from "restful-react";
 
 function App() {
-
   const { data: rawFoods, refetch: refetchFoods } = useGet({
     path: "/foods/",
   });
@@ -29,7 +28,7 @@ function App() {
   });
 
   function makePutPath(foodID) {
-    return `/foods/${foodID}/`
+    return `/foods/${foodID}/`;
   }
 
   const { mutate: delFood } = useMutate({
@@ -37,16 +36,13 @@ function App() {
     path: "/foods",
   });
 
-  const { data: rawtags, refetch: refetchTags } = useGet({ path: "/tags/", });
+  const { data: rawtags, refetch: refetchTags } = useGet({ path: "/tags/" });
   const { mutate: postTag } = useMutate({
     verb: "POST",
     path: "/tags/",
   });
 
-
   const tags = rawtags ?? [];
-
-
 
   // if (rawFoods == null) {
   //   foods = []
@@ -61,11 +57,10 @@ function App() {
 
     for (let tagId of food.tags) {
       // stringTagList.push(tags.find(element => element.id === tag)?.tag);
-      tagObjectList.push(
-        {
-          id: tagId,
-          tag: tags.find(element => element.id === tagId)?.tag,
-        })
+      tagObjectList.push({
+        id: tagId,
+        tag: tags.find((element) => element.id === tagId)?.tag,
+      });
       // food.tags.push(tags.find(element => element.id === tag)?.tag);
     }
     // //foods.push({
@@ -81,7 +76,7 @@ function App() {
     foods.push({
       ...food,
       tags: tagObjectList,
-    })
+    });
   }
 
   const [data, setData] = useState([
@@ -95,7 +90,6 @@ function App() {
     //   tags: ["italian", "meat", "baked"],
     //   date: "1 Feb 2018",
     // },
-
   ]);
 
   const [maxFoodId, setMaxFoodId] = useState(5);
@@ -108,24 +102,34 @@ function App() {
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
     let current_time = new Date().toISOString().substring(0, 10);
-    foodItem.likes = 0;
-    foodItem.dislikes = 0;
-    foodItem.fave = false;
-    foodItem.date = current_time;
-    postFood(foodItem).then(refetchFoods)
+    let trimmedFoodItem = { ...foodItem };
+    let trimmedTagsList = [];
+    trimmedFoodItem.likes = 0;
+    trimmedFoodItem.dislikes = 0;
+    trimmedFoodItem.fave = false;
+    trimmedFoodItem.date = current_time;
+    for (let tag of trimmedFoodItem.tags) {
+      console.log("Tag", tag.id);
+      trimmedTagsList.push(tag.id);
+    }
+    trimmedFoodItem.tags = trimmedTagsList;
+    postFood(trimmedFoodItem).then(() => {
+      refetchFoods();
+      refetchTags();
+    });
     setModalNewFlag(false);
   }
 
   function handleEditFoodSave(foodItem) {
-    let trimmedFoodItem = { ...foodItem }
-    let trimmedTagsList = []
-    console.log("FoodItem", trimmedFoodItem)
+    let trimmedFoodItem = { ...foodItem };
+    let trimmedTagsList = [];
+    console.log("FoodItem", trimmedFoodItem);
     for (let tag of trimmedFoodItem.tags) {
-      console.log("Tag", tag.id)
-      trimmedTagsList.push(tag.id)
+      console.log("Tag", tag.id);
+      trimmedTagsList.push(tag.id);
     }
-    trimmedFoodItem.tags = trimmedTagsList
-    console.log("TrimmedFoodItem", trimmedFoodItem)
+    trimmedFoodItem.tags = trimmedTagsList;
+    console.log("TrimmedFoodItem", trimmedFoodItem);
 
     //let newData = data.filter((d) => d.id != foodItem.id);
     //newData.push(foodItem);
@@ -134,7 +138,7 @@ function App() {
     putFood(trimmedFoodItem, { pathParams: trimmedFoodItem.id }).then(() => {
       refetchFoods();
       refetchTags();
-    })
+    });
     setModalEditFlag(false);
   }
 
@@ -142,47 +146,38 @@ function App() {
     //let newData = data.filter((d) => d.id != foodItem.id);
     //newData.sort((a, b) => a.id - b.id);
     //setData(newData);
-    delFood(foodItem.id).then(refetchFoods)
+    delFood(foodItem.id).then(refetchFoods);
     setModalEditFlag(false);
   }
 
-
-
   /// TODO: resolve promise chain of different length
-  function handleAddTag(tag, foodItem) {
+  function handleAddTag(tag) {
     return refetchTags().then(() => {
       let tagListArray = [...tags];
-      let newFoodItem = { ...foodItem };
+      // let newFoodItem = { ...foodItem };
 
-      let tagListLowerCase = tagListArray.map((existingTag) => existingTag.tag.toLowerCase());
+      let tagListLowerCase = tagListArray.map((existingTag) =>
+        existingTag.tag.toLowerCase()
+      );
       if (!tagListLowerCase.includes(tag.toLowerCase())) {
-        console.log("tag not included")
+        console.log("tag not included");
         return postTag({ tag: tag }).then((newTag) => {
           console.log(newTag);
-          return newTag
-
+          return newTag;
 
           // newFoodItem.tags.push(newTag);
           // handleEditFoodSave(newFoodItem);
-
-
         });
-
-
       } else {
-        console.log("tag included")
-        let existingTag = tagListArray.filter((tagObject) => tagObject.tag.toLowerCase() == tag.toLowerCase());
-        return existingTag[0]
+        console.log("tag included");
+        let existingTag = tagListArray.filter(
+          (tagObject) => tagObject.tag.toLowerCase() == tag.toLowerCase()
+        );
+        return existingTag[0];
       }
-
-    })
-    console.log(foodItem)
-
+    });
+    // console.log(foodItem);
   }
-
-
-
-
 
   function addToTagList(tag) {
     let tagListArray = [...filterTagList];
@@ -218,7 +213,6 @@ function App() {
   function handleChangeSorting(event) {
     setSorting(event.target.value);
   }
-
 
   return (
     <div className={style.App}>
@@ -294,7 +288,11 @@ function App() {
         ></FontAwesomeIcon>
       </main>
       <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
-        <NewFood onFoodSave={handleNewFoodSave} />
+        <NewFood
+          onFoodNewSave={handleNewFoodSave}
+          onAddTag={handleAddTag}
+          removeFromTagList={removeFromTagList}
+        />
       </Modal>
       <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
         <EditFood

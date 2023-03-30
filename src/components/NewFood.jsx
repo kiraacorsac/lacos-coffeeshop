@@ -25,20 +25,38 @@ export default function NewFood(props) {
     return tag1LowerCase == tag2LowerCase;
   }
 
-  function addToTagList(tag) {
+  function addToTagSet(tag) {
     let tagListArray = [...tagSet];
-    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+    console.log("taglistarray", tagListArray)
+    let tagListLowerCase = tagListArray.map((tagObject) => tagObject.tag.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
     if (tag === "") {
       return;
     } else if (newTagListSet.has(tag.toLowerCase())) {
       return;
     }
+    let output = props.onAddTag(tag).then((newTag) => {
 
-    let newTagList = new Set(tagSet); // slice for sets
-    newTagList.add(tag); // push for set
-    setTagSet(newTagList);
+      let newTagList = new Set(tagSet); // slice for sets
+      newTagList.add(newTag); // push for set
+      setTagSet(newTagList);
+    });
   }
+
+  // function addToTagList(tag) {
+  //   let tagListArray = [...tagSet];
+  //   let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+  //   let newTagListSet = new Set(tagListLowerCase);
+  //   if (tag === "") {
+  //     return;
+  //   } else if (newTagListSet.has(tag.toLowerCase())) {
+  //     return;
+  //   }
+
+  //   let newTagList = new Set(tagSet); // slice for sets
+  //   newTagList.add(tag); // push for set
+  //   setTagSet(newTagList);
+  // }
 
   function removeFromTagSet(tag) {
     let newTagList = new Set(tagSet); // slice for sets
@@ -86,7 +104,7 @@ export default function NewFood(props) {
           <input type="text" className={style.foodName} placeholder="Name" onChange={handleNameChange} />
           <TagInput
             tagListState={[tagSet, setTagSet]}
-            addToTagList={addToTagList}
+            addToTagList={addToTagSet}
             removeFromTagList={removeFromTagSet}
           />
           <input
@@ -99,7 +117,7 @@ export default function NewFood(props) {
             type="button"
             className={style.saveButton}
             value="Save"
-            onClick={() => props.onFoodSave(makeFoodRecord())}
+            onClick={() => props.onFoodNewSave(makeFoodRecord())}
           />
         </div>
       </div>
