@@ -108,11 +108,21 @@ function App() {
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
     let current_time = new Date().toISOString().substring(0, 10);
-    foodItem.likes = 0;
-    foodItem.dislikes = 0;
-    foodItem.fave = false;
-    foodItem.date = current_time;
-    postFood(foodItem).then(refetchFoods)
+    let trimmedFoodItem = { ...foodItem }
+    let trimmedTagsList = []
+    trimmedFoodItem.likes = 0;
+    trimmedFoodItem.dislikes = 0;
+    trimmedFoodItem.fave = false;
+    trimmedFoodItem.date = current_time;
+    for (let tag of trimmedFoodItem.tags) {
+      console.log("Tag", tag.id)
+      trimmedTagsList.push(tag.id)
+    }
+    trimmedFoodItem.tags = trimmedTagsList;
+    postFood(trimmedFoodItem).then(() => {
+      refetchFoods();
+      refetchTags();
+    });
     setModalNewFlag(false);
   }
 
@@ -159,6 +169,7 @@ function App() {
         console.log("tag not included")
         return postTag({ tag: tag }).then((newTag) => {
           console.log(newTag);
+          refetchTags();
           return newTag
 
 
@@ -182,15 +193,16 @@ function App() {
 
 
 
+  // START FIXING HERE
 
-
-  function addToTagList(tag) {
+  function addToFilterTagList(tag) {
     let tagListArray = [...filterTagList];
     let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
-    if (tag.tag === "") {
+    console.log("the tag:", tag)
+    if (tag === "") {
       return;
-    } else if (newTagListSet.has(tag.tag.toLowerCase())) {
+    } else if (newTagListSet.has(tag.toLowerCase())) {
       return;
     }
 
@@ -233,7 +245,7 @@ function App() {
         <div className={style.tagInputWrapper}>
           <TagInput
             tagListState={[filterTagList, setFilterTagList]}
-            addToTagList={addToTagList}
+            addToFilterTagList={addToFilterTagList}
             removeFromTagList={removeFromTagList}
           />
         </div>
@@ -266,7 +278,7 @@ function App() {
               <Tags
                 data={foods}
                 tagListState={filterTagList}
-                addToTagList={addToTagList}
+                addToFilterTagList={addToFilterTagList}
                 removeFromTagList={removeFromTagList}
               />
             </div>
@@ -282,7 +294,7 @@ function App() {
                 foodItemEditRender,
                 setFoodItemEditRender,
               ]}
-              addToTagList={addToTagList}
+            // addToTagList={addToTagList}
             />
           </div>
         </div>
@@ -294,7 +306,10 @@ function App() {
         ></FontAwesomeIcon>
       </main>
       <Modal visible={modalNewFlag} setModalFlag={setModalNewFlag}>
-        <NewFood onFoodSave={handleNewFoodSave} />
+        <NewFood
+          onFoodSave={handleNewFoodSave}
+          onAddTag={handleAddTag}
+          removeFromTagList={removeFromTagList} />
       </Modal>
       <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
         <EditFood

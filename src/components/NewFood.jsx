@@ -46,6 +46,27 @@ export default function NewFood(props) {
     setTagSet(newTagList);
   }
 
+  function addToTagSet(tag) {
+    let tagListArray = [...tagSet];
+    console.log("taglistarray", tagListArray)
+    let tagListLowerCase = tagListArray.map((tagObject) => tagObject.tag.toLowerCase());
+    let newTagListSet = new Set(tagListLowerCase);
+    if (tag === "") {
+      return;
+    } else if (newTagListSet.has(tag.toLowerCase())) {
+      return;
+    }
+    let output = props.onAddTag(tag).then((newTag) => {
+
+      let newTagList = new Set(tagSet); // slice for sets
+      newTagList.add(newTag); // push for set
+      setTagSet(newTagList);
+
+    });
+    console.log("output", output)
+  }
+
+
   function makeFoodRecord() {
     if (name === "" && imgLink === "" && tagSet === "") {
       alert("Name , Image, Tags can not be empty");
@@ -86,7 +107,8 @@ export default function NewFood(props) {
           <input type="text" className={style.foodName} placeholder="Name" onChange={handleNameChange} />
           <TagInput
             tagListState={[tagSet, setTagSet]}
-            addToTagList={addToTagList}
+            addToTagList={addToTagSet}
+            // addToTagList={addToTagSet}
             removeFromTagList={removeFromTagSet}
           />
           <input

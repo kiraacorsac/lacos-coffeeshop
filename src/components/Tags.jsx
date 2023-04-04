@@ -20,7 +20,7 @@ export default function Tags(props) {
       } else {
         console.log("not included", tag);
         console.log("newTagListArray", newTagListArray);
-        props.addToTagList(tag);
+        props.addToFilterTagList(tag);
       }
     }
   }

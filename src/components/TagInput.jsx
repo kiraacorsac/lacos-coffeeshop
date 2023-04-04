@@ -23,7 +23,7 @@ export default function TagInput(props) {
   const [tagList, setTagList] = props.tagListState;
 
   function addSearchTagToTagList() {
-    props.addToTagList(searchedTag);
+    props.addToFilterTagList(searchedTag);
     setSearchedTag("");
   }
 
