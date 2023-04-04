@@ -103,7 +103,7 @@ function App() {
   const [modalNewFlag, setModalNewFlag] = useState(false);
   const [modalEditFlag, setModalEditFlag] = useState(false);
 
-  const [filterTagList, setFilterTagList] = useState(new Set([]));
+  const [filterTagSet, setFilterTagSet] = useState(new Set([]));
 
   //TODO: create unique ID for food item
   function handleNewFoodSave(foodItem) {
@@ -195,26 +195,34 @@ function App() {
 
   // START FIXING HERE
 
-  function addToFilterTagList(tag) {
-    let tagListArray = [...filterTagList];
-    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
-    let newTagListSet = new Set(tagListLowerCase);
-    console.log("the tag:", tag)
-    if (tag === "") {
+  function addToFilterTagSet(tagName) {
+    let tagObject = findTagObject(tagName);
+    let tagListArray = [...filterTagSet];
+    // let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+    let newTagListSet = new Set(tagListArray);
+    console.log("the tag:", tagObject.tag)
+    if (tagObject.tag === undefined) {
       return;
-    } else if (newTagListSet.has(tag.toLowerCase())) {
+    } else if (newTagListSet.has(tagObject.tag.toLowerCase())) {
       return;
     }
 
-    let newTagList = new Set(filterTagList); // slice for sets
-    newTagList.add(tag.id); // push for set
-    setFilterTagList(newTagList);
+    let newFilterTagSet = new Set(filterTagSet); // slice for sets
+    newFilterTagSet.add(tagObject); // push for set
+    setFilterTagSet(newFilterTagSet);
   }
 
+  function findTagObject(tagName) {
+
+    return tags.find(element => element.tag.toLowerCase() === tagName.toLowerCase());
+
+  }
+
+
   function removeFromTagList(tag) {
-    let newTagList = new Set(filterTagList); // slice for sets
+    let newTagList = new Set(filterTagSet); // slice for sets
     newTagList.delete(tag.id); // push for set
-    setFilterTagList(newTagList);
+    setFilterTagSet(newTagList);
   }
 
   function setModalFlagTrue(flag) {
@@ -244,8 +252,8 @@ function App() {
       <main className={style.Appmain}>
         <div className={style.tagInputWrapper}>
           <TagInput
-            tagListState={[filterTagList, setFilterTagList]}
-            addToFilterTagList={addToFilterTagList}
+            tagListState={[filterTagSet, setFilterTagSet]}
+            addToFilterTagList={addToFilterTagSet}
             removeFromTagList={removeFromTagList}
           />
         </div>
@@ -277,8 +285,8 @@ function App() {
             <div>
               <Tags
                 data={foods}
-                tagListState={filterTagList}
-                addToFilterTagList={addToFilterTagList}
+                tagListState={filterTagSet}
+                addToFilterTagList={addToFilterTagSet}
                 removeFromTagList={removeFromTagList}
               />
             </div>
@@ -286,7 +294,7 @@ function App() {
           <div>
             <FoodItemList
               data={foods}
-              tagFilter={filterTagList}
+              tagFilter={filterTagSet}
               sorting={sorting}
               setModalEditFlagTrue={setModalEditFlagTrue}
               onFoodEditSave={handleEditFoodSave}
