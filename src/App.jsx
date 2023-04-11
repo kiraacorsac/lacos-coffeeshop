@@ -1,5 +1,6 @@
 import FoodItemList from "./components/FoodItemList";
 import TagInput from "./components/TagInput";
+import TagListSearch from "./components/TagListSearch";
 import Tags from "./components/Tags";
 import { useState, useEffect } from "react";
 import style from "./App.module.css";
@@ -131,7 +132,7 @@ function App() {
     let trimmedTagsList = []
     console.log("FoodItem", trimmedFoodItem)
     for (let tag of trimmedFoodItem.tags) {
-      console.log("Tag", tag.id)
+      // console.log("Tag", tag.id)
       trimmedTagsList.push(tag.id)
     }
     trimmedFoodItem.tags = trimmedTagsList
@@ -170,6 +171,7 @@ function App() {
         return postTag({ tag: tag }).then((newTag) => {
           console.log(newTag);
           refetchTags();
+          console.log(foodItem)
           return newTag
 
 
@@ -183,11 +185,12 @@ function App() {
       } else {
         console.log("tag included")
         let existingTag = tagListArray.filter((tagObject) => tagObject.tag.toLowerCase() == tag.toLowerCase());
+        console.log(foodItem)
         return existingTag[0]
       }
 
     })
-    console.log(foodItem)
+
 
   }
 
@@ -200,7 +203,7 @@ function App() {
     let tagListArray = [...filterTagSet];
     // let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListArray);
-    console.log("the tag:", tagObject.tag)
+    console.log("the tag:", tagObject)
     if (tagObject.tag === undefined) {
       return;
     } else if (newTagListSet.has(tagObject.tag.toLowerCase())) {
@@ -220,9 +223,15 @@ function App() {
 
 
   function removeFromTagList(tag) {
-    let newTagList = new Set(filterTagSet); // slice for sets
-    newTagList.delete(tag.id); // push for set
-    setFilterTagSet(newTagList);
+    let newTagList = [...filterTagSet];
+    console.log("NewTagList before:", newTagList)
+    // let newTagList = new Set(filterTagSet); // slice for sets
+    let tagsToKeep = newTagList.filter((e) => e.tag != tag);
+    console.log("Tags to keep:", tagsToKeep)
+    // newTagList.delete(tagToDelete); // push for set
+
+    setFilterTagSet(tagsToKeep);
+    console.log("NewTagList after:", filterTagSet);
   }
 
   function setModalFlagTrue(flag) {
@@ -251,7 +260,7 @@ function App() {
       </header>
       <main className={style.Appmain}>
         <div className={style.tagInputWrapper}>
-          <TagInput
+          <TagListSearch
             tagListState={[filterTagSet, setFilterTagSet]}
             addToFilterTagList={addToFilterTagSet}
             removeFromTagList={removeFromTagList}
@@ -317,6 +326,7 @@ function App() {
         <NewFood
           onFoodSave={handleNewFoodSave}
           onAddTag={handleAddTag}
+          addToFilterTagList={addToFilterTagSet}
           removeFromTagList={removeFromTagList} />
       </Modal>
       <Modal visible={modalEditFlag} setModalFlag={setModalEditFlag}>
@@ -325,6 +335,7 @@ function App() {
           onDeleteFood={handleDeleteFood}
           onAddTag={handleAddTag}
           foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+          addToFilterTagList={addToFilterTagSet}
           removeFromTagList={removeFromTagList}
         />
       </Modal>

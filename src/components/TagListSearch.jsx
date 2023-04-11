@@ -18,14 +18,14 @@ function Tag(props) {
 
 //also a component
 // TODO: style everytnig
-export default function TagInput(props) {
+export default function TagListSearch(props) {
   const [searchedTag, setSearchedTag] = useState("");
   const [tagList, setTagList] = props.tagListState;
 
   function addSearchTagToTagList(props) {
     console.log("Searched Tag:", searchedTag);
     console.log("Props:", props);
-    props.addToTagList(searchedTag);
+    props.addToFilterTagList(searchedTag);
     setSearchedTag("");
   }
 
@@ -43,7 +43,10 @@ export default function TagInput(props) {
 
   function handleTagDelete(tag) {
     console.log("tag delete", tag)
+    console.log("props", props)
     props.removeFromTagList(tag);
+    console.log("removeFromTagList_2", tag);
+
   }
 
   const tagListRender = [];
