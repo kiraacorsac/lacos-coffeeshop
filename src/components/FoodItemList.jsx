@@ -3,7 +3,8 @@ import style from "./FoodItemList.module.css";
 
 export default function FoodItemList(props) {
   const foodItemListRender = [];
-  const [foodItemEditRender, setFoodItemEditRender] = props.foodItemEditRenderState
+  const [foodItemEditRender, setFoodItemEditRender] =
+    props.foodItemEditRenderState;
   const tagListRender = props.tagListRenderState;
 
   if (props.sorting === "A-Z") {
@@ -34,17 +35,26 @@ export default function FoodItemList(props) {
   for (const food of props.data) {
     const filterTagsListRender = [];
     for (const filterTag of props.tagFilter) {
-      if (!food.tags.includes(filterTag)) {
+      console.log("filterTag", filterTag);
+      console.log("food.tags", food.tags);
+      if (
+        food.tags.includes(
+          (e) => e.tag.toLowerCase() != filterTag.tag.toLowerCase()
+        )
+      ) {
         filterTagsListRender.push(filterTag);
       }
     }
     if (filterTagsListRender.length === 0) {
-      foodItemListRender.push(<FoodItem
-        key={food.id}
-        food={food}
-        setModalEditFlagTrue={props.setModalEditFlagTrue}
-        onFoodEditSave={props.onFoodEditSave}
-        foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]} />);
+      foodItemListRender.push(
+        <FoodItem
+          key={food.id}
+          food={food}
+          setModalEditFlagTrue={props.setModalEditFlagTrue}
+          onFoodEditSave={props.onFoodEditSave}
+          foodItemEditRenderState={[foodItemEditRender, setFoodItemEditRender]}
+        />
+      );
     }
   }
 

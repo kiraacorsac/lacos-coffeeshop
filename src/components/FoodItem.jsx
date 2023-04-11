@@ -33,49 +33,40 @@ export default function FoodItem(props) {
   }
 
   function clickHandlerThumbsUp() {
-    setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1)
+    setbuttonClickedTimesThumbsUp(buttonClickedTimesThumbsUp + 1);
     let newFood = {
-      ...props.food
-    }
-    newFood.likes = newFood.likes + 1
+      ...props.food,
+    };
+    newFood.likes = newFood.likes + 1;
     props.onFoodEditSave(newFood);
   }
 
-
   function clickHandlerThumbsDown() {
-    setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1)
+    setbuttonClickedTimesThumbsDown(buttonClickedTimesThumbsDown + 1);
     let newFood = {
-      ...props.food
-    }
-    newFood.dislikes = newFood.dislikes + 1
+      ...props.food,
+    };
+    newFood.dislikes = newFood.dislikes + 1;
     props.onFoodEditSave(newFood);
   }
 
   function ikonRender() {
     if (props.food.fave == true) {
       let ikonRef = fasHeart;
-      return ikonRef
+      return ikonRef;
     } else {
       let ikonRef = farHeart;
-      return ikonRef
+      return ikonRef;
     }
-
-
   }
 
   let tagNames = [];
 
-  console.log("tags", props.food.tags)
   for (let tag of props.food.tags) {
-    tagNames.push(tag.tag)
-    console.log("tag", tag.tag)
+    tagNames.push(tag.tag);
   }
 
-  const tagsRender = (<div className={style.tags}>{tagNames.join(", ")}</div>);
-
-
-
-
+  const tagsRender = <div className={style.tags}>{tagNames.join(", ")}</div>;
 
   return (
     <div className={style.item}>

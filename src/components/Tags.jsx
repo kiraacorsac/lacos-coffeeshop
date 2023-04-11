@@ -9,17 +9,10 @@ export default function Tags(props) {
   let newTagListArray = [...tagList];
 
   function handleAddToTagList(tag) {
-
-    console.log("typeof tag: ", typeof tag);
     if (newTagListArray && Array.isArray(newTagListArray)) {
-      if (newTagListArray.includes(tag)) {
-        //console.log("included", val);
+      if (newTagListArray.find((e) => e.tag == tag)) {
         props.removeFromTagList(tag);
-        console.log("removeFromTagList_1", tag);
-        //  uncheckTag(tag);
       } else {
-        console.log("not included", tag);
-        console.log("newTagListArray", newTagListArray);
         props.addToFilterTagList(tag);
       }
     }
@@ -48,15 +41,13 @@ export default function Tags(props) {
       <div className={style.tag} key={tagId}>
         <input
           type="checkbox"
-          checked={newTagListArray.includes(tagName)}
+          checked={newTagListArray.find((e) => e.tag == tagName)}
           name="tag"
           id={tagName}
           key={tagName}
           onChange={() => handleAddToTagList(tagName)}
         />
-        <label htmlFor={tagName} >
-          {tagName}
-        </label>
+        <label htmlFor={tagName}>{tagName}</label>
       </div>
     );
     tagId++; // tagId = tagId + 1
