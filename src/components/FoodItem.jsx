@@ -79,7 +79,7 @@ export default function FoodItem(props) {
 
   return (
     <div className={style.item}>
-      <img className={style.image} src={props.food.image} alt="test" />
+      <img className={style.image} src={props.food.image} alt="..." />
 
       <div className={style.content}>
         <div className={style.buttons}>

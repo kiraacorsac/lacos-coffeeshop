@@ -43,7 +43,9 @@ export default function TagInput(props) {
 
   function handleTagDelete(tag) {
     console.log("tag delete", tag)
+    console.log("type of tag", typeof tag)
     props.removeFromTagList(tag);
+    console.log("removeFromTagList_2", tag);
   }
 
   const tagListRender = [];

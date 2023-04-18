@@ -1,6 +1,6 @@
 import FoodItemList from "./components/FoodItemList";
 import TagInput from "./components/TagInput";
-import TagListSearch from "./components/TagListSearch";
+// import TagListSearch from "./components/TagListSearch";
 import Tags from "./components/Tags";
 import { useState, useEffect } from "react";
 import style from "./App.module.css";
@@ -12,6 +12,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useGet, useMutate } from "restful-react";
+import { isElementOfType } from "react-dom/test-utils";
 
 function App() {
 
@@ -204,7 +205,7 @@ function App() {
     // let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
     let newTagListSet = new Set(tagListArray);
     console.log("the tag:", tagObject)
-    if (tagObject.tag === undefined) {
+    if (tagObject === undefined) {
       return;
     } else if (newTagListSet.has(tagObject.tag.toLowerCase())) {
       return;
@@ -224,9 +225,19 @@ function App() {
 
   function removeFromTagList(tag) {
     let newTagList = [...filterTagSet];
+    console.log("Type of Tag:", typeof tag)
     console.log("NewTagList before:", newTagList)
     // let newTagList = new Set(filterTagSet); // slice for sets
-    let tagsToKeep = newTagList.filter((e) => e.tag != tag);
+
+    let tagsToKeep = []
+
+    if (typeof tag === "object") {
+      console.log("Path 1");
+      tagsToKeep = newTagList.filter((e) => e != tag);
+    } else {
+      console.log("Path 2");
+      tagsToKeep = newTagList.filter((e) => e.tag != tag);
+    }
     console.log("Tags to keep:", tagsToKeep)
     // newTagList.delete(tagToDelete); // push for set
 
@@ -260,11 +271,17 @@ function App() {
       </header>
       <main className={style.Appmain}>
         <div className={style.tagInputWrapper}>
-          <TagListSearch
+          <TagInput
+            tagListState={[filterTagSet, setFilterTagSet]}
+            addToTagList={addToFilterTagSet}
+            removeFromTagList={removeFromTagList} />
+
+
+          {/* <TagListSearch
             tagListState={[filterTagSet, setFilterTagSet]}
             addToFilterTagList={addToFilterTagSet}
             removeFromTagList={removeFromTagList}
-          />
+          /> */}
         </div>
         <div className={style.content}>
           <div className={style.sortags}>
