@@ -169,7 +169,7 @@ function App() {
       let tagListLowerCase = tagListArray.map((existingTag) => existingTag.tag.toLowerCase());
       if (!tagListLowerCase.includes(tag.toLowerCase())) {
         console.log("tag not included")
-        return postTag({ tag: tag }).then((newTag) => {
+        return postTag({ tag: tag.toLowerCase() }).then((newTag) => {
           console.log(newTag);
           refetchTags();
           console.log(foodItem)
