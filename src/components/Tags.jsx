@@ -9,17 +9,11 @@ export default function Tags(props) {
   let newTagListArray = [...tagList];
 
   function handleAddToTagList(tag) {
-
-    console.log("typeof tag: ", typeof tag);
     if (newTagListArray && Array.isArray(newTagListArray)) {
-      if (newTagListArray.includes(tag)) {
-        //console.log("included", val);
-        props.removeFromTagList(tag);
-        console.log("removeFromTagList_1", tag);
-        //  uncheckTag(tag);
+      if (newTagListArray.find((e) => e.tag === tag)) {
+        let tagObject = props.findTagObject(tag);
+        props.removeFromTagList(tagObject);
       } else {
-        console.log("not included", tag);
-        console.log("newTagListArray", newTagListArray);
         props.addToTagList(tag);
       }
     }
@@ -28,11 +22,11 @@ export default function Tags(props) {
   for (const food of props.data) {
     for (const tag of food.tags) {
       if (allTagsList && Array.isArray(allTagsList)) {
-        if (!allTagsList.includes(tag)) {
-          allTagsList.push(tag);
+        if (!allTagsList.includes(tag.tag)) {
+          allTagsList.push(tag.tag);
         }
       } else {
-        allTagsList = [tag];
+        allTagsList = [tag.tag];
       }
     }
   }
@@ -43,20 +37,18 @@ export default function Tags(props) {
   });
 
   let tagId = 0;
-  for (const tag of allTagsList) {
+  for (const tagName of allTagsList) {
     renderedTagToggleList.push(
       <div className={style.tag} key={tagId}>
         <input
           type="checkbox"
-          checked={newTagListArray.includes(tag)}
+          checked={newTagListArray.find((e) => e.tag == tagName)}
           name="tag"
-          id={tag}
-          key={tag}
-          onChange={() => handleAddToTagList(tag)}
+          id={tagName}
+          key={tagName}
+          onChange={() => handleAddToTagList(tagName)}
         />
-        <label htmlFor={tag} >
-          {tag}
-        </label>
+        <label htmlFor={tagName}>{tagName}</label>
       </div>
     );
     tagId++; // tagId = tagId + 1

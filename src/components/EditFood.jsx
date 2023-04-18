@@ -23,17 +23,22 @@ export default function EditFood(props) {
 
   function addToTagSet(tag) {
     let tagListArray = [...tagSet];
-    let tagListLowerCase = tagListArray.map((str) => str.toLowerCase());
+    console.log("taglistarray", tagListArray)
+    let tagListLowerCase = tagListArray.map((tagObject) => tagObject.tag.toLowerCase());
     let newTagListSet = new Set(tagListLowerCase);
     if (tag === "") {
       return;
     } else if (newTagListSet.has(tag.toLowerCase())) {
       return;
     }
+    let output = props.onAddTag(tag, foodItemEditRender).then((newTag) => {
 
-    let newTagList = new Set(tagSet); // slice for sets
-    newTagList.add(tag); // push for set
-    setTagSet(newTagList);
+      let newTagList = new Set(tagSet); // slice for sets
+      newTagList.add(newTag); // push for set
+      setTagSet(newTagList);
+
+    });
+    console.log("output", output)
   }
 
   function removeFromTagSet(tag) {
